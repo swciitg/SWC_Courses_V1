@@ -1,0 +1,27 @@
+{
+  "name": "happy-learning-backend",
+  "version": "1.0.0",
+  "description": "Backend API of SWC-Courses",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@ffprobe-installer/ffprobe": "^1.1.0",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "ffmpeg-static": "^4.2.7",
+    "ffprobe-static": "^3.0.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "fs": "0.0.1-security",
+    "get-video-duration": "^3.0.2",
+    "mongoose": "^5.10.2",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.4.11"
+  }
+}
