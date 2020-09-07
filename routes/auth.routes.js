@@ -1,7 +1,6 @@
 const dotenv = require('dotenv').config()
 var express = require("express"),
   router = express.Router(),
-  Media = require("../models/media"),
   User = require("../models/user"),
   Token = require("../models/token"),
   fs = require('fs'),

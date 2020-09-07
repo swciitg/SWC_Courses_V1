@@ -18,7 +18,7 @@ const flash = require("connect-flash");
 const passportLocalMongoose = require("passport-local-mongoose");
 //Requiring Routes
 const streamRoutes = require("./routes/streaming.routes");
-const indexRoutes = require("./routes/index.routes");
+const authRoutes = require("./routes/auth.routes");
 const testingRoutes = require("./routes/course.routes");
 const adminRoutes = require("./routes/admin.routes");
 const uploadRoute = require("./routes/upload.routes");
@@ -43,7 +43,6 @@ app.use((req, res, next) => {
   next();
 });
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/assets"));
 app.use(flash());
 
@@ -68,11 +67,11 @@ passport.deserializeUser(User.deserializeUser());
 
 
 //Setup routes
-app.use("/", indexRoutes);
-app.use("/courses/:id/", streamRoutes);
-app.use("/", testingRoutes);
-app.use("/admin", adminRoutes);
-app.use("/admin", uploadRoute);
+app.use("/api/", authRoutes);
+app.use("/api/courses/:id/", streamRoutes);
+app.use("/api/", testingRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/admin", uploadRoute);
 
 //Error handler
 app.use((err, req, res, next) => {

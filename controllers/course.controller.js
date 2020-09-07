@@ -2,6 +2,27 @@ let Course = require("../models/course")
 let Media = require("../models/media")
 let User = require("../models/user")
 
+exports.searchCourse = async (req, res) => {
+    Course.find({ $or: [{ author: { '$regex': req.query.dsearch, '$options': 'i' } }, { title: { '$regex': req.query.dsearch, '$options': 'i' } }, { topics: { '$regex': req.query.dsearch, '$options': 'i' } }] }, function (err, foundCourses) {
+        if (err) {
+            console.log(err);
+            return res.redirect('back')
+        }
+        res.render('search', { foundCourses: foundCourses })
+    })
+
+    try {
+        const foundCourse = await Course.find({ $or: [{ author: { '$regex': req.query.dsearch, '$options': 'i' } }, { title: { '$regex': req.query.dsearch, '$options': 'i' } }, { topics: { '$regex': req.query.dsearch, '$options': 'i' } }] });
+        if (!foundCourse) {
+            res.status(404).json({ error: 'No Course found!' });
+        }
+        res.status(200).json(foundCourse);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: error.message });
+    }
+}
+
 exports.getAllCourses = async (req, res, next) => {
     try {
         let courses = await Course.find();

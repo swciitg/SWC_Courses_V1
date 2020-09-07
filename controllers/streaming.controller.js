@@ -72,7 +72,8 @@ exports.addBookmark = async (req, res, next) => {
 
             user.enrolled_courses[courseIndex].Bookmarks.push(newBookmark);
 
-            let updated = await user.save();
+            let updatedUser = await user.save();
+
             res.json({
                 bookmark: newBookmark,
                 video: video,

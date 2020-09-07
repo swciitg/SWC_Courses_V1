@@ -1,9 +1,6 @@
 let express = require("express");
 let router = express.Router();
-let Course = require("../models/course");
-let Media = require("../models/media");
-let User = require("../models/user");
-var fs = require("fs");
+
 
 //home page route for admin
 router.get("/", isAdmin, function (req, res) {
@@ -17,7 +14,7 @@ router.get("/courses", isAdmin, function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("./admin/courses/index", { courses: allCourses });
+      return res.json({ courses: allCourses });
     }
   });
 });
@@ -68,52 +65,13 @@ router.get("/courses/:id/video/add", isAdmin, function (req, res) {
   });
 });
 
-
-
-
-
-// //logic for handeling adding of new video
-// router.post("/courses/:id", isAdmin, function (req, res, next) {
-//   upload(req, res, function (err) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       Course.findById(req.params.id, function (err, foundCourse) {
-//         if (err) throw err;
-
-//         let media = {
-//           title: req.body.title,
-//           filePath1: req.files["v720"][0].destination + "/" + req.files["v720"][0].originalname,
-//           filePath2: req.files["v480"][0].destination + "/" + req.files["v480"][0].originalname,
-//           filePath3: req.files["v360"][0].destination + "/" + req.files["v360"][0].originalname,
-//         };
-
-
-//         Media.create(media, function (err, newlyCreated) {
-//           if (err) {
-//             console.log(err);
-//           } else {
-//             //add course id to media
-//             newlyCreated.course = req.params.id;
-//             //save media
-//             newlyCreated.save();
-//             foundCourse.videos.push(newlyCreated);
-//             foundCourse.save();
-//             res.redirect("/admin/courses/" + req.params.id);
-//           }
-//         });
-//       });
-//     }
-//   });
-// });
-
-//edit course
 //route for edit course form
 router.get("/courses/:id/edit", isAdmin, function (req, res) {
   Course.findById(req.params.id, function (err, foundCourse) {
     res.render("./admin/courses/edit", { course: foundCourse });
   });
 });
+
 //update course
 router.put("/courses/:id", isAdmin, function (req, res) {
   Course.findByIdAndUpdate(req.params.id, req.body.course, function (
@@ -127,47 +85,42 @@ router.put("/courses/:id", isAdmin, function (req, res) {
     }
   });
 });
+
 //route for deleting course
-router.delete("/courses/:id/delete", isAdmin, function(req, res){
-  Media.find({course: req.params.id}, function(err, foundVideos){
-    if (err){
+router.delete("/courses/:id/delete", isAdmin, function (req, res) {
+  Media.find({ course: req.params.id }, function (err, foundVideos) {
+    if (err) {
       console.log(err)
     }
-    // foundVideos.forEach(video){
-    //   fs.unlinkSync(video.filePath, function (err){
-    //     if(err){
-    //       console.log(err)
-    //     }
-    //   })
-    // }
-    l=foundVideos.length;
-    for (var i=0; i<l; i++){
-      video=foundVideos[i]
-      path="assets"+ video.filePath
-      deletePath=path.substring(0, path.length-9)
+
+    l = foundVideos.length;
+    for (var i = 0; i < l; i++) {
+      video = foundVideos[i]
+      path = "assets" + video.filePath
+      deletePath = path.substring(0, path.length - 9)
       console.log(deletePath)
-      fs.rmdirSync(deletePath, { recursive: true }, function (err){
-        if(err){
+      fs.rmdirSync(deletePath, { recursive: true }, function (err) {
+        if (err) {
           console.log(err)
         }
       })
     }
   })
-  Media.deleteMany({course: req.params.id}, function (err){
-    if (err){
+  Media.deleteMany({ course: req.params.id }, function (err) {
+    if (err) {
       console.log(err)
-      return res.redirect("/admin/courses/"+req.params.id)
+      return res.redirect("/admin/courses/" + req.params.id)
     }
     console.log("media deleted")
   })
-    Course.findByIdAndRemove(req.params.id, function (err){
-      if(err){
-        console.log(err)
-        return res.redirect("/admin/courses/"+req.params.id)
-      }
-      console.log("course deleted")
-      res.redirect("/admin/courses")
-    })
+  Course.findByIdAndRemove(req.params.id, function (err) {
+    if (err) {
+      console.log(err)
+      return res.redirect("/admin/courses/" + req.params.id)
+    }
+    console.log("course deleted")
+    res.redirect("/admin/courses")
+  })
 })
 
 
