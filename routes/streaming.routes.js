@@ -5,7 +5,7 @@ const streamingController = require('../controllers/streaming.controller');
 
 router.get("/video/:video_id", streamingController.getVideo);
 
-router.post("/video/:video_id/", streamingController.addBookmark);
+router.post("/video/:video_id/bookmark/", streamingController.addBookmark);
 
 router.delete('/video/:video_id/bookmark/:book_id/', streamingController.deleteBookmark)
 

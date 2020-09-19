@@ -1,13 +1,13 @@
 const dotenv = require('dotenv').config()
-var express = require("express"),
-  router = express.Router(),
-  User = require("../models/user"),
-  Token = require("../models/token"),
-  fs = require('fs'),
-  nodemailer = require('nodemailer'),
-  crypto = require('crypto'),
-  Course = require("../models/course"),
-  passport = require('passport');
+const express = require("express")
+const router = express.Router()
+const User = require("../models/user")
+const Token = require("../models/token")
+const fs = require('fs')
+const nodemailer = require('nodemailer')
+const crypto = require('crypto')
+const Course = require("../models/course")
+const passport = require('passport')
 
 router.get('/profile', isLoggedIn, async (req, res) => {
   enrolled = req.user.enrolled_courses

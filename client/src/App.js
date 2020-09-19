@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import CoursePage from './components/CoursePage/CoursePage'
+import LandingPage from './components/LandingPage/LandingPage';
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <div>
+          <Switch>
+            <Route path='/' exact component={LandingPage} />
+            {/* <Route path='/courses' exact component={AllCoursesPage} /> */}
+            <Route path='/courses' exact component={CoursePage} />
+            <Route path='/profile' />
+          </Switch>
+        </div>
+      </BrowserRouter>
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;

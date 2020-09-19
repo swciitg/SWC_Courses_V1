@@ -1,0 +1,21 @@
+.Logo{
+	width:26rem;
+	max-width:100%;
+}
+
+.introPara{
+	font-weight: 300;
+	font-size:1.2rem;
+	margin-bottom:3rem;
+}
+
+.HomeScreen {
+	text-align: center;
+	background-color: rgba(255,224,49,1);
+	  background-image:url("./home-bg.png");
+	  background-size:cover;
+	  background-repeat: no-repeat;
+	  font-family:'Roboto',sans-serif;
+	  min-height:100vh;
+	  position:relative;
+}

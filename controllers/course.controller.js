@@ -27,7 +27,7 @@ exports.getAllCourses = async (req, res, next) => {
     try {
         let courses = await Course.find();
         if (courses.length) {
-            return res.status(200).json(courses);
+            return res.status(200).json({ courses });
         }
         else {
             return res.status(404).json({ message: 'No courses found' });

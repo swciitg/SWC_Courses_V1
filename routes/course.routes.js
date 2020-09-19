@@ -1,8 +1,6 @@
-let express = require('express');
-let router = express.Router();
-let Course = require("../models/course");
-
-
+const express = require('express');
+const router = express.Router();
+const { authenticate } = require('../middleware/index')
 const courseController = require('../controllers/course.controller');
 
 //list all courses
@@ -19,4 +17,4 @@ router.get('/courses/:id', courseController.getOneCourse);
 router.get('/courses/:id/enrol', courseController.enrollInCourse);
 
 
-module.exports = router
+module.exports = router;
