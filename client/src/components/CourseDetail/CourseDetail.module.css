@@ -1,0 +1,10 @@
+.Body{
+	background-color: #FFE031;
+	height:100%;
+}
+
+.MainBody{
+	background-color: #FFFFFF;
+	border-radius:3rem;
+	min-height:90%;
+}

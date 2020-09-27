@@ -11,6 +11,7 @@
   "dependencies": {
     "@ffprobe-installer/ffprobe": "^1.1.0",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^5.3.0",
     "config": "^3.3.1",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^3.2.0",

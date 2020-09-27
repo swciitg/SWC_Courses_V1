@@ -12,7 +12,7 @@
 .HomeScreen {
 	text-align: center;
 	background-color: rgba(255,224,49,1);
-	  background-image:url("./home-bg.png");
+	  background-image:url("../../../images/home-bg.png");
 	  background-size:cover;
 	  background-repeat: no-repeat;
 	  font-family:'Roboto',sans-serif;

@@ -1,0 +1,32 @@
+.CourseCard {
+    color:black;
+    position: relative;
+    box-shadow: 0 14px 26px rgba(0,0,0,0.10);
+    transition: all 0.2s ease-out;
+    text-decoration: none;
+    width: 16rem; 
+    height:22.5rem;
+    padding:1rem; 
+    margin:1rem;
+  }
+  
+  .CourseCard:hover,.CourseCard:focus {
+    transform: translateY(-5px) scale(1.01) translateZ(0);
+    box-shadow: 0 24px 36px rgba(0,0,0,0.20)
+  }
+  
+  .CourseCard:active {
+    transform: scale(1) translateZ(0);
+    box-shadow: 0 15px 24px rgba(0,0,0,0.15),
+  }
+  
+  .CourseCard p{
+    max-height:90%;
+    overflow:hidden;
+    text-align: justify-all;
+    display:block;
+    display:-webkit-box;
+    -webkit-line-clamp:6;
+    -webkit-box-orient:vertical;
+    text-overflow:ellipsis;
+  }
