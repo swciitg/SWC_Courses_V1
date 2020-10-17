@@ -1,0 +1,26 @@
+.container {
+  width: 100%;
+  padding: 20px;
+  background-image: linear-gradient(rgb(255, 224, 49), rgb(255, 247, 212));
+  border-top: 0.5px solid white;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerTitle {
+  margin: 30px 0;
+  font-size: 4rem;
+  color: rgb(236, 235, 235);
+  text-shadow: 1px 1px 2px black;
+}
+
+@media all and (max-width: 500px) {
+  .containerTitle {
+    margin: 0 0 15px;
+    font-size: 2.5rem;
+  }
+}

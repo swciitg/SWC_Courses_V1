@@ -1,0 +1,16 @@
+.AppNav {
+  min-height: 15vh;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  backdrop-filter: blur(5px);
+  border-bottom: 0.5px solid white;
+}
+
+@media (max-width: 550px) {
+  .AppNav {
+    flex-direction: column;
+  }
+}

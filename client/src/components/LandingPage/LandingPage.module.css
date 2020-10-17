@@ -1,10 +1,22 @@
+/* rgba(255, 224, 49, 0.959) */
+
 .App {
   text-align: center;
-  background-color: rgba(255,224,49,1);
-	background-image:url("../../images/home-bg.png");
-	background-size:cover;
-	background-repeat: no-repeat;
-	font-family:'Roboto',sans-serif;
-	min-height:100vh;
-	position:relative;
+  background-color: rgb(255, 224, 49);
+  background-image: url("../../images/home-bg.png");
+  background-size: 100% 115vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: "Roboto", sans-serif;
+  min-height: 100%;
+  position: relative;
+}
+
+@media (max-width: 500px) {
+  .App {
+    background-size: 500% 120vh;
+    background-position: 48% 0%;
+    height: 100%;
+    background-attachment: scroll;
+  }
 }

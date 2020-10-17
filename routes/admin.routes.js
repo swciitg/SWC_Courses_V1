@@ -1,6 +1,7 @@
 let express = require("express");
 let router = express.Router();
-let adminController = require("../controllers/admin.controller")
+let adminController = require("../controllers/admin.controller");
+let User = require("../models/user");
 
 //home page route for admin
 router.get("/", function (req, res) {
@@ -30,7 +31,7 @@ router.post("/courses/:id/videos", adminController.uploadVideo);
 router.put("/courses/:id", adminController.updateOneCourse);
 
 //route for deleting course
-router.delete("/courses/:id", adminController.deleteOneCourse)
+router.delete("/courses/:id", adminController.deleteOneCourse);
 
 //view all users
 router.get("/users", async (req, res, next) => {
