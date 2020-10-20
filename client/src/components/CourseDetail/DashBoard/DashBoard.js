@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./DashBoard.module.css";
 import classNames from "classnames";
-import Aux from "../../hoc/Auxilary";
+import Aux from "../../../hoc/Auxilary";
 import Content from "./Content/Content";
 import Header from "./Header/Header";
 

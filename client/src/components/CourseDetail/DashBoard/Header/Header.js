@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import Aux from "../../../../hoc/Auxilary";
 import { Navbar, NavLink, Badge } from "reactstrap";
 import { Link } from "react-router-dom";
 import leftArrow from "../../../../images/left-arrow.png";
-import avatar from "../../../../images/avatar.png";
 import tick from "../../../../images/tick-mark.png";
 import styles from "./Header.module.css";
 import classNames from "classnames";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
+import { AuthContext } from "../../../../contexts/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   small: {
@@ -21,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = ({ details }) => {
+  // state imported from the AuthContext hoc
+  const isLoggedIn = useContext(AuthContext);
+
   const classes = useStyles();
 
   const imgScr = details.imgScr;
@@ -57,23 +61,34 @@ const Header = ({ details }) => {
             <span className={styles.Dashboard}>DASHBOARD</span>
           </span>
 
-          <span
-            className="d-none d-sm-inline"
-            style={{ textShadow: "0.2px 0.2px 1px white" }}
-          >
-            Welcome Pranjal !!
-          </span>
+          {isLoggedIn ? (
+            <Aux>
+              <span
+                className="d-none d-sm-inline"
+                style={{ textShadow: "0.2px 0.2px 1px white" }}
+              >
+                Welcome Pranjal !!
+              </span>
 
-          <Link to="/profile">
-            <NavLink className={styles.Avatar}>
-              {/* <img src={avatar} alt="avatar" /> */}
-              <Avatar
-                alt="Pranjal Chourasia"
-                className={classes.large}
-                src="https://avatars2.githubusercontent.com/u/61688724?s=460&u=68e84273c6f21f94ebf24f4fc500e4df115378b4&v=4"
-              />
-            </NavLink>
-          </Link>
+              <Link to="/profile">
+                <NavLink className={styles.Avatar}>
+                  {/* <img src={avatar} alt="avatar" /> */}
+                  <Avatar
+                    alt="Pranjal Chourasia"
+                    className={classes.large}
+                    src="https://avatars2.githubusercontent.com/u/61688724?s=460&u=68e84273c6f21f94ebf24f4fc500e4df115378b4&v=4"
+                  />
+                </NavLink>
+              </Link>
+            </Aux>
+          ) : (
+            <span
+              className="d-none d-sm-inline"
+              style={{ textShadow: "0.2px 0.2px 1px white" }}
+            >
+              Welcome Visitor !!
+            </span>
+          )}
         </nav>
 
         <div class="container-fluid pl-sm-5">
