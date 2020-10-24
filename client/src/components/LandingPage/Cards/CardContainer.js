@@ -18,7 +18,7 @@ const CardContainer = ({ courses }) => {
             <Card
               key={i}
               name={`simple-controlled-${i}`}
-              imgScr={thumbnails[i]}
+              imgScr={thumbnails[i]} // To be replaced by thumbnails from the DB, e.g.- {course.imgUrl}
               title={course.title}
               description={course.description}
               id={course._id}

@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 import styles from "./CoursePage.module.css";
 import CourseCard from "./CourseCard/CourseCard";
+import axios from "axios";
 
 class CoursePage extends Component {
   state = {
@@ -21,6 +22,24 @@ class CoursePage extends Component {
     if (this.props.courses) {
       console.log("Courses");
     }
+    ///////// @start
+    ///////// THIS API CALL IS JUST FOR A TEST. REPLACE IT WITH A CALL TO THE "/user" ROUTE
+    const apiCall = () => {
+      axios
+        .get("/api/courses")
+        .then((res) => {
+          console.log(res.data);
+          const names = res.data.courses.map((course, i) => {
+            return course.title;
+          });
+          this.setState({
+            courseList: names,
+          });
+        })
+        .catch((err) => console.log(err));
+    };
+    apiCall();
+    ////////// @end
   }
 
   render() {
@@ -33,10 +52,10 @@ class CoursePage extends Component {
             action="/courses/search"
             method="get"
           >
-            <div class="input-group">
+            <div className="input-group">
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 name="dsearch"
                 placeholder="find courses"
               />
@@ -45,7 +64,7 @@ class CoursePage extends Component {
         </Container>
 
         <Container className={classNames(styles.Container, "py-5")}>
-          <Container class="d-flex" style={{ textAlign: "center" }}>
+          <Container className="d-flex" style={{ textAlign: "center" }}>
             <h2 className={styles.Heading}>Enrolled Courses</h2>
             <br />
           </Container>

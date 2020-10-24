@@ -1,6 +1,9 @@
 const config = require("config");
 const jwt = require("jsonwebtoken");
 
+///////////////// AUTH MIDDLEWARES
+
+/// FOR JWT
 function authenticate(req, res, next) {
   const token = req.header("x-auth-token");
 
@@ -16,4 +19,13 @@ function authenticate(req, res, next) {
   }
 }
 
-module.exports = { authenticate };
+/// FOR PASSPORT-JS
+const isLoggedIn = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.status(401).json({ msg: "You are not authenticated !" });
+  }
+};
+
+module.exports = { authenticate, isLoggedIn };

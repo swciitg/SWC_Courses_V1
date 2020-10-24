@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = ({ details }) => {
   // state imported from the AuthContext hoc
-  const isLoggedIn = useContext(AuthContext);
+  const { isLoggedIn, setisLoggedIn } = useContext(AuthContext);
 
   const classes = useStyles();
 

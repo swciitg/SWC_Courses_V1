@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 
 const ProtectedRoute = (props) => {
-  const isLoggedIn = useContext(AuthContext);
+  const { isLoggedIn, setisLoggedIn } = useContext(AuthContext);
 
   const Component = props.component;
 

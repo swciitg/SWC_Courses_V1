@@ -27,7 +27,7 @@ export default function MediaCard(props) {
   // shortening the description from the DB to a fixed length
   const descript = props.description.substring(0, 155) + "...";
 
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(2); // To be replaced by the ratings from DB
 
   const classes = useStyles();
 
@@ -49,13 +49,7 @@ export default function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Rating
-          name={props.name}
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-        />
+        <Rating name="read-only" value={value} readOnly />
         <Button size="small" color="primary">
           <Link to={{ pathname: `/courses/${props.id}`, state: props }}>
             Learn more

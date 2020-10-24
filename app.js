@@ -7,8 +7,11 @@ const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 5000;
 const url = "mongodb://localhost/SWC_Media";
 const session = require("express-session");
+const cookieSession = require("cookie-session");
 const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
+const passport = require("passport");
+require("./config/passportOutlook");
 
 //Requiring Routes
 const streamRoutes = require("./routes/streaming.routes");
@@ -46,8 +49,24 @@ app.use(express.json());
 app.use(express.static(__dirname + "/assets"));
 app.use(flash());
 
+// SESSION MIDDLEWARE
+app.use(
+  cookieSession({
+    name: "swc-courses-session",
+    maxAge: 1 * 24 * 60 * 60 * 1000,
+    httpOnly: false, //////////// CHANGE IT AFTERWARDS !!!
+    // path: "http://localhost:3000/",
+    keys: ["hello world"],
+  })
+);
+
+// passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 //Setup routes
-app.use("/api/", authRoutes);
+// app.use("/api/", authRoutes); //// changed it temporarily to test outlookOauth
+app.use("/", authRoutes);
 app.use("/api/courses/:id/", streamRoutes);
 app.use("/api/", testingRoutes);
 app.use("/api/admin", adminRoutes);
