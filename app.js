@@ -29,11 +29,13 @@ mongoose.connect(url, {
 });
 
 var corsOptions = {
-  origin: "*",
+  origin: "http://localhost:3000/",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
 };
 app.use(cors(corsOptions));
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*"); //Change this later to restrict it to react app only
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000/"); //Change this later to restrict it to react app only
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PATCH, PUT, DELETE"

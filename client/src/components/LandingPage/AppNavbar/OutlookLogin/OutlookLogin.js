@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { AuthContext, AuthProvider } from "../../../../contexts/AuthContext";
-import axios from "axios";
 
 const useStyles = makeStyles({
   MuiButtonRoot: {
@@ -16,24 +14,11 @@ const useStyles = makeStyles({
 
 const OutlookLogin = (props) => {
   const classes = useStyles();
-  const history = useHistory();
   const { isLoggedIn, setisLoggedIn } = useContext(AuthContext);
-  // const [isLoggedIn, setisLoggedIn] = useState(false);
 
   const onSubmit = (e) => {
-    console.log("Login 1");
-    axios.get("/auth/outlook").then((res) => {
-      console.log("Login 2");
-      console.log(res.data);
-      setisLoggedIn((prev) => !prev);
-      // history.push("/profile");
-    });
-    // window.location.replace("/profile"); // BAD PRACTICE !!!!!!!!
+    window.open("http://localhost:5000/auth/outlook", "_self");
   };
-
-  useEffect(() => {
-    console.log("useEffect OutlookLogin");
-  }, [isLoggedIn]);
 
   return (
     <div>
@@ -45,9 +30,6 @@ const OutlookLogin = (props) => {
       >
         Log In With Outlook
       </Button>
-      {/* <Button variant="outlined" size="large" className={classes.MuiButtonRoot}>
-        <a href="http://localhost:5000/auth/outlook">TRY</a>
-      </Button> */}
     </div>
   );
 };

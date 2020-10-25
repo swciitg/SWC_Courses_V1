@@ -13,6 +13,7 @@ class CoursePage extends Component {
     showAllCourses: null,
     sarchResult: null,
     courseList: [],
+    name: "",
   };
 
   componentDidMount() {
@@ -23,18 +24,13 @@ class CoursePage extends Component {
       console.log("Courses");
     }
     ///////// @start
-    ///////// THIS API CALL IS JUST FOR A TEST. REPLACE IT WITH A CALL TO THE "/user" ROUTE
+    ///////// THIS IS AN API CALL TO THE "/user" ROUTE
     const apiCall = () => {
       axios
-        .get("/api/courses")
+        .get("/user")
         .then((res) => {
           console.log(res.data);
-          const names = res.data.courses.map((course, i) => {
-            return course.title;
-          });
-          this.setState({
-            courseList: names,
-          });
+          this.setState({ name: res.data.name });
         })
         .catch((err) => console.log(err));
     };
@@ -45,7 +41,7 @@ class CoursePage extends Component {
   render() {
     return (
       <div className={styles.Body}>
-        <AppNavbar />
+        <AppNavbar name={this.state.name} />
         <Container>
           <form
             className={styles.SearchForm}

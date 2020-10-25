@@ -73,6 +73,7 @@ const Header = ({ details }) => {
               <Link to="/profile">
                 <NavLink className={styles.Avatar}>
                   {/* <img src={avatar} alt="avatar" /> */}
+                  {/* CHANGE THE Avatar ALT & SRC TO DATA FROM THE DB */}
                   <Avatar
                     alt="Pranjal Chourasia"
                     className={classes.large}

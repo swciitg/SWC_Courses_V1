@@ -4,6 +4,7 @@ const authController = require("../controllers/auth2.controller");
 const { authenticate, isLoggedIn } = require("../middleware/index");
 const passport = require("passport");
 const User = require("../models/user");
+const CLIENT_HOME_PAGE_URL = "http://localhost:3000/";
 
 router.get("/", (req, res) => {
   res.send("<h1>WELCOME TO SWC-COURSES</h1>");
@@ -34,17 +35,28 @@ router.get(
 
 router.get(
   "/auth/outlook/callback",
-  passport.authenticate("windowslive", { failureRedirect: "/courses" }),
+  passport.authenticate("windowslive", {
+    // successRedirect: CLIENT_HOME_PAGE_URL,
+    failureRedirect: "/failed",
+  }),
   function (req, res) {
     // Successful authentication
-    res.status(200).json({ msg: "Logged in successfully" });
+    res.redirect(CLIENT_HOME_PAGE_URL);
   }
 );
 
-router.get("/logout", function (req, res) {
+router.get("/failed", (req, res) => {
+  res.status(401).json({
+    success: false,
+    msg: "user authentication failed",
+  });
+});
+
+router.get("/auth/logout", function (req, res) {
   req.session = null;
   req.logout();
-  res.status(200).json({ msg: "Logged out successfully" });
+  res.redirect(CLIENT_HOME_PAGE_URL);
+  // res.status(200).json({ msg: "Logged out successfully" });
 });
 
 ////// USER INFO "PROTECTED" ROUTE
@@ -55,7 +67,6 @@ router.get("/user", isLoggedIn, (req, res) => {
       console.log(err);
     }
     if (foundUser) {
-      console.log("The found user is", foundUser);
       res.status(200).json(foundUser);
     }
   });
