@@ -1,30 +1,19 @@
-import React, { Component } from 'react'
-import { Navbar, NavbarToggler } from 'reactstrap';
-import Logo from '../../Logo/Logo';
-import SignedIn from '../SignedIn/SignedIn'
+import React, { useContext } from "react";
+import styles from "./AppNavbar.module.css";
+import Logo from "../../Logo/Logo";
+import OutlookLogin from "./OutlookLogin/OutlookLogin";
+import { AuthContext } from "../../../contexts/AuthContext";
+import ProfileButton from "./ProfileButton/ProfileButton";
 
-class AppNavbar extends Component {
-    state = {
-        isOpen: false
-    };
+const AppNavbar = (props) => {
+  const { isLoggedIn, setisLoggedIn } = useContext(AuthContext);
 
-    toggle = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        })
-    }
-
-    render() {
-        return (
-            <div>
-                <Navbar className="navbar navbar-expand-md navbar-light d-flex p-4">
-                    <NavbarToggler onClick={this.toggle} />
-                    <Logo />
-                    <SignedIn />
-                </Navbar>
-            </div>
-        )
-    }
-}
+  return (
+    <div className={styles.AppNav}>
+      <Logo className={styles.mobileLogo} />
+      {isLoggedIn ? <ProfileButton /> : <OutlookLogin />}
+    </div>
+  );
+};
 
 export default AppNavbar;
