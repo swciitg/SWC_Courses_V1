@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import CoursePage from "./components/CoursePage/CoursePage";
 import LandingPage from "./components/LandingPage/LandingPage";
 import CourseDetail from "./components/CourseDetail/CourseDetail";
+import Courses from "./components/Courses/Courses";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./hoc/ProtectedRoute";
 
@@ -28,9 +29,10 @@ const App = (props) => {
             <Route
               path="/courses"
               exact
-              component={(props) => (
-                <CoursePage {...props} profile={false} courses={true} />
-              )}
+              // component={(props) => (
+              //   <CoursePage {...props} profile={false} courses={true} />
+              // )}
+              component={Courses}
             />
             <Route path="/courses/:id" exact component={CourseDetail} />
           </Switch>

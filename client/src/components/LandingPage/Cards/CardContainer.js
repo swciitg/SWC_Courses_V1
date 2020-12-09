@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "./Card";
 import styles from "./Cards.module.css";
-import thumbnails from "../../../images/testImages";
+// import thumbnails from "../../../images/testImages";
 import spinner from "../../../images/spinner.gif";
 
 const CardContainer = ({ courses }) => {
@@ -18,9 +18,9 @@ const CardContainer = ({ courses }) => {
             <Card
               key={i}
               name={`simple-controlled-${i}`}
-              imgScr={thumbnails[i]} // To be replaced by thumbnails from the DB, e.g.- {course.imgUrl}
-              title={course.title}
-              description={course.description}
+              imgScr={course.course_images[0][0]} // To be replaced by thumbnails from the DB, e.g.- {course.imgUrl}
+              title={course.course_name}
+              description={course.course_headline}
               id={course._id}
             />
           );

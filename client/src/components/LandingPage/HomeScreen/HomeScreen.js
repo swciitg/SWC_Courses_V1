@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import CoursesBtn from "./CoursesBtn/CoursesBtn";
 import styles from "./HomeScreen.module.css";
 // ${styles.HomeScreen}
 class HomeScreen extends Component {
@@ -6,7 +7,7 @@ class HomeScreen extends Component {
     return (
       <div
         id="content"
-        className={`container-fluid mb-5 pb-4 d-flex align-items-center px-4 pl-md-5 ${styles.content}`}
+        className={`container-fluid pb-4 d-flex align-items-center px-4 pl-md-5 ${styles.content}`}
       >
         <div className="row">
           <div className={`col-12 col-md-7 col-lg-6 px-5 ${styles.introBlock}`}>
@@ -20,10 +21,11 @@ class HomeScreen extends Component {
             </p>
             <input
               type="text"
-              className={`mb-5 ${styles.hscrInput}`}
+              className={`mb-4 ${styles.hscrInput}`}
               name="dsearch"
               placeholder="Find courses ..."
             />
+            <CoursesBtn />
             {/* <div className="container-fluid pl-2 md-5 text-center text-sm-left">
               <h4>Top Grossing</h4>
               <div id="linkWrapper" className="d-flex flex-column">

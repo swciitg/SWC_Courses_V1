@@ -50,10 +50,6 @@ passport.use(
           });
         }
       });
-
-      // User.findOrCreate(user, function (err, user) {
-      //   return done(err, user);
-      // });
     }
   )
 );

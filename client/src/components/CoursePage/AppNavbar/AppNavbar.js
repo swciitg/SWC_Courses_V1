@@ -33,7 +33,7 @@ class AppNavbar extends Component {
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/profile">
+            <Link to="/profile" style={{ textDecoration: "none" }}>
               <NavLink>
                 {/* <img src={avatar} alt="avatar" /> */}
                 <Avatar alt={this.props.name} src="#" />
