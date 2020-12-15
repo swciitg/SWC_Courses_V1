@@ -68,7 +68,15 @@ const Header = ({ details, user, fname, courseIDs }) => {
                 <img src={leftArrow} alt="back" />
               </button>
             </Link>
-            <span className={styles.Dashboard}>DASHBOARD</span>
+            <span
+              className={classNames(
+                styles.Dashboard,
+                "d-none",
+                "d-sm-inline-block"
+              )}
+            >
+              DASHBOARD
+            </span>
           </span>
 
           {isLoggedIn ? (
@@ -100,7 +108,7 @@ const Header = ({ details, user, fname, courseIDs }) => {
           <h2 className={styles.Title}>{details.title}</h2>
 
           <Navbar className="justify-content-start px-0 d-flex">
-            <span className="d-inline-block">
+            <span className="d-none d-sm-inline-block">
               <Badge
                 className={classNames(
                   "badge-pill",
@@ -138,9 +146,8 @@ const Header = ({ details, user, fname, courseIDs }) => {
             <span
               style={{
                 display: isLoggedIn ? "block" : "none",
-                position: "absolute",
-                right: "0",
               }}
+              className={styles.Enrol_span}
             >
               {courseIDs.includes(details.id) ? (
                 /* change the route to the streaming pages */

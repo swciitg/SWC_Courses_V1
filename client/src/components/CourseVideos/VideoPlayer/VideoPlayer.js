@@ -9,7 +9,8 @@ function VideoPlayer(props) {
     controls: true,
     sources: [
       {
-        src: "https://dash.akamaized.net/envivio/EnvivioDash3/manifest.mpd",
+        // src: "https://dash.akamaized.net/envivio/EnvivioDash3/manifest.mpd",
+        src: "/mpd/trial-1607835856433/dash.mpd",
         type: "application/dash+xml",
       },
     ],
