@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Aux from "../../../../hoc/Auxilary";
 import { Navbar, NavLink, Badge } from "reactstrap";
 import { Link } from "react-router-dom";
@@ -9,6 +9,8 @@ import classNames from "classnames";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import { AuthContext } from "../../../../contexts/AuthContext";
+import { indexOf } from "ffmpeg-static";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   small: {
@@ -21,13 +23,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ details }) => {
+const Header = ({ details, user, fname, courseIDs }) => {
   // state imported from the AuthContext hoc
   const { isLoggedIn, setisLoggedIn } = useContext(AuthContext);
 
   const classes = useStyles();
 
   const imgScr = details.imgScr;
+
+  const enrolCourse = (e) => {
+    axios.get(`/api/courses/${details.id}/enrol`).then((res) => {
+      console.log(res.data);
+      window.location.reload();
+    });
+  };
+
   return (
     <div
       className={styles.Header_wrapper}
@@ -58,7 +68,15 @@ const Header = ({ details }) => {
                 <img src={leftArrow} alt="back" />
               </button>
             </Link>
-            <span className={styles.Dashboard}>DASHBOARD</span>
+            <span
+              className={classNames(
+                styles.Dashboard,
+                "d-none",
+                "d-sm-inline-block"
+              )}
+            >
+              DASHBOARD
+            </span>
           </span>
 
           {isLoggedIn ? (
@@ -67,18 +85,12 @@ const Header = ({ details }) => {
                 className="d-none d-sm-inline"
                 style={{ textShadow: "0.2px 0.2px 1px white" }}
               >
-                Welcome Pranjal !!
+                Welcome {fname} !!
               </span>
 
-              <Link to="/profile">
+              <Link to="/profile" style={{ textDecoration: "none" }}>
                 <NavLink className={styles.Avatar}>
-                  {/* <img src={avatar} alt="avatar" /> */}
-                  {/* CHANGE THE Avatar ALT & SRC TO DATA FROM THE DB */}
-                  <Avatar
-                    alt="Pranjal Chourasia"
-                    className={classes.large}
-                    src="https://avatars2.githubusercontent.com/u/61688724?s=460&u=68e84273c6f21f94ebf24f4fc500e4df115378b4&v=4"
-                  />
+                  <Avatar alt={user.name} src="#" />
                 </NavLink>
               </Link>
             </Aux>
@@ -96,7 +108,7 @@ const Header = ({ details }) => {
           <h2 className={styles.Title}>{details.title}</h2>
 
           <Navbar className="justify-content-start px-0 d-flex">
-            <span className="d-inline-block">
+            <span className="d-none d-sm-inline-block">
               <Badge
                 className={classNames(
                   "badge-pill",
@@ -131,7 +143,23 @@ const Header = ({ details }) => {
                 Javascript
               </Badge>
             </span>
-            <div></div>
+            <span
+              style={{
+                display: isLoggedIn ? "block" : "none",
+              }}
+              className={styles.Enrol_span}
+            >
+              {courseIDs.includes(details.id) ? (
+                /* change the route to the streaming pages */
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <button className={styles.Enrol_button}>GO TO COURSE</button>
+                </Link>
+              ) : (
+                <button className={styles.Enrol_button} onClick={enrolCourse}>
+                  ENROL
+                </button>
+              )}
+            </span>
           </Navbar>
         </div>
       </header>

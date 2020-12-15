@@ -91,14 +91,12 @@ exports.getOneCourse = async (req, res, next) => {
           if (err) {
             throw err;
           } else {
-            return res
-              .status(200)
-              .json({
-                isEnrolled: isEnrolled,
-                media: media,
-                course: course,
-                userData: userData,
-              });
+            return res.status(200).json({
+              isEnrolled: isEnrolled,
+              media: media,
+              course: course,
+              userData: userData,
+            });
           }
         });
       } else {
@@ -134,7 +132,8 @@ exports.enrollInCourse = async (req, res, next) => {
       });
       user.enrolled_courses_id.push(course._id);
       updated = await user.save();
-      return res.redirect("/courses/" + course._id);
+      // return res.redirect("/courses/" + course._id);
+      return res.status(200).json({ msg: "Successfully enrolled !" });
     } else {
       //if the id doesn't belong to an existing course
       error = {

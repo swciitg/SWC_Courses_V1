@@ -21,6 +21,9 @@ const CardContainer = ({ courses }) => {
               imgScr={thumbnails[i]} // To be replaced by thumbnails from the DB, e.g.- {course.imgUrl}
               title={course.title}
               description={course.description}
+              // imgScr={course.course_images[0][0]}
+              // title={course.course_name}
+              // description={course.course_headline}
               id={course._id}
             />
           );

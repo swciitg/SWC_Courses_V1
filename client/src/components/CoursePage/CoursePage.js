@@ -29,7 +29,6 @@ class CoursePage extends Component {
       axios
         .get("/user")
         .then((res) => {
-          console.log(res.data);
           this.setState({ name: res.data.name });
         })
         .catch((err) => console.log(err));

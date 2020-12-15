@@ -33,7 +33,8 @@
     "nodemailer": "^6.4.13",
     "passport": "^0.4.1",
     "passport-local-mongoose": "^6.0.1",
-    "passport-outlook": "^2.3.0"
+    "passport-outlook": "^2.3.0",
+    "video.js": "^7.10.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

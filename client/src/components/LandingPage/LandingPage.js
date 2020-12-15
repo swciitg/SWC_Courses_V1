@@ -3,6 +3,8 @@ import AppNavbar from "./AppNavbar/AppNavbar";
 import HomeScreen from "./HomeScreen/HomeScreen";
 import styles from "./LandingPage.module.css";
 import CardContainer from "./Cards/CardContainer";
+import axios from "axios";
+import ErrorBoundary from "../../hoc/ErrorBoundary";
 
 const LandingPage = (props) => {
   const [courses, setCourses] = useState([]);
@@ -10,9 +12,9 @@ const LandingPage = (props) => {
   useEffect(() => {
     // AJAX call to /api/courses to retrieve json data on courses
     async function fetchCourses() {
-      let response = await fetch("api/courses");
-      let data = await response.json();
-      setCourses(data.courses);
+      let response = await axios("api/courses");
+      setCourses(response.data.courses);
+      // setCourses("No courses found");
     }
 
     fetchCourses();
@@ -22,7 +24,9 @@ const LandingPage = (props) => {
     <div className={styles.App}>
       <AppNavbar />
       <HomeScreen />
-      <CardContainer courses={courses} />
+      <ErrorBoundary>
+        <CardContainer courses={courses} />
+      </ErrorBoundary>
     </div>
   );
 };

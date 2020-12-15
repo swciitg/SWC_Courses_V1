@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import { AuthContext, AuthProvider } from "../../../../contexts/AuthContext";
 
 const useStyles = makeStyles({
   MuiButtonRoot: {
@@ -23,26 +23,16 @@ const useStyles = makeStyles({
   },
 });
 
-const OutlookLogin = (props) => {
+const Dashboard = (props) => {
   const classes = useStyles();
-  const { isLoggedIn, setisLoggedIn } = useContext(AuthContext);
-
-  const onSubmit = (e) => {
-    window.open("http://localhost:5000/auth/outlook", "_self");
-  };
 
   return (
-    <div>
-      <Button
-        variant="outlined"
-        size="large"
-        className={classes.MuiButtonRoot}
-        onClick={onSubmit}
-      >
-        Log In With Outlook
+    <Link to="/profile" style={{ textDecoration: "none" }}>
+      <Button variant="outlined" size="large" className={classes.MuiButtonRoot}>
+        DASHBOARD
       </Button>
-    </div>
+    </Link>
   );
 };
 
-export default OutlookLogin;
+export default Dashboard;

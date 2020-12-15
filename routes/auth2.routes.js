@@ -41,7 +41,7 @@ router.get(
   }),
   function (req, res) {
     // Successful authentication
-    res.redirect(CLIENT_HOME_PAGE_URL);
+    res.redirect(CLIENT_HOME_PAGE_URL + "profile");
   }
 );
 

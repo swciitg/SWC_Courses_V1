@@ -25,7 +25,8 @@ const useStyles = makeStyles({
 
 export default function MediaCard(props) {
   // shortening the description from the DB to a fixed length
-  const descript = props.description.substring(0, 155) + "...";
+  const descript = props.description.substring(0, 100) + "...";
+  const name = props.title.substring(0, 25) + "...";
 
   const [value, setValue] = React.useState(2); // To be replaced by the ratings from DB
 
@@ -41,7 +42,7 @@ export default function MediaCard(props) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {props.title}
+            {name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {descript}
