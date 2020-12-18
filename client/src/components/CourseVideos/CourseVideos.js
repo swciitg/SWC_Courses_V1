@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
+import axios from "axios";
 
-const CourseVideos = () => {
+const CourseVideos = (props) => {
+  const { user, details } = props.location.state;
+
   return (
     <div>
-      <VideoPlayer />
+      <VideoPlayer user={user} details={details} />
     </div>
   );
 };

@@ -18,7 +18,7 @@ const DashBoard = ({ details }) => {
       axios
         .get("/user")
         .then((res) => {
-          setUser({ ...res.data });
+          setUser(res.data);
           setCourseIDs(res.data.enrolled_courses_id);
           setFname(res.data.name.substring(0, res.data.name.indexOf(" ")));
         })

@@ -25,6 +25,7 @@ const CardContainer = ({ courses }) => {
               // title={course.course_name}
               // description={course.course_headline}
               id={course._id}
+              videos={course.videos}
             />
           );
         })

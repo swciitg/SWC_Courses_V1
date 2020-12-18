@@ -23,7 +23,7 @@ const LandingPage = (props) => {
   return (
     <div className={styles.App}>
       <AppNavbar />
-      <HomeScreen />
+      <HomeScreen courses={courses} />
       <ErrorBoundary>
         <CardContainer courses={courses} />
       </ErrorBoundary>

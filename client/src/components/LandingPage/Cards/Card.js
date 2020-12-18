@@ -17,6 +17,14 @@ const useStyles = makeStyles({
     textAlign: "left",
     margin: "15px",
     display: "inline-block", // important for layouting
+    "&:hover": {
+      boxShadow: "2px 2px 13px #888",
+      transform: "scale(1.02,1.02)",
+      transition: "all 0.3s ease",
+    },
+    ["@media (max-width: 550px)"]: {
+      width: "280px",
+    },
   },
   media: {
     height: 140,
@@ -52,7 +60,10 @@ export default function MediaCard(props) {
       <CardActions>
         <Rating name="read-only" value={value} readOnly />
         <Button size="small" color="primary">
-          <Link to={{ pathname: `/courses/${props.id}`, state: props }}>
+          <Link
+            to={{ pathname: `/courses/${props.id}`, state: props }}
+            style={{ textDecoration: "none" }}
+          >
             Learn more
           </Link>
         </Button>

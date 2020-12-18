@@ -59,8 +59,21 @@
   font-weight: normal;
 }
 
+.cardContainer {
+  width: 100%;
+  padding-left: calc((50% - 165px) / 2);
+}
+
 @media (max-width: 500px) {
   .content {
     margin-top: 15px;
+  }
+  .cardContainer {
+    width: 100%;
+    padding: 0 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }

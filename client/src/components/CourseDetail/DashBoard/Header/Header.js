@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ details, user, fname, courseIDs }) => {
+const Header = (props) => {
+  const { details, user, fname, courseIDs } = props;
   // state imported from the AuthContext hoc
   const { isLoggedIn, setisLoggedIn } = useContext(AuthContext);
 
@@ -151,7 +152,13 @@ const Header = ({ details, user, fname, courseIDs }) => {
             >
               {courseIDs.includes(details.id) ? (
                 /* change the route to the streaming pages */
-                <Link to="/" style={{ textDecoration: "none" }}>
+                <Link
+                  to={{
+                    pathname: `/courses/${details.id}/videos/${details.videos[0]}`,
+                    state: props,
+                  }}
+                  style={{ textDecoration: "none" }}
+                >
                   <button className={styles.Enrol_button}>GO TO COURSE</button>
                 </Link>
               ) : (
