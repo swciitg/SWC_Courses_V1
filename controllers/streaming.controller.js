@@ -4,9 +4,10 @@ const Course = require("../models/course");
 
 exports.updateVideo = async (req, res, next) => {
   try {
-    const course = await Course.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
+    const course = await User.findByIdAndUpdate(req.user._id, {
+      $set: {
+        " enrolled_courses.last_view.video": req.params.video_id,
+      },
     });
   } catch (err) {
     next(err);
