@@ -4,6 +4,7 @@ const streamingController = require("../controllers/streaming.controller");
 const { isLoggedIn } = require("../middleware/index");
 
 router.get("/video/:video_id", isLoggedIn, streamingController.getVideo);
+router.patch("/video/:video_id", isLoggedIn, streamingController.updateVideo);
 
 router.post("/video/:video_id/bookmark/", streamingController.addBookmark);
 
@@ -13,3 +14,4 @@ router.delete(
 );
 
 module.exports = router;
+
