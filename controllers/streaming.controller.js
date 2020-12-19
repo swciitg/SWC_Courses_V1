@@ -2,11 +2,20 @@ const Media = require("../models/media");
 const User = require("../models/user");
 const Course = require("../models/course");
 
+exports.updateVideo = async (req, res, next) => {
+  try {
+    const video = await Media.findByIdAndUpdate(req.params.video_id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.getVideo = async (req, res, next) => {
   try {
-    let getcourse = await Course.findOne({ _id: req.params.id }).populate(
-      "videos"
-    );
+    let getcourse = Course.findOne({ _id: req.params.id }).populate("videos");
     let getvideo = Media.findOne({
       _id: req.params.video_id,
       course: req.params.id,
