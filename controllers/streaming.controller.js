@@ -4,7 +4,7 @@ const Course = require("../models/course");
 
 exports.updateVideo = async (req, res, next) => {
   try {
-    const video = await Media.findByIdAndUpdate(req.params.video_id, req.body, {
+    const course = await Course.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
