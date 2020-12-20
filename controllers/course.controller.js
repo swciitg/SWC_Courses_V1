@@ -56,7 +56,7 @@ exports.getOneCourse = async (req, res, next) => {
   try {
     if (!req.user) {
       //the user is not signed in
-      let course = await Course.findOne({ _id: req.params.id });
+      let course = await Course.findOne({ _id: req.params.id }).populate("videos");
       if (course) {
         //the course exists
         return res.status(200).json(course);
