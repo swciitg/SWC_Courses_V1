@@ -1,0 +1,51 @@
+.blog {
+  background: yellow;
+  display: inline-block;
+  width: 50vh;
+}
+
+  .App {
+    text-align: center;
+    background-color: rgb(255, 224, 49);
+    background-size: 100% 115vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: "Roboto", sans-serif;
+    min-height: 100%;
+    position: relative;
+  }
+
+  @media (max-width: 500px) {
+    .App {
+      background-size: 500% 120vh;
+      background-position: 48% 0%;
+      height: 100%;
+      background-attachment: scroll;
+    }
+  }
+  .container {
+    width: 100%;
+    padding: 20px;
+    background-image: linear-gradient(rgb(255, 224, 49), rgb(255, 247, 212));
+    border-top: 0.5px solid white;
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .containerTitle {
+    margin: 30px 0;
+    font-size: 4rem;
+    color: rgb(236, 235, 235);
+    text-shadow: 1px 1px 2px black;
+  }
+
+  @media all and (max-width: 500px) {
+    .containerTitle {
+      margin: 0 0 15px;
+      font-size: 2.5rem;
+    }
+  }
