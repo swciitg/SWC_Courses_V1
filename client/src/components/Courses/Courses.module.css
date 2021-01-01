@@ -4,17 +4,17 @@
   width: 50vh;
 }
 
-  .App {
-    text-align: center;
-    background-color: rgb(255, 224, 49);
-    background-size: 100% 115vh;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    font-family: "Roboto", sans-serif;
-    min-height: 100%;
-    position: relative;
-  }
-
+.App {
+  text-align: center;
+  background-color: rgb(255, 224, 49);
+  background-image: url("../../images/home-bg.png");
+  background-size: 100% 115vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: "Roboto", sans-serif;
+  min-height: 100%;
+  position: relative;
+}
   @media (max-width: 500px) {
     .App {
       background-size: 500% 120vh;

@@ -68,6 +68,8 @@ class Courses extends Component  {
     return (
       <div className={styles.App}>
         <AppNavbar />
+        <span>___________________________________________________________________________________________________________________________________________________________________________</span>
+        <br/>
         <div className="blog" id="cards" >
           {this.displaycourselist(this.state.courses)}
         </div>
