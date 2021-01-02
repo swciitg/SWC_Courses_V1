@@ -1,13 +1,14 @@
 .blog {
-  background: yellow;
   display: inline-block;
-  width: 50vh;
+  width: 200vh;
 }
-
+.nocourse{
+  height : 100vh ;
+}
 .App {
   text-align: center;
   background-color: rgb(255, 224, 49);
-  background-image: url("../../images/home-bg.png");
+  background-image: url("../../images/allcourses-bg.png");
   background-size: 100% 115vh;
   background-repeat: no-repeat;
   background-attachment: fixed;
