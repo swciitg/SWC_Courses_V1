@@ -27,6 +27,13 @@ router.get("/courses/:id", adminController.getOneCourse);
 //add video
 router.post("/courses/:id/videos", adminController.uploadVideo);
 
+//add full course via torrent
+router.post(
+  "/torrentUpload",
+  adminController.thumbnailImageUpload,
+  adminController.downloadAllTorrentFiles
+);
+
 //update course
 router.put("/courses/:id", adminController.updateOneCourse);
 
@@ -72,8 +79,5 @@ router.put("/users/:id", function (req, res) {
     }
   );
 });
-
-//add full course via torrent
-router.post("/torrentUpload", adminController.downloadAllTorrentFiles);
 
 module.exports = router;
