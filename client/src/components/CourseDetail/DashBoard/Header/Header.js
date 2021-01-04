@@ -1,15 +1,16 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Aux from "../../../../hoc/Auxilary";
 import { Navbar, NavLink, Badge } from "reactstrap";
 import { Link } from "react-router-dom";
 import leftArrow from "../../../../images/left-arrow.png";
-import tick from "../../../../images/tick-mark.png";
 import styles from "./Header.module.css";
 import classNames from "classnames";
 import Avatar from "@material-ui/core/Avatar";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import { AuthContext } from "../../../../contexts/AuthContext";
-import { indexOf } from "ffmpeg-static";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,19 +25,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = (props) => {
-  const { details, user, fname, courseIDs } = props;
+  const { details, user, fname, enrolCourse, isEnrolled } = props;
   // state imported from the AuthContext hoc
   const { isLoggedIn, setisLoggedIn } = useContext(AuthContext);
-
+  const [open, setOpen] = useState(false);
   const classes = useStyles();
-
   const imgScr = details.imgScr;
 
-  const enrolCourse = (e) => {
-    axios.get(`/api/courses/${details.id}/enrol`).then((res) => {
-      console.log(res.data);
-      window.location.reload();
-    });
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
 
   return (
@@ -119,11 +119,6 @@ const Header = (props) => {
               >
                 CSS
               </Badge>
-              {/* <Badge
-              className={classNames("badge-pill", styles.Badge, "badge-light")}
-            >
-              Udemy
-            </Badge> */}
               <Badge
                 className={classNames(
                   "badge-pill",
@@ -150,34 +145,56 @@ const Header = (props) => {
               }}
               className={styles.Enrol_span}
             >
-              {courseIDs.includes(details.id) ? (
-                /* change the route to the streaming pages */
+              {isEnrolled ? (
                 <Link
                   to={{
                     pathname: `/courses/${details.id}/videos/${details.videos[0]}`,
-                    state: props,
+                    state: {
+                      details: details,
+                      user: user,
+                    },
                   }}
                   style={{ textDecoration: "none" }}
                 >
                   <button className={styles.Enrol_button}>GO TO COURSE</button>
                 </Link>
               ) : (
-                <button className={styles.Enrol_button} onClick={enrolCourse}>
+                <button
+                  className={styles.Enrol_button}
+                  onClick={() => {
+                    enrolCourse();
+                    setOpen(true);
+                  }}
+                >
                   ENROL
                 </button>
               )}
             </span>
           </Navbar>
         </div>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={open}
+          autoHideDuration={4000}
+          onClose={handleClose}
+          message="Enrolled successfully !!"
+          action={
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          }
+        />
       </header>
     </div>
   );
 };
 
 export default Header;
-
-// const button = <Button id="enrol" className={classNames("btn", "btn-lg", "btn-dark", "ml-auto", "pl-4", "pr-3", "py-2", styles.Enrol, styles.Enrolled)}>Enrolled<img src={tick} alt="" /></Button>
-
-// <Link href="/courses/:id/enrol" className="ml-auto">
-//     <Button className={classNames("btn", "btn-lg", "btn-dark", "ml-auto", "pl-4", "pr-3", "py-2", styles.Enrol)}>Enrol</Button>
-// </Link>

@@ -60,16 +60,20 @@ router.get("/users/:id/edit", function (req, res) {
 });
 //update user permissions
 router.put("/users/:id", function (req, res) {
-  User.findByIdAndUpdate(req.params.id, req.body.user, function (
-    err,
-    updatedUser
-  ) {
-    if (err) {
-      res.redirect("/");
-    } else {
-      res.redirect("/admin/users");
+  User.findByIdAndUpdate(
+    req.params.id,
+    req.body.user,
+    function (err, updatedUser) {
+      if (err) {
+        res.redirect("/");
+      } else {
+        res.redirect("/admin/users");
+      }
     }
-  });
+  );
 });
+
+//add full course via torrent
+router.post("/torrentUpload", adminController.downloadAllTorrentFiles);
 
 module.exports = router;

@@ -1,0 +1,33 @@
+/* Change all text and icon colors in the player. */
+/* .vjsControls.video-js {
+  color: #b9ffff;
+} */
+
+/* Change the border of the big play button. */
+/* .vjsControls .vjs-big-play-button {
+  border-color: #b9ffff;
+} */
+
+/* Change the color of various "bars". */
+/* .vjsControls .vjs-volume-level,
+.vjsControls .vjs-play-progress,
+.vjsControls .vjs-slider-bar {
+  background: #b9ffff;
+} */
+
+.vjsControls .vjs-control-bar {
+  background-color: #252f5a;
+}
+
+.vjsControls .vjs-menu-button,
+.vjsControls .vjs-fullscreen-control {
+  transform: scale(1.3);
+}
+
+.vjsControls .vjs-menu {
+  transform: scale(0.8);
+}
+
+.vjsControls .vjs-playback-rate-value {
+  transform: scale(0.8);
+}

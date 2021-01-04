@@ -56,7 +56,9 @@ exports.getOneCourse = async (req, res, next) => {
   try {
     if (!req.user) {
       //the user is not signed in
-      let course = await Course.findOne({ _id: req.params.id }).populate("videos");
+      let course = await Course.findOne({ _id: req.params.id }).populate(
+        "videos"
+      );
       if (course) {
         //the course exists
         return res.status(200).json(course);
@@ -125,22 +127,26 @@ exports.enrollInCourse = async (req, res, next) => {
     let [user, course] = await Promise.all([getuser, getcourse]);
     //run the queries parallely and wait for their results
 
-    if (course) {
-      //the course id is valid
-      user.enrolled_courses.push({
-        course: course._id,
-      });
-      user.enrolled_courses_id.push(course._id);
-      updated = await user.save();
-      // return res.redirect("/courses/" + course._id);
-      return res.status(200).json({ msg: "Successfully enrolled !" });
+    if (!user.enrolled_courses_id.includes(course._id)) {
+      if (course) {
+        //the course id is valid
+        user.enrolled_courses.push({
+          course: course._id,
+        });
+        user.enrolled_courses_id.push(course._id);
+        updated = await user.save();
+        // return res.redirect("/courses/" + course._id);
+        return res.status(200).json({ msg: "Successfully enrolled !" });
+      } else {
+        //if the id doesn't belong to an existing course
+        error = {
+          status: 404,
+          message: "No such course found",
+        };
+        throw error;
+      }
     } else {
-      //if the id doesn't belong to an existing course
-      error = {
-        status: 404,
-        message: "No such course found",
-      };
-      throw error;
+      res.status(400).json({ msg: "Already enrolled !!" });
     }
   } catch (err) {
     console.log(error);

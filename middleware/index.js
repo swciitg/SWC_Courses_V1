@@ -21,7 +21,7 @@ function authenticate(req, res, next) {
 
 /// FOR PASSPORT-JS
 const isLoggedIn = (req, res, next) => {
-  if (req.user) {
+  if (req.isAuthenticated()) {
     next();
   } else {
     res.status(401).json({ msg: "You are not authenticated !" });

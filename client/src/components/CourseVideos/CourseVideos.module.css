@@ -1,0 +1,54 @@
+button:focus {
+  outline: none;
+}
+
+.contentBox {
+  width: 28vw;
+  height: calc(100vh - 64px);
+  max-width: 30vw;
+  position: fixed;
+  right: 0;
+  top: 64px;
+  overflow-y: auto;
+}
+
+.dashboard {
+  width: 70vw;
+  padding: 10px;
+  border: 0.1px solid rgb(189, 189, 189);
+  transform: translateY(64px);
+}
+
+.videoContainer {
+  position: relative;
+}
+
+.player {
+  position: relative;
+  z-index: 0;
+  width: 70vw;
+  height: 65vh;
+  transform: translateY(64px);
+}
+
+@media (max-width: 550px) {
+  .player {
+    width: 100vw;
+    height: 40vh;
+    transform: translateY(56px);
+  }
+  .contentBox {
+    display: none;
+  }
+  .dashboard {
+    width: 100vw;
+    min-height: 60vh;
+    transform: translateY(56px);
+  }
+}
+
+@media (min-width: 551px) {
+  .mobileDN {
+    display: none;
+  }
+}

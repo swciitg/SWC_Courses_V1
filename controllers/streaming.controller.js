@@ -1,6 +1,7 @@
 const Media = require("../models/media");
 const User = require("../models/user");
 const Course = require("../models/course");
+const mongoose = require("mongoose");
 
 exports.updateVideo = async (req, res, next) => {
   try {

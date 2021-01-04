@@ -5,9 +5,9 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 5000;
-const url = "mongodb://localhost/SWC_Media";
+// const url = "mongodb://localhost/SWC_Media_BS";
 const config = require("config");
-// const url = config.get("MONGO_URL");
+const url = config.get("MONGO_URL");
 const session = require("express-session");
 const cookieSession = require("cookie-session");
 const MongoStore = require("connect-mongo")(session);
@@ -23,21 +23,25 @@ const adminRoutes = require("./routes/admin.routes");
 //const uploadRoute = require('./routes/upload.routes');
 
 //mongoose setup
-mongoose.connect(url, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
+mongoose
+  .connect(url, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .then(() => console.log("Successful DB connection"))
+  .catch((err) => console.error("DB connection fail"));
 
 var corsOptions = {
-  origin: "http://localhost:3000/",
+  origin: "http://localhost:3000",
+  // origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
 app.use(cors(corsOptions));
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000/"); //Change this later to restrict it to react app only
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); //Change this later to restrict it to react app only
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PATCH, PUT, DELETE"

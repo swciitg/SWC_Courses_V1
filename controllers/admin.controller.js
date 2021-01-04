@@ -43,9 +43,9 @@ exports.getAllCourses = async (req, res) => {
 exports.addCourse = async (req, res) => {
   //data from form
   try {
-    const { title, author, description } = req.body;
+    const { title, author, description, img } = req.body;
 
-    const newCourse = new Course({ title, author, description });
+    const newCourse = new Course({ title, author, description, img });
     await newCourse.save();
 
     return res.status(200).json({
@@ -69,8 +69,8 @@ exports.getOneCourse = async (req, res) => {
 
 exports.updateOneCourse = async (req, res) => {
   try {
-    const { title, author, description } = req.body;
-    const update = { title, author, description };
+    const { title, author, description, img } = req.body;
+    const update = { title, author, description, img };
     let updatedCourse = await Course.findByIdAndUpdate(req.params.id, update, {
       new: true,
     });

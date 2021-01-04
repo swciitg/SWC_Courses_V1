@@ -12,11 +12,13 @@ const LandingPage = (props) => {
   useEffect(() => {
     // AJAX call to /api/courses to retrieve json data on courses
     async function fetchCourses() {
-      let response = await axios("api/courses");
-      setCourses(response.data.courses);
-      // setCourses("No courses found");
+      try {
+        let response = await axios("api/courses");
+        setCourses(response.data.courses);
+      } catch (error) {
+        console.log("Error fetching the courses", error);
+      }
     }
-
     fetchCourses();
   }, []);
 

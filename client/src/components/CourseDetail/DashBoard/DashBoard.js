@@ -9,7 +9,10 @@ import axios from "axios";
 const DashBoard = ({ details }) => {
   const [user, setUser] = useState({});
   const [fname, setFname] = useState("");
-  const [courseIDs, setCourseIDs] = useState([]);
+  const [enCourseIDs, setEnCourseIDs] = useState([]);
+  const [isEnrolled, setIsEnrolled] = useState(
+    enCourseIDs.includes(details.id)
+  );
 
   useEffect(() => {
     ///////// @start
@@ -19,7 +22,8 @@ const DashBoard = ({ details }) => {
         .get("/user")
         .then((res) => {
           setUser(res.data);
-          setCourseIDs(res.data.enrolled_courses_id);
+          setEnCourseIDs(res.data.enrolled_courses_id);
+          setIsEnrolled(res.data.enrolled_courses_id.includes(details.id));
           setFname(res.data.name.substring(0, res.data.name.indexOf(" ")));
         })
         .catch((err) => console.log(err));
@@ -27,6 +31,18 @@ const DashBoard = ({ details }) => {
     apiCall();
     ////////// @end
   }, []);
+
+  const enrolCourse = (e) => {
+    axios
+      .get(`/api/courses/${details.id}/enrol`)
+      .then((res) => {
+        console.log(res.data);
+        setIsEnrolled(true);
+        setEnCourseIDs([...enCourseIDs, details.id]);
+        // setOpen(true);
+      })
+      .catch((e) => console.log("Enrol failed", e));
+  };
 
   return (
     <Aux>
@@ -43,7 +59,8 @@ const DashBoard = ({ details }) => {
           details={details}
           user={user}
           fname={fname}
-          courseIDs={courseIDs}
+          enrolCourse={enrolCourse}
+          isEnrolled={isEnrolled}
         />
         <Content details={details} />
       </div>
