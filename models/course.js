@@ -6,7 +6,7 @@ let courseSchema = new Schema({
   author: { type: String, required: true },
   topics: [String],
   description: { type: String, required: true },
-  img: { type: String },
+  img: { type: String, required:true },
   videos: [{ type: mongoose.ObjectId, ref: "Media" }],
 });
 
