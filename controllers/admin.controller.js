@@ -434,7 +434,7 @@ let encodeFfmpegTorrent = async (file, courseId) => {
             if (err) throw err;
 
             let media = {
-              title: file.name,
+              title: file.name.split(".").slice(0, -1).join("."),
               filePath:
                 "/mpd/" +
                 file.path.replace(file.name, "") +
@@ -529,8 +529,7 @@ exports.downloadAllTorrentFiles = async (req, res) => {
   let imgPath = "";
   if (req.file) {
     imgPath =
-      dirname.dirpath +
-      "/assets/thumbnails" +
+      "/thumbnails" +
       req.file.fieldname +
       "-" +
       Date.now() +
@@ -568,8 +567,7 @@ exports.downloadAllTorrentFiles = async (req, res) => {
       files.forEach(async (file) => {
         try {
           if (
-            (file.name.endsWith(".mp4") || file.name.endsWith(".mkv")) &&
-            files[3] === file
+            file.name.endsWith(".mp4") || file.name.endsWith(".mkv")
           ) {
             // setInterval(() => {
             //   console.log("File progress", file.progress);
