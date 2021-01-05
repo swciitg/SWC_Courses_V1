@@ -2,19 +2,36 @@
   display: inline-block;
   width: 200vh;
 }
+.roott {
+  width: 300px;
+    height: 350px;
+  textAlign: left;
+  margin: 15px;
+  display: inline-block;
+}
+.mediat {
+  height: 140vh;
+}
 .nocourse{
   height : 100vh ;
 }
 .App {
   text-align: center;
   background-color: rgb(255, 224, 49);
-  background-image: url("../../images/allcourses-bg.png");
+  background-image: url("../../images/home-bg.png");
   background-size: 100% 115vh;
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-family: "Roboto", sans-serif;
   min-height: 100%;
   position: relative;
+}
+.search{
+  width: 800px;
+  height: 70px;
+    text-align: center;
+    font-size: 2.5rem;
+    font-style: italic;
 }
   @media (max-width: 500px) {
     .App {

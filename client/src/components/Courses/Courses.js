@@ -9,11 +9,15 @@ import CourseDetail from "../CourseDetail/CourseDetail";
 import styles from "./Courses.module.css";
 import Button from "@material-ui/core/Button";
 import AppNavbar from "../CoursePage/AppNavbar/AppNavbar";
+import CardContainer from "../LandingPage/Cards/CardContainer";
+import ErrorBoundary from "../../hoc/ErrorBoundary";
+
 
 class Courses extends Component  {
   state = {
      courses: [],
-     inputvalue : ''
+     inputvalue : '',
+     newcourses:[]
    };
    GetCourses = () => {
      axios.get('/api/admin/courses')
@@ -37,45 +41,11 @@ class Courses extends Component  {
      this.setState({
        inputvalue: event.target.value
      })
+     const newcourses = this.state.courses.filter(course =>{
+       return course.title.toLowerCase().includes(this.state.inputvalue.toLowerCase())
+     });
+     this.setState({ newcourses: newcourses });
    };
-
-   displaycourselist = (courses) => {
-    const newcourses = this.state.courses.filter(course =>{
-      return course.title.toLowerCase().includes(this.state.inputvalue.toLowerCase())
-    });
-    if (!newcourses.length) return (
-      <div className={styles.nocourse}>
-      No Courses Found
-      </div>
-    );
-
-
-    return newcourses.map((course) => (
-      <div key={course._id} className={styles.blog}>
-      <div className="col-sm-6 col-md-4 col-lg-3 mt-4">
-            <div className="card" id="cards">
-               <img className="card-img-top" src="https://picsum.photos/200/150/?random" />
-                <div className="card-block">
-                    <h3 className="card-title">{course.title}</h3>
-                    <div className="meta">
-                        <h5>{course.author}</h5>
-                    </div>
-                    <div className="card-text">
-                        <p>{course.description}</p>
-                    </div>
-                    <div>
-                     <Button size="small" color="primary">
-                       <Link to={{ pathname: `/courses/${course._id}`}}>
-                         Learn more
-                       </Link>
-                     </Button>
-                     </div>
-                </div>
-            </div>
-        </div>
-      </div>
-    ));
-  };
 
 
    render(){
@@ -83,14 +53,15 @@ class Courses extends Component  {
       <div className={styles.App}>
         <AppNavbar />
         <span>___________________________________________________________________________________________________________________________________________________________________________</span>
-        <br/>
+        <br/><br/>
         <div>
-        <label htmlFor="search"> SEARCH BY NAME</label>
-        <input type = "text" value = {this.state.inputvalue} onChange= {this.filterchange} placeholder = "" />
+        <label htmlFor="search"> </label>
+        <input type = "text" value = {this.state.inputvalue} onChange= {this.filterchange} placeholder = "SEARCH  BY  NAME" className={styles.search} />
         </div>
-        <div className="blog" id="cards" >
-          {this.displaycourselist(this.state.courses)}
-        </div>
+        <br/>
+        <ErrorBoundary>
+          <CardContainer courses={this.state.newcourses} />
+        </ErrorBoundary>
         </div>
     );
   }
