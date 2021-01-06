@@ -23,7 +23,7 @@ class Courses extends Component  {
      axios.get('/api/admin/courses')
        .then((response) => {
          const data = response.data.courses;
-         this.setState({ courses: data });
+         this.setState({ courses: data ,newcourses: data });
          console.log('Data has been received!!');
        })
        .catch(() => {
