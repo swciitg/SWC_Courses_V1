@@ -7,6 +7,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import CoursePage from "./components/CoursePage/CoursePage";
 import LandingPage from "./components/LandingPage/LandingPage";
 import AdminCourses from "./components/AdminCourses/AdminCourses";
+import AdminCourseDetail from "./components/AdminCourses/AdminCourseDetail";
 import CourseDetail from "./components/CourseDetail/CourseDetail";
 import Courses from "./components/Courses/Courses";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -40,6 +41,7 @@ const App = (props) => {
             />
             <Route path="/courses/:id" exact component={CourseDetail} />
             <Route path="/api/admin/courses" exact component={AdminCourses} />
+            <Route path="/api/admin/courses/:id" exact component={AdminCourseDetail} />
             <Route
               path="/courses/:courseId/videos/:id"
               exact

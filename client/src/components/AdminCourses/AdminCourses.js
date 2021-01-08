@@ -8,7 +8,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styles from "./AdminCourses.module.css";
 import Button from "@material-ui/core/Button";
 
-class Courses extends Component  {
+class AdminCourses extends Component  {
   state = {
      courses: [],
      inputvalue : '',
@@ -73,8 +73,8 @@ class Courses extends Component  {
                     </div>
                     <div>
                      <Button size="small" color="primary">
-                       <Link to={{ pathname: `/courses/${course._id}`}}>
-                         Edit Details
+                       <Link to={{ pathname: `/api/admin/courses/${course._id}`}}>
+                         Edit/Delete  Details
                        </Link>
                      </Button>
                      </div>
@@ -83,13 +83,47 @@ class Courses extends Component  {
       </div>
     ));
   };
+  handleSubmit = (e) => {
+    e.preventDefault();
 
+    const apiCall = () => {
+      axios({
+        method: "post",
+        url: "/api/admin/courses/",
+        data: {
+
+          title: this.state.title,
+          author:this.state.author,
+          description: this.state.description
+        },
+        withCredentials: true,
+      })
+        .then((res) => {
+        console.log('Data has been added!!');
+        alert('Data has been added!');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    };
+    apiCall();
+    window.location.reload(false);
+
+  };
 
    render(){
     return (
       <div className={styles.App}>
-      <br/><br/>
+      <br/>
+      <div className={styles.home}>
+      <Button>
+        <Link to={{ pathname: "/"}}>
+          <span className={styles.plz}>BACK TO HOMEPAGE</span>
+        </Link>
+      </Button>
+      </div>
         <span>___________________________________________________________________________________________________________________________________________________________________________</span>
+        <br/><br/>
         <h1 className={styles.h1}>ADD  NEW  COURSES</h1>
       <div className={styles.container}>
       <form onSubmit={this.handleSubmit}>
@@ -110,6 +144,7 @@ class Courses extends Component  {
             <input type="submit" value="Submit" />
           </form>
 </div>
+<br/>
         <span>___________________________________________________________________________________________________________________________________________________________________________</span>
         <br/>
         <div>
@@ -126,4 +161,4 @@ class Courses extends Component  {
 }
 
 
-export default Courses;
+export default AdminCourses;
