@@ -59,7 +59,33 @@ componentDidMount = () => {
    apiCall();
    window.open("http://localhost:3000/api/admin/courses");
  };
+ handleSubmit = (e) => {
+   e.preventDefault();
 
+   const apiCall = () => {
+     axios({
+       method: "put",
+       url: `/api/admin/courses/${this.props.match.params.id}`,
+       data: {
+
+         title: this.state.title,
+         author:this.state.author,
+         description: this.state.description
+       },
+       withCredentials: true,
+     })
+       .then((res) => {
+       console.log('Data has been changed!!');
+       alert('Data has been changed!');
+       })
+       .catch((err) => {
+         console.error(err);
+       });
+   };
+   apiCall();
+   window.location.reload(false);
+
+ };
    render(){
     return (
       <div className={styles.App}>
