@@ -10,7 +10,7 @@ const VideosUpload = (props) => {
   const [file, setFile] = useState("");
   const [title, setTitle] = useState("");
   const [inProgress, setInProgress] = useState(false);
-  const [output, setOutput] = useState("");
+  const [output, setOutput] = useState("Json output from the server");
 
   const titleChange = (e) => setTitle(e.target.value);
   const fileChange = (e) => setFile(e.target.files[0]);

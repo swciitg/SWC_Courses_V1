@@ -1,9 +1,12 @@
+.root {
+  transform: scale(0.6);
+}
+
 .Logo {
   width: 26rem;
   max-width: 100%;
   box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
-  transform: scale(0.6);
   z-index: 2;
 }
 
@@ -15,7 +18,7 @@
 }
 
 @media (min-width: 750px) {
-  .Logo {
+  .root {
     transform: scale(0.6) translateX(-150px);
   }
 }

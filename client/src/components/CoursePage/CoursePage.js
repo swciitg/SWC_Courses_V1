@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { CoursesContext } from "../../contexts/CoursesContext";
 import AppNavbar from "./AppNavbar/AppNavbar";
 import { Container } from "reactstrap";
 import classNames from "classnames";
@@ -7,72 +8,68 @@ import styles from "./CoursePage.module.css";
 import CourseCard from "./CourseCard/CourseCard";
 import axios from "axios";
 
-class CoursePage extends Component {
-  state = {
-    showEnrolledCourses: null,
-    showAllCourses: null,
-    sarchResult: null,
-    courseList: [],
-    name: "",
-  };
+const CoursePage = (props) => {
+  const { courses } = useContext(CoursesContext);
+  const [name, setName] = useState("");
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
 
-  componentDidMount() {
-    if (this.props.profile) {
-      console.log("Profile");
-    }
-    if (this.props.courses) {
-      console.log("Courses");
-    }
+  useEffect(() => {
+    console.log("context courses", courses);
     ///////// @start
     ///////// THIS IS AN API CALL TO THE "/user" ROUTE
     const apiCall = () => {
       axios
         .get("/user")
         .then((res) => {
-          this.setState({ name: res.data.name });
+          console.log(res.data);
+          const eCourses = courses.filter((course) => {
+            return res.data.enrolled_courses_id.includes(course._id);
+          });
+          setName(res.data.name);
+          setEnrolledCourses(eCourses);
         })
         .catch((err) => console.log(err));
     };
     apiCall();
     ////////// @end
-  }
+  }, []);
 
-  render() {
-    return (
-      <div className={styles.Body}>
-        <AppNavbar name={this.state.name} />
-        <Container>
-          <form
-            className={styles.SearchForm}
-            action="/courses/search"
-            method="get"
-          >
-            <div className="input-group">
-              <input
-                type="text"
-                className="form-control"
-                name="dsearch"
-                placeholder="find courses"
-              />
-            </div>
-          </form>
-        </Container>
+  return (
+    <div className={styles.Body}>
+      <AppNavbar name={name} />
 
-        <Container className={classNames(styles.Container, "py-5")}>
-          <Container className="d-flex" style={{ textAlign: "center" }}>
-            <h2 className={styles.Heading}>Enrolled Courses</h2>
-            <br />
-          </Container>
-          <Container
-            className="d-flex"
-            style={{ flexWrap: "wrap", justifyContent: "center" }}
-          >
-            <CourseCard />
-          </Container>
+      <Container className={classNames(styles.Container, "py-5")}>
+        <h2
+          style={{ color: "#333", textAlign: "center", marginBottom: "30px" }}
+        >
+          ENROLLED COURSES
+        </h2>
+        <Container
+          className="d-flex"
+          style={{ flexWrap: "wrap", justifyContent: "center" }}
+        >
+          {enrolledCourses.length === 0 ? (
+            <h6 style={{ color: "#555" }}>
+              EXPLORE COURSES AND START LEARNING
+            </h6>
+          ) : (
+            enrolledCourses.map((course, i) => {
+              return (
+                <CourseCard
+                  key={i}
+                  imgScr={course.img}
+                  title={course.title}
+                  description={course.description}
+                  id={course._id}
+                  videos={course.videos}
+                />
+              );
+            })
+          )}
         </Container>
-      </div>
-    );
-  }
-}
+      </Container>
+    </div>
+  );
+};
 
 export default CoursePage;

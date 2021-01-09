@@ -12,7 +12,7 @@ const AppNavbar = (props) => {
   return (
     <div className={styles.AppNav}>
       <Logo />
-      {isLoggedIn ? <Dashboard /> : <OutlookLogin />}
+      {isLoggedIn ? <Dashboard courses={props.courses} /> : <OutlookLogin />}
       <CoursesBtn />
     </div>
   );

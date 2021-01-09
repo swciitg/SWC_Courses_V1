@@ -5,21 +5,21 @@ import styles from "./CourseCard.module.css";
 import classNames from "classnames";
 
 const CourseCard = (props) => {
+  const { imgScr, title, description, id, videos } = props;
+
   return (
-    <Link to="/courses/123" style={{ textDecoration: "none" }}>
+    <Link
+      to={{ pathname: `/courses/${id}`, state: props }}
+      style={{ textDecoration: "none" }}
+    >
       <Card className={classNames(styles.CourseCard, "border-light")}>
-        <CardImg
-          top
-          width="100%"
-          src="/assets/318x180.svg"
-          alt="Card image cap"
-        />
+        <CardImg top width="100%" src={imgScr} alt="Card image cap" />
         <CardBody>
           <CardTitle>
-            <h5>props.title</h5>
+            <h5>{title}</h5>
           </CardTitle>
           <CardText>
-            <p>props.description</p>
+            <p>{description}</p>
           </CardText>
         </CardBody>
       </Card>

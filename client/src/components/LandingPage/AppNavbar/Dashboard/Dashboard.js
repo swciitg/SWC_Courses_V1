@@ -5,7 +5,10 @@ import styles from "./Dashboard.module.css";
 
 const Dashboard = (props) => {
   return (
-    <Link to="/profile" style={{ textDecoration: "none" }}>
+    <Link
+      to={{ pathname: "/profile", state: { courses: props.courses } }}
+      style={{ textDecoration: "none" }}
+    >
       <Button
         outline
         color="secondary"
