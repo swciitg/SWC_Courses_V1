@@ -55,6 +55,15 @@
   padding-right: 27px;
   height: 32vh;
   overflow: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lessons p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #555;
 }
 
 .Content ::-webkit-scrollbar {
