@@ -23,9 +23,11 @@ const LandingPage = (props) => {
   }, []);
 
   return (
-    <div className={styles.App}>
-      <AppNavbar />
-      <HomeScreen courses={courses} />
+    <div className={styles.root}>
+      <div className={styles.App}>
+        <AppNavbar />
+        <HomeScreen courses={courses} />
+      </div>
       <ErrorBoundary>
         <CardContainer courses={courses} />
       </ErrorBoundary>

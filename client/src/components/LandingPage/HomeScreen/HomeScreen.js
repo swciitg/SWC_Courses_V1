@@ -27,7 +27,15 @@ const HomeScreen = (props) => {
             skills from basic to advanced. Collaborate with peers and experts.
           </p>
           <SearchBar courses={courses} />
-          <CoursesBtn />
+          <div class="container-fluid pl-2 pl-md-5 text-center text-sm-left d-none d-sm-block mt-4">
+            <h4>Top Grossing</h4>
+            <div id="linkWrapper" class="d-flex flex-column">
+              <a href="#">Javascript</a>
+              <a href="#">CSS</a>
+              <a href="#">Machine Learning</a>
+              <a href="#">Django</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -35,15 +43,3 @@ const HomeScreen = (props) => {
 };
 
 export default HomeScreen;
-
-{
-  /* <div className="container-fluid pl-2 md-5 text-center text-sm-left">
-              <h4>Top Grossing</h4>
-              <div id="linkWrapper" className="d-flex flex-column">
-                <a href="/">Javascript</a>
-                <a href="/">CSS</a>
-                <a href="/">Machine Learning</a>
-                <a href="/">Django</a>
-              </div>
-            </div> */
-}

@@ -1,21 +1,27 @@
 /* rgba(255, 224, 49, 0.959) */
 
+.root {
+  text-align: center;
+}
+
 .App {
   text-align: center;
   background-color: rgb(255, 224, 49);
   background-image: url("../../images/home-bg.png");
-  background-size: 100% 115vh;
+  /* background-size: 100% 115vh; */
+  background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-family: "Roboto", sans-serif;
-  min-height: 100%;
+  /* min-height: 100%; */
+  height: 100vh;
   position: relative;
 }
 
 @media (max-width: 500px) {
   .App {
     background-size: 500% 120vh;
-    background-position: 48% 0%;
+    background-position: 50% 50%;
     height: 100%;
     background-attachment: scroll;
   }

@@ -4,7 +4,7 @@
 }
 
 .introBlock {
-  backdrop-filter: blur(5px);
+  /* backdrop-filter: blur(5px); */
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@
 }
 
 .content {
-  margin-top: 45px;
+  /* margin-top: 10vh; */
   color: rgb(63, 55, 10);
 }
 
@@ -66,7 +66,7 @@
 
 @media (max-width: 500px) {
   .content {
-    margin-top: 15px;
+    margin-top: 5px;
   }
   .cardContainer {
     width: 100%;
