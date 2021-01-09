@@ -10,10 +10,13 @@ import CourseDetail from "./components/CourseDetail/CourseDetail";
 import Courses from "./components/Courses/Courses";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./hoc/ProtectedRoute";
+import AdminCourses from "./components/AdminCourses/AdminCourses";
+import AdminCourseDetail from "./components/AdminCourses/AdminCourseDetail";
+import VideosUpload from "./components/AdminCourses/VideosUpload";
 import VideoRoute from "./hoc/VideoRoute";
 import spinner from "./images/spinner.gif";
-
 import CourseVideos from "./components/CourseVideos/CourseVideos";
+import TorrentUpload from "./components/AdminCourses/TorrentUpload";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -33,7 +36,22 @@ const App = (props) => {
             ></ProtectedRoute>
             <Route path="/courses" exact component={Courses} />
             <Route path="/courses/:id" exact component={CourseDetail} />
-
+            <Route path="/admin/courses" exact component={AdminCourses} />
+            <Route
+              path="/admin/courses/torrentUpload"
+              exact
+              component={TorrentUpload}
+            />
+            <Route
+              path="/admin/courses/:id/videos"
+              exact
+              component={VideosUpload}
+            />
+            <Route
+              path="/admin/courses/:id"
+              exact
+              component={AdminCourseDetail}
+            />
             <ProtectedRoute
               exact
               path="/courses/:courseId/videos/:id"

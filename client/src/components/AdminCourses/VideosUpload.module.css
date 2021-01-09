@@ -1,0 +1,87 @@
+.root {
+  min-height: 100vh;
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(255, 252, 200, 1) 0%,
+    rgba(255, 247, 94, 1) 90%
+  );
+}
+
+.topBar {
+  min-height: 20vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.BackButton {
+  height: 2.2rem;
+  padding: 6px 1rem;
+  border-radius: 20px;
+  border-style: none;
+  background-color: #ffffff;
+  box-shadow: 4px 6px 15px rgba(0, 0, 0, 0.16);
+  position: relative;
+  transition: all 0.1s ease-out;
+  text-decoration: none;
+  transform: scale(1.3);
+}
+
+.BackButton:hover,
+.BackButton:focus {
+  transform: translateY(-2px) scale(1.31) translateZ(0);
+  box-shadow: 0 12px 18px rgba(0, 0, 0, 0.2);
+}
+
+.BackButton:active {
+  transform: scale(1) translateZ(0);
+  box-shadow: 0 7.5px 12px rgba(0, 0, 0, 0.15);
+}
+
+.BackButton:focus {
+  outline: none;
+}
+
+.BackButton > img {
+  height: 100%;
+}
+
+.videoUpload {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.uploadForm {
+  padding: 15px;
+  min-width: 40%;
+  border: 2px solid #555;
+  border-radius: 10px;
+}
+
+.jsonOutput {
+  margin: 15px;
+  width: 40%;
+  padding: 16px;
+  border-radius: 10px;
+  background-color: #1b1b1b;
+  position: relative;
+}
+
+@media only screen and (max-width: 550px) {
+  .topBar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .videoUpload {
+    min-height: 50vh;
+  }
+
+  .jsonOutput {
+    width: 90%;
+  }
+}

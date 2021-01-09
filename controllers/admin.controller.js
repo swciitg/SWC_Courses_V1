@@ -275,7 +275,7 @@ exports.uploadVideo = (req, res) => {
                   }
                 );
 
-                return res.send(200).json(newlyCreated);
+                return res.status(200).json(newlyCreated);
               }
             });
           });
@@ -566,9 +566,7 @@ exports.downloadAllTorrentFiles = async (req, res) => {
       let length = 3;
       files.forEach(async (file) => {
         try {
-          if (
-            file.name.endsWith(".mp4") || file.name.endsWith(".mkv")
-          ) {
+          if (file.name.endsWith(".mp4") || file.name.endsWith(".mkv")) {
             // setInterval(() => {
             //   console.log("File progress", file.progress);
             // }, 3000);
