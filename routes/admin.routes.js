@@ -3,6 +3,8 @@ let router = express.Router();
 let adminController = require("../controllers/admin.controller");
 let User = require("../models/user");
 
+router.use("/", adminController.isAdminController);
+
 //home page route for admin
 router.get("/", function (req, res) {
   res.render("./admin/home");

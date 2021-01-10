@@ -621,3 +621,13 @@ exports.downloadAllTorrentFiles = async (req, res) => {
     }
   });
 };
+exports.isAdminController = async (req, res, next) => {
+  const email = req.user.email;
+
+  const user = await User.findOne({ email });
+
+  if (user.isAdmin) {
+    return next();
+  }
+  res.status(401).json({ msg: "Only admin has access to this route" });
+};
