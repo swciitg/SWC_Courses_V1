@@ -19,3 +19,9 @@
   padding-top: 3%;
   font-family: "Roboto", sans-serif;
 }
+
+@media only screen and (max-width: 550px) {
+  .Container {
+    width: 90%;
+  }
+}

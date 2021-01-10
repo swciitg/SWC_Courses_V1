@@ -9,7 +9,7 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import CourseDetail from "./components/CourseDetail/CourseDetail";
 import Courses from "./components/Courses/Courses";
 import { AuthProvider } from "./contexts/AuthContext";
-import { CoursesProvider } from "./contexts/CoursesContext";
+// import { CoursesProvider } from "./contexts/CoursesContext";
 import ProtectedRoute from "./hoc/ProtectedRoute";
 import AdminCourses from "./components/AdminCourses/AdminCourses";
 import AdminCourseDetail from "./components/AdminCourses/AdminCourseDetail";
@@ -24,45 +24,45 @@ axios.defaults.headers.post["Content-Type"] = "application/json";
 const App = (props) => {
   return (
     <AuthProvider>
-      <CoursesProvider>
-        <BrowserRouter>
-          <div className={styles.App}>
-            <Switch>
-              <Route path="/" exact component={LandingPage} />
-              <ProtectedRoute
-                exact
-                path="/profile"
-                component={(props) => (
-                  <CoursePage {...props} profile={true} courses={false} />
-                )}
-              ></ProtectedRoute>
-              <Route path="/courses" exact component={Courses} />
-              <Route path="/courses/:id" exact component={CourseDetail} />
-              <Route path="/admin/courses" exact component={AdminCourses} />
-              <Route
-                path="/admin/courses/torrentUpload"
-                exact
-                component={TorrentUpload}
-              />
-              <Route
-                path="/admin/courses/:id/videos"
-                exact
-                component={VideosUpload}
-              />
-              <Route
-                path="/admin/courses/:id"
-                exact
-                component={AdminCourseDetail}
-              />
-              <ProtectedRoute
-                exact
-                path="/courses/:courseId/videos/:id"
-                component={CourseVideos}
-              ></ProtectedRoute>
-            </Switch>
-          </div>
-        </BrowserRouter>
-      </CoursesProvider>
+      {/* <CoursesProvider> */}
+      <BrowserRouter>
+        <div className={styles.App}>
+          <Switch>
+            <Route path="/" exact component={LandingPage} />
+            <ProtectedRoute
+              exact
+              path="/profile"
+              component={(props) => (
+                <CoursePage {...props} profile={true} courses={false} />
+              )}
+            ></ProtectedRoute>
+            <Route path="/courses" exact component={Courses} />
+            <Route path="/courses/:id" exact component={CourseDetail} />
+            <Route path="/admin/courses" exact component={AdminCourses} />
+            <Route
+              path="/admin/courses/torrentUpload"
+              exact
+              component={TorrentUpload}
+            />
+            <Route
+              path="/admin/courses/:id/videos"
+              exact
+              component={VideosUpload}
+            />
+            <Route
+              path="/admin/courses/:id"
+              exact
+              component={AdminCourseDetail}
+            />
+            <ProtectedRoute
+              exact
+              path="/courses/:courseId/videos/:id"
+              component={CourseVideos}
+            ></ProtectedRoute>
+          </Switch>
+        </div>
+      </BrowserRouter>
+      {/* </CoursesProvider> */}
     </AuthProvider>
   );
 };

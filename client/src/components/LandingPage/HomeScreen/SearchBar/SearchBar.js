@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../HomeScreen.module.css";
+import glass from "../../../../images/search-glass.png";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Card from "../../Cards/Card";
@@ -93,7 +94,17 @@ const SearchBar = (props) => {
 
   return (
     <div style={{ width: "100%" }}>
-      <form onSubmit={handleOpen}>
+      <form onSubmit={handleOpen} style={{ position: "relative" }}>
+        <img
+          src={glass}
+          alt="glass"
+          style={{
+            position: "absolute",
+            top: "13%",
+            left: "3%",
+            transform: "scale(0.8)",
+          }}
+        />
         <input
           type="text"
           className={`mb-4 ${styles.hscrInput}`}

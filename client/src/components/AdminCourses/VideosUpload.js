@@ -27,6 +27,7 @@ const VideosUpload = (props) => {
       headers: {
         "content-type": "multipart/form-data",
       },
+      withCredentials: true,
     };
     axios
       .post(url, formData, config)

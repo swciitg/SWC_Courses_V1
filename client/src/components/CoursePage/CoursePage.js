@@ -9,30 +9,49 @@ import CourseCard from "./CourseCard/CourseCard";
 import axios from "axios";
 
 const CoursePage = (props) => {
-  const { courses } = useContext(CoursesContext);
+  // const { courses } = useContext(CoursesContext);
   const [name, setName] = useState("");
+  const [user, setUser] = useState();
   const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    console.log("context courses", courses);
     ///////// @start
     ///////// THIS IS AN API CALL TO THE "/user" ROUTE
     const apiCall = () => {
       axios
         .get("/user")
         .then((res) => {
-          console.log(res.data);
-          const eCourses = courses.filter((course) => {
-            return res.data.enrolled_courses_id.includes(course._id);
-          });
+          // console.log(res.data);
+          setUser(res.data);
           setName(res.data.name);
-          setEnrolledCourses(eCourses);
         })
         .catch((err) => console.log(err));
     };
     apiCall();
     ////////// @end
   }, []);
+
+  useEffect(() => {
+    if (name !== "") {
+      ///////// @start
+      ///////// THIS IS AN API CALL TO THE "/api/courses" ROUTE
+      const apiCall = () => {
+        axios
+          .get("/api/courses")
+          .then((res) => {
+            setCourses(res.data.courses);
+            const eCourses = res.data.courses.filter((course) => {
+              return user.enrolled_courses_id.includes(course._id);
+            });
+            setEnrolledCourses(eCourses);
+          })
+          .catch((err) => console.log(err));
+      };
+      apiCall();
+      ////////// @end
+    }
+  }, [name]);
 
   return (
     <div className={styles.Body}>
@@ -62,6 +81,7 @@ const CoursePage = (props) => {
                   description={course.description}
                   id={course._id}
                   videos={course.videos}
+                  user={user}
                 />
               );
             })

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Logo from "../../Logo/Logo";
+import glass from "../../../images/search-glass.png";
 import { Navbar, Nav, NavLink, NavItem, Container } from "reactstrap";
 import { Link } from "react-router-dom";
 import styles from "./AppNavbar.module.css";
@@ -29,6 +30,7 @@ class AppNavbar extends Component {
           onSubmit={this.submitHandler}
         >
           <div className="input-group">
+            <img src={glass} alt="glass" />
             <input
               type="text"
               className="form-control"
