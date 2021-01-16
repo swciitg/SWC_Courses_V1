@@ -636,4 +636,28 @@ exports.isAdminController = async (req, res, next) => {
   }
   res.status(401).json({ msg: "Only admin has access to this route" });
 };
-exports.createAdminController = async (req, res, next) => {};
+exports.createAdminController = async (req, res) => {
+  try {
+    const email = req.body.email;
+    const user = await User.findOneAndUpdate(
+      { email },
+      { isAdmin: true },
+      { new: true }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+exports.deleteAdminController = async (req, res) => {
+  try {
+    const email = req.body.email;
+    const user = await User.findOneAndUpdate(
+      { email },
+      { isAdmin: false },
+      { new: true }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};

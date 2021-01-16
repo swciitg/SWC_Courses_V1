@@ -35,6 +35,15 @@ router.post(
   adminController.thumbnailImageUpload,
   adminController.downloadAllTorrentFiles
 );
+/* ############## GIVE OR DELETE ADMIN ACCESS ################# */
+
+//1. MAKE SOMEONE ADMIN
+router.post("/createAdmin", adminController.createAdminController);
+
+//2. REMOVE SOMEONE FROM ADMIN
+router.post("/deleteAdmin", adminController.deleteAdminController);
+
+/* ############## //GIVE OR DELETE ADMIN ACCESS ################# */
 
 //update course
 router.put("/courses/:id", adminController.updateOneCourse);
