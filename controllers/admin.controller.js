@@ -22,10 +22,6 @@ ffmpeg.setFfprobePath(ffprobe.path);
 let storage = multer.diskStorage({
   destination: (req, file, cb) => {
     let dir = dirname.dirpath + "/assets/videos";
-
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir);
-    }
     cb(null, dir);
   },
   filename: (req, file, cb) => {
@@ -131,12 +127,14 @@ exports.deleteOneCourse = async (req, res) => {
     const foundVideos = await Media.find({ course: req.params.id });
     const len = foundVideos.length;
 
-    const deleteVideos = async (_) => {
+    const deleteVideos = async () => {
       for (const i = 0; i < len; i++) {
-        video = foundVideos[i];
+        let video = foundVideos[i];
         path = "assets" + video.filePath;
-        deletePath = path.substring(0, path.length - 9);
-        fs.rmdirSync(deletePath, { recursive: true }, function (err) {
+        let deletePath = path.substring(0, path.length - 9);
+        //it will delete all empty directories but assets directory will always have atleast one md file
+
+        fs.rmdir(deletePath, { recursive: true }, function (err) {
           if (err) {
             console.log(err);
           }
@@ -144,7 +142,7 @@ exports.deleteOneCourse = async (req, res) => {
       }
     };
 
-    deleteVideos().then(async (_) => {
+    deleteVideos().then(async () => {
       await Media.deleteMany({ course: req.params.id });
 
       await Course.findByIdAndDelete(req.params.id);
@@ -158,7 +156,7 @@ exports.deleteOneCourse = async (req, res) => {
 };
 
 exports.uploadVideo = (req, res) => {
-  upload(req, res, (err) => {
+  upload(req, res, async (err) => {
     const sizes = [
       [240, 350],
       [480, 700],
@@ -186,14 +184,21 @@ exports.uploadVideo = (req, res) => {
     console.log("target:", targetdir);
     console.log("name:", name);
     console.log("fn:", fn);
+    // try {
+    //   const targetdirInfo = fs.statSync(targetdir);
+    // } catch (err) {
+    //   if (err.code === "ENOENT") {
+    //     fs.mkdirSync(targetdir);
+    //   } else {
+    //     throw err;
+    //   }
+    // }
+
     try {
-      const targetdirInfo = fs.statSync(targetdir);
+      let targetdirInfo = await checkDirectoryPro(targetdir);
+      console.log(encoddirmsg);
     } catch (err) {
-      if (err.code === "ENOENT") {
-        fs.mkdirSync(targetdir);
-      } else {
-        throw err;
-      }
+      console.log(err);
     }
 
     const proc = ffmpeg({
@@ -265,7 +270,7 @@ exports.uploadVideo = (req, res) => {
                 foundCourse.videos.push(newlyCreated);
                 await foundCourse.save();
                 //console.log(newlyCreated);
-                fs.unlinkSync(
+                fs.unlink(
                   "assets/videos/" + req.files.video[0].originalname,
                   function (err) {
                     if (err) {
