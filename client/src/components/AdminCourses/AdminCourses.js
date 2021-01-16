@@ -15,7 +15,7 @@ class AdminCourses extends Component {
     title: "",
     author: "",
     description: "",
-    isAdmin: true,
+    isAdmin: false,
   };
   GetCourses = () => {
     axios

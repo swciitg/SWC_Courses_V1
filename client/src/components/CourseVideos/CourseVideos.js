@@ -52,9 +52,24 @@ const CourseVideos = (props) => {
       axios
         .get(`/api/courses/${details.id}`)
         .then((res) => {
-          // console.log("Media object", res.data.media);
-          setVideos(res.data.media);
-          const plist = res.data.media.map((vid, i) => {
+          var videos = res.data.media;
+
+          ///Sorting the videos
+          if (videos.length !== 0 && videos[0].hasOwnProperty("index")) {
+            videos.sort(function (a, b) {
+              if (a.index.sectionIndex === b.index.sectionIndex) {
+                return a.index.videoIndex - b.index.videoIndex;
+              }
+              return a.index.sectionIndex > b.index.sectionIndex ? 1 : -1;
+            });
+          } else {
+            console.log("Manually uploaded videos");
+          }
+          ///
+
+          // console.log("Media object", videos);
+          setVideos(videos);
+          const plist = videos.map((vid, i) => {
             return {
               sources: [
                 { src: `${vid.filePath}`, type: "application/dash+xml" },
