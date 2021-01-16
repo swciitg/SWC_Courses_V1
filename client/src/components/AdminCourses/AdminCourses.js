@@ -15,6 +15,7 @@ class AdminCourses extends Component {
     title: "",
     author: "",
     description: "",
+    isAdmin: false,
   };
   GetCourses = () => {
     axios
@@ -31,6 +32,15 @@ class AdminCourses extends Component {
 
   componentDidMount = () => {
     this.GetCourses();
+    axios
+      .get("/user")
+      .then((response) => {
+        const data = response.data;
+        this.setState({ isAdmin: data.isAdmin });
+      })
+      .catch(() => {
+        alert("Error retrieving data!!!");
+      });
     console.log(this.state.courses);
   };
 
@@ -113,7 +123,7 @@ class AdminCourses extends Component {
   };
 
   render() {
-    return (
+    return this.state.isAdmin ? (
       <div className={styles.App}>
         <br />
         <div className={styles.home}>
@@ -187,8 +197,46 @@ class AdminCourses extends Component {
           {this.displaycourselist(this.state.courses)}
         </div>
       </div>
+    ) : (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <h3>You are not an ADMIN</h3>
+        <button>
+          <Link to={{ pathname: "/" }} style={{ textDecoration: "none" }}>
+            BACK TO HOMEPAGE
+          </Link>
+        </button>
+      </div>
     );
   }
 }
 
 export default AdminCourses;
+
+// this.state.isAdmin ?
+
+{
+  /* <div
+  style={{
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  }}
+>
+  <h3>You are not an ADMIN</h3>
+  <button>
+    <Link to={{ pathname: "/" }} style={{ textDecoration: "none" }}>
+      BACK TO HOMEPAGE
+    </Link>
+  </button>
+</div>; */
+}

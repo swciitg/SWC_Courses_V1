@@ -5,6 +5,7 @@ import styles from "./CourseVideos.module.css";
 import ContentBox from "./ContentBox/ContentBox";
 import Dashboard from "./Dashboard/Dashboard";
 import axios from "axios";
+import StreamingErrBound from "../../hoc/StreamingErrBound";
 
 const CourseVideos = (props) => {
   const { user, details } = props.location.state;
