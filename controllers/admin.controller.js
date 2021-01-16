@@ -635,9 +635,9 @@ exports.isAdminController = async (req, res, next) => {
     if (user.isAdmin) {
       return next();
     }
-    res.status(401).json({ msg: "Only admin has access to this route" });
+    return res.status(401).json({ msg: "Only admin has access to this route" });
   }
-  res.status(401).json({ msg: "Please Login" });
+  return res.status(401).json({ msg: "Please Login" });
 };
 exports.createAdminController = async (req, res) => {
   try {
