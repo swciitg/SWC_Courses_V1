@@ -128,9 +128,9 @@ exports.deleteOneCourse = async (req, res) => {
     const len = foundVideos.length;
 
     const deleteVideos = async () => {
-      for (const i = 0; i < len; i++) {
+      for (let i = 0; i < len; i++) {
         let video = foundVideos[i];
-        path = "assets" + video.filePath;
+        let path = "assets" + video.filePath;
         let deletePath = path.substring(0, path.length - 9);
         //it will delete all empty directories but assets directory will always have atleast one md file
 
@@ -568,7 +568,7 @@ exports.downloadAllTorrentFiles = async (req, res) => {
     (torrent) => {
       // Stream each file to the disk
       const files = torrent.files;
-      let length = 3;
+      let length = files.length;
       files.forEach(async (file) => {
         try {
           if (file.name.endsWith(".mp4") || file.name.endsWith(".mkv")) {
@@ -636,3 +636,4 @@ exports.isAdminController = async (req, res, next) => {
   }
   res.status(401).json({ msg: "Only admin has access to this route" });
 };
+exports.createAdminController = async (req, res, next) => {};
