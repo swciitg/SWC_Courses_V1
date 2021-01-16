@@ -2,6 +2,10 @@ let express = require("express");
 let router = express.Router();
 let adminController = require("../controllers/admin.controller");
 let User = require("../models/user");
+const { isAdmin } = require("../middleware/index");
+
+//Auth middleware
+router.use("/", isAdmin);
 
 //home page route for admin
 router.get("/", function (req, res) {

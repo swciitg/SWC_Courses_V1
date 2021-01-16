@@ -28,4 +28,12 @@ const isLoggedIn = (req, res, next) => {
   }
 };
 
-module.exports = { authenticate, isLoggedIn };
+const isAdmin = (req, res, next) => {
+  if (req.user.isAdmin) {
+    next();
+  } else {
+    res.status(401).json({ msg: "Only admin has access to this route" });
+  }
+};
+
+module.exports = { authenticate, isLoggedIn, isAdmin };

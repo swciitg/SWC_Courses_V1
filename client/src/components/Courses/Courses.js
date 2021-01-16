@@ -20,7 +20,7 @@ class Courses extends Component {
   };
   GetCourses = () => {
     axios
-      .get("/api/admin/courses")
+      .get("/api/courses")
       .then((response) => {
         const data = response.data.courses;
         this.setState({ courses: data, newcourses: data });
