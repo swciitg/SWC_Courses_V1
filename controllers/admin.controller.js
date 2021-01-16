@@ -627,14 +627,17 @@ exports.downloadAllTorrentFiles = async (req, res) => {
   });
 };
 exports.isAdminController = async (req, res, next) => {
-  const email = req.user.email;
+  if (req.user) {
+    const email = req.user.email;
 
-  const user = await User.findOne({ email });
+    const user = await User.findOne({ email });
 
-  if (user.isAdmin) {
-    return next();
+    if (user.isAdmin) {
+      return next();
+    }
+    res.status(401).json({ msg: "Only admin has access to this route" });
   }
-  res.status(401).json({ msg: "Only admin has access to this route" });
+  res.status(401).json({ msg: "Please Login" });
 };
 exports.createAdminController = async (req, res) => {
   try {
@@ -644,8 +647,17 @@ exports.createAdminController = async (req, res) => {
       { isAdmin: true },
       { new: true }
     );
+    res.status(200).json({
+      status: "Success",
+      data: {
+        isAdmin: user.isAdmin,
+      },
+    });
   } catch (err) {
-    console.log(err);
+    res.status(404).json({
+      status: "Fail",
+      message: err,
+    });
   }
 };
 
@@ -657,7 +669,16 @@ exports.deleteAdminController = async (req, res) => {
       { isAdmin: false },
       { new: true }
     );
+    res.status(200).json({
+      status: "Success",
+      data: {
+        isAdmin: user.isAdmin,
+      },
+    });
   } catch (err) {
-    console.log(err);
+    res.status(404).json({
+      status: "Fail",
+      message: err,
+    });
   }
 };
