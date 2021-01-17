@@ -4,16 +4,16 @@
 }
 .roott {
   width: 300px;
-    height: 350px;
-  textAlign: left;
+  height: 350px;
+  text-align: left;
   margin: 15px;
   display: inline-block;
 }
 .mediat {
   height: 140vh;
 }
-.nocourse{
-  height : 100vh ;
+.nocourse {
+  height: 100vh;
 }
 .App {
   text-align: center;
@@ -26,44 +26,91 @@
   min-height: 100%;
   position: relative;
 }
-.search{
+.search {
   width: 800px;
   height: 70px;
-    text-align: center;
-    font-size: 2.5rem;
-    font-style: italic;
+  text-align: center;
+  font-size: 2.5rem;
+  font-style: italic;
 }
-  @media (max-width: 500px) {
-    .App {
-      background-size: 500% 120vh;
-      background-position: 48% 0%;
-      height: 100%;
-      background-attachment: scroll;
-    }
+@media (max-width: 500px) {
+  .App {
+    background-size: 500% 120vh;
+    background-position: 48% 0%;
+    height: 100%;
+    background-attachment: scroll;
   }
-  .container {
-    width: 100%;
-    padding: 20px;
-    background-image: linear-gradient(rgb(255, 224, 49), rgb(255, 247, 212));
-    border-top: 0.5px solid white;
-  }
+}
+.container {
+  width: 100%;
+  padding: 20px;
+  background-image: linear-gradient(rgb(255, 224, 49), rgb(255, 247, 212));
+  border-top: 0.5px solid white;
+}
 
-  .center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.containerTitle {
+  margin: 30px 0;
+  font-size: 4rem;
+  color: rgb(236, 235, 235);
+  text-shadow: 1px 1px 2px black;
+}
+
+@media all and (max-width: 500px) {
   .containerTitle {
-    margin: 30px 0;
-    font-size: 4rem;
-    color: rgb(236, 235, 235);
-    text-shadow: 1px 1px 2px black;
+    margin: 0 0 15px;
+    font-size: 2.5rem;
   }
+}
+.Nav {
+  font-family: "Rubik", sans-serif;
+}
 
-  @media all and (max-width: 500px) {
-    .containerTitle {
-      margin: 0 0 15px;
-      font-size: 2.5rem;
-    }
-  }
+.NavLink {
+  font-weight: 500;
+  color: #000000;
+  margin-right: 1rem;
+}
+
+.SearchForm {
+  position: relative;
+}
+
+.SearchForm input {
+  padding: 1.5rem;
+  padding-left: 4rem;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+  border-radius: 20px !important;
+  font-size: 1.2rem;
+  font-weight: 300;
+  background-color: #ffffff;
+  /* background-image: url("/images/search-glass.png"); */
+  background-repeat: no-repeat;
+  background-position: left 1rem center;
+  background-size: 1.5rem 1.5rem;
+}
+
+.SearchForm img {
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  z-index: 30;
+  transform: scale(0.8);
+}
+
+.NavItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.NavLink:hover {
+  color: #000000;
+  text-decoration: none;
+}
