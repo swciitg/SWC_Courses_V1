@@ -7,7 +7,7 @@ import axios from "axios";
 import BookmarksList from "./BookmarksList";
 
 export default function Bookmarks(props) {
-  const { curId, details, curTime } = props;
+  const { curId, details, curTime, goToBookmarkTime } = props;
   const [timestamp, setTimeStamp] = useState("0:00");
   const [text, setText] = useState("");
   const [bookmarks, setBookmarks] = useState([]);
@@ -140,6 +140,7 @@ export default function Bookmarks(props) {
         details={details}
         bookmarks={bookmarks}
         deleteHandler={deleteHandler}
+        goToBookmarkTime={goToBookmarkTime}
       />
     </div>
   );

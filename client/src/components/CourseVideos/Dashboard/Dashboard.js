@@ -66,7 +66,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard(props) {
-  const { details, user, videos, changeVideo, curId, curTime } = props;
+  const {
+    details,
+    user,
+    videos,
+    changeVideo,
+    curId,
+    curTime,
+    goToBookmarkTime,
+  } = props;
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [checked, setChecked] = React.useState([0]); /// FROM ContentBox
@@ -181,6 +189,7 @@ export default function Dashboard(props) {
           user={user}
           details={details}
           curTime={curTime}
+          goToBookmarkTime={goToBookmarkTime}
         />
       </TabPanel>
       <TabPanel value={value} index={2}>

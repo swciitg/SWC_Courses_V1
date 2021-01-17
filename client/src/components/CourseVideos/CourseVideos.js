@@ -45,6 +45,11 @@ const CourseVideos = (props) => {
     localStorage.setItem(`${details.id}`, JSON.stringify(last_vid_details));
   };
 
+  const goToBookmarkTime = (time) => {
+    console.log("Time from the bookmark", time);
+    document.querySelector("video").currentTime = time;
+  };
+
   useEffect(() => {
     ///////// @start
     ///////// THIS IS AN API CALL TO THE "/api/courses/:id" ROUTE
@@ -121,6 +126,7 @@ const CourseVideos = (props) => {
           changeVideo={changeVideo}
           curId={curId}
           curTime={curTime}
+          goToBookmarkTime={goToBookmarkTime}
         />
       </div>
     </div>

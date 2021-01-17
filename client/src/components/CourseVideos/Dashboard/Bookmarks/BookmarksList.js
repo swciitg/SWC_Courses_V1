@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function BookmarksList(props) {
-  const { user, details, bookmarks, deleteHandler } = props;
+  const { user, details, bookmarks, deleteHandler, goToBookmarkTime } = props;
   const classes = useStyles();
 
   return (
@@ -45,6 +45,16 @@ export default function BookmarksList(props) {
                   primary={bookmark.text}
                   secondary={bookmark.timestamp}
                   className="bookmarkText"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    const ts = bookmark.timestamp;
+                    const time =
+                      Number(ts.substr(6, 2)) +
+                      60 * Number(ts.substr(3, 2)) +
+                      60 * 60 * Number(ts.substr(0, 2));
+                    console.log("TIMESTAMP", time);
+                    goToBookmarkTime(time);
+                  }}
                 />
                 <ListItemSecondaryAction>
                   <IconButton

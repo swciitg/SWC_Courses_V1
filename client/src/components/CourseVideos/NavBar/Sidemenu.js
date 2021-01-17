@@ -86,7 +86,7 @@ export default function Sidemenu() {
               color: "#252f5a",
             }}
           >
-            <ListItemText primary="PROFILE" />
+            <ListItemText primary="MY COURSES" />
           </Link>
         </ListItem>
         <ListItem button style={{ paddingLeft: "30px", margin: "4px 0" }}>
