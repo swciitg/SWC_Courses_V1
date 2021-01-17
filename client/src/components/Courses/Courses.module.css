@@ -114,3 +114,62 @@
   color: #000000;
   text-decoration: none;
 }
+.Body {
+  background-image: url("../../images/coursesback.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100%;
+  padding-bottom: 5%;
+}
+
+.Container {
+  background-color: rgb(255, 255, 255);
+  margin-top: 5%;
+  border-radius: 30px;
+  margin-bottom: 5%;
+  min-height: 50vh;
+}
+
+.Heading {
+  padding-top: 3%;
+  font-family: "Roboto", sans-serif;
+}
+
+@media only screen and (max-width: 550px) {
+  .Container {
+    width: 90%;
+  }
+}
+.CourseCard {
+    color:black;
+    position: relative;
+    box-shadow: 0 14px 26px rgba(0,0,0,0.10);
+    transition: all 0.2s ease-out;
+    text-decoration: none;
+    width: 16rem;
+    height:22.5rem;
+    padding:1rem;
+    margin:1rem;
+  }
+
+  .CourseCard:hover,.CourseCard:focus {
+    transform: translateY(-5px) scale(1.01) translateZ(0);
+    box-shadow: 0 24px 36px rgba(0,0,0,0.20)
+  }
+
+  .CourseCard:active {
+    transform: scale(1) translateZ(0);
+    box-shadow: 0 15px 24px rgba(0,0,0,0.15),
+  }
+
+  .CourseCard p{
+    max-height:90%;
+    overflow:hidden;
+    text-align: justify-all;
+    display:block;
+    display:-webkit-box;
+    -webkit-line-clamp:6;
+    -webkit-box-orient:vertical;
+    text-overflow:ellipsis;
+  }

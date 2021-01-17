@@ -11,10 +11,10 @@ import Button from "@material-ui/core/Button";
 import CardContainer from "../LandingPage/Cards/CardContainer";
 import ErrorBoundary from "../../hoc/ErrorBoundary";
 import Logo from "../Logo/Logo";
-import glass from "../../images/avatar.png";
+import glass from "../../images/search-glass.png";
 import { Navbar, Nav, NavLink, NavItem } from "reactstrap";
 import Avatar from "@material-ui/core/Avatar";
-
+import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
 
 class Courses extends Component {
   state = {
@@ -58,7 +58,47 @@ class Courses extends Component {
     });
     this.setState({ newcourses: newcourses });
   };
+  displaycourselist = (courses) => {
+     const newcourses = this.state.courses.filter(course =>{
+       return course.title.toLowerCase().includes(this.state.inputvalue.toLowerCase())
+     });
+     if (!newcourses.length) return (
+       <div className={styles.nocourse}>
+       No Courses Found
+       </div>
+     );
 
+
+     return newcourses.map((course) => (
+       <Link
+       to={{
+         pathname: `/courses/${course._id}/videos/${course.videos[0]}`,
+         state: {
+           details: {
+             description: course.description,
+             id: course._id,
+             imgScr: course.imgScr,
+             title: course.title,
+             videos:course.videos,
+           }
+         },
+       }}
+       style={{ textDecoration: "none" }}
+     >
+       <Card className={classNames(styles.CourseCard, "border-light")}>
+         <CardImg top width="100%" src={course.imgScr} alt="Card image cap" />
+         <CardBody>
+           <CardTitle>
+             <h5>{course.title}</h5>
+           </CardTitle>
+           <CardText>
+             <p>{course.description}</p>
+           </CardText>
+         </CardBody>
+       </Card>
+     </Link>
+     ));
+   };
   render() {
     return (
       <div className={styles.App}>
@@ -115,8 +155,19 @@ class Courses extends Component {
           </NavItem>
         </Nav>
       </Navbar>
-        <br />
-        
+        <Container className={classNames(styles.Container, "py-5")}>
+      <h2
+        style={{ color: "#333", textAlign: "center", marginBottom: "30px" }}
+      >
+        ALL COURSES
+      </h2>
+      <Container
+        className="d-flex"
+        style={{ flexWrap: "wrap", justifyContent: "center" }}
+      >
+         {this.displaycourselist(this.state.courses)}
+         </Container>
+      </Container>
       </div>
     );
   }
