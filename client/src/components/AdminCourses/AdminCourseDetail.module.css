@@ -1,7 +1,10 @@
 .App {
   text-align: center;
-  background-color: rgb(255, 224, 49);
-  background-image: url("../../images/home-bg.png");
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(255, 252, 200, 1) 0%,
+    rgba(255, 247, 94, 1) 90%
+  );
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -69,7 +72,7 @@ input[type=submit]:hover {
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
-  height: 300px;
+  height: 10%;
   width : 100%;
 }
 .input{
@@ -83,11 +86,11 @@ input[type=submit]:hover {
 .h1{
   background-color: white;
   margin: 30px 0;
-  font-size: 3rem;
+  font-size: 1.3rem;
   color: black;
   text-shadow: 1px 1px 2px black;
   text-decoration: underline;
-  width: 40%;
+  width: 20%;
   height: 10%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -96,19 +99,18 @@ input[type=submit]:hover {
   margin-top: 6px;
   margin-bottom: 16px;
   resize: vertical;
-  margin-left: 50px;
+  margin-left: 500px;
   color: white;
   padding: 12px 20px;
   cursor: pointer;
   background-color: grey;
-  margin-left: 375px;
 }
 .containerTitle{
   background-color: white;
 }
 .button{
-  width: 25%;
-  height: 5%;
+  width: 24%;
+  height: 10%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -124,6 +126,11 @@ input[type=submit]:hover {
   margin-left: 485px;
 }
 .plz{
+
+  width: 32vh;
+  height: 1vh;
+}
+.font{
   color: white;
   font-size: 1rem;
   font-style: oblique;
@@ -145,7 +152,7 @@ input[type=submit]:hover {
   background-color: #45a049;
 }
 .delete{
-  width: 25%;
+  width: 20%;
   height: 10%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -154,7 +161,7 @@ input[type=submit]:hover {
   margin-top: 6px;
   margin-bottom: 16px;
   resize: vertical;
-  margin-left: 50px;
+  margin-left: 10px;
   color: white;
   padding: 12px 20px;
   cursor: pointer;

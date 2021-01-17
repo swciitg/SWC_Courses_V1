@@ -7,6 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styles from "./AdminCourseDetail.module.css";
 import Button from "@material-ui/core/Button";
+import { useAlert } from 'react-alert';
+
 
 class AdminCourseDetail extends Component  {
   state = {
@@ -19,7 +21,7 @@ class AdminCourseDetail extends Component  {
      axios.get(`/api/courses/${this.props.match.params.id}`)
        .then((response) => {
          const data =response.data;
-         this.setState({ course: data ,title:data.title,author:data.author,description:data.description});
+         this.setState({ course: data , title:data.title, author:data.author, description:data.description});
          console.log('Data has been received!!');
        })
        .catch(() => {
@@ -43,6 +45,7 @@ componentDidMount = () => {
  };
 
  deleteCourse = (e) => {
+if (window.confirm('Are you sure you wish to delete this course permanentaly?')){
    const apiCall = () => {
      axios({
        method: "delete",
@@ -55,9 +58,11 @@ componentDidMount = () => {
        .catch((err) => {
          console.error(err);
        });
-   };
+     }
+
    apiCall();
    window.open("http://localhost:3000/api/admin/courses");
+ }
  };
  handleSubmit = (e) => {
    e.preventDefault();
@@ -91,16 +96,21 @@ componentDidMount = () => {
       <div className={styles.App}>
       <br/>
       <div className={styles.home}>
-      <Button>
+      <Button className={styles.plz}>
         <Link to={{ pathname: "/api/admin/courses"}}>
-          <span className={styles.plz}>BACK TO ALL COURSES</span>
+          <span className={styles.font}>BACK TO ALL COURSES</span>
         </Link>
       </Button>
       </div>
-        <span>___________________________________________________________________________________________________________________________________________________________________________</span>
-        <h1 className={styles.h1}>EDIT THIS  COURSE</h1>
+        <span>_______________________________________________________________________________________________________________________________________________________________________________</span>
+
       <div className={styles.container}>
+
       <form onSubmit={this.handleSubmit}>
+
+      <legend>
+              <h1 className={styles.h1}>EDIT THIS  COURSE</h1>
+              </legend>
             <label className={styles.input}>
               Course Title
               <input type="text" value={this.state.title} onChange={this.handleChangetitle} />
@@ -112,24 +122,29 @@ componentDidMount = () => {
             <br/>
             <label className={styles.area}>
               Course Description
-              <textarea value={this.state.description} onChange={this.handleChangedescription} />
+              <textarea  value={this.state.description} onChange={this.handleChangedescription} />
             </label>
             <br/>
             <input type="submit" value="EDIT CURRENT DETAILS" />
+
           </form>
+
 </div>
+
 <br/>
     <div className={styles.button}>
     <Button>
       <Link to={{ pathname: `/api/admin/courses/${this.props.match.params.id}/videos`}}>
-        <span className={styles.plz}>ADD VIDEOS FOR THE COURSE</span>
+        <span className={styles.font}>ADD VIDEOS FOR THE COURSE</span>
       </Link>
     </Button>
     </div>
     <br/>
-    <form onSubmit={this.deleteCourse}>
+  <form onSubmit={this.deleteCourse}>
       <input type="submit" value="DELETE THIS COURSE" className={styles.delete} />
+
       </form>
+
     </div>
     );
   }

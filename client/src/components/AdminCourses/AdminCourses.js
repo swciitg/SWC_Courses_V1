@@ -64,12 +64,9 @@ class AdminCourses extends Component  {
       <div  className={styles.blog}>
             <div className="card" id="cards">
                 <div className="card-block">
-                    <h3 className="card-title">{course.title}</h3>
+                    <h4 className="card-title">Course Name :{course.title}</h4>
                     <div className="meta">
-                        <h5>{course.author}</h5>
-                    </div>
-                    <div className="card-text">
-                        <p>{course.description}</p>
+                        <h7>Course Author :{course.author}</h7>
                     </div>
                     <div>
                      <Button size="small" color="primary">
@@ -123,10 +120,14 @@ class AdminCourses extends Component  {
       </Button>
       </div>
         <span>___________________________________________________________________________________________________________________________________________________________________________</span>
-        <br/><br/>
-        <h1 className={styles.h1}>ADD  NEW  COURSES</h1>
+        <br/>
+
       <div className={styles.container}>
       <form onSubmit={this.handleSubmit}>
+      <fieldset>
+      <legend>
+      <h1 className={styles.h1}>ADD  NEW  COURSES</h1>
+      </legend>
             <label className={styles.input}>
               Course Title
               <input type="text" value={this.state.title} onChange={this.handleChangetitle}/>
@@ -142,20 +143,26 @@ class AdminCourses extends Component  {
             </label>
             <br/>
             <input type="submit" value="Submit" />
+            </fieldset>
           </form>
 </div>
-<br/>
         <span>___________________________________________________________________________________________________________________________________________________________________________</span>
         <br/>
         <div>
+        <form>
+        <fieldset>
+        <legend>
         <h1 className={styles.containerTitle}>ALL COURSES</h1>
-        <input type = "text" value = {this.state.inputvalue} onChange= {this.filterchange} placeholder = "SEARCH BY NAME" className={styles.search}/>
-        <br/>
+        </legend>
+        <input type="text" className={`mb-4 ${styles.hscrInput}`} placeholder="Find courses ..." onChange= {this.filterchange} value = {this.state.inputvalue} />
+        </fieldset>
+        </form>
         </div>
         <div className={styles.card} id="cards" >
           {this.displaycourselist(this.state.courses)}
         </div>
         </div>
+
     );
   }
 }
