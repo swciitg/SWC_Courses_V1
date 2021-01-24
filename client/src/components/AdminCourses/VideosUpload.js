@@ -28,6 +28,7 @@ const VideosUpload = (props) => {
         "content-type": "multipart/form-data",
       },
       withCredentials: true,
+      // timeout:
     };
     axios
       .post(url, formData, config)

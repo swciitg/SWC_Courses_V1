@@ -158,6 +158,11 @@ exports.deleteOneCourse = async (req, res) => {
 };
 
 exports.uploadVideo = (req, res) => {
+  // res.status(200).json({
+  //   msg:
+  //     "Video is uploaded on server and is under processing check logs for more details",
+  // });
+
   upload(req, res, (err) => {
     const sizes = [
       [240, 350],
@@ -276,6 +281,7 @@ exports.uploadVideo = (req, res) => {
                 );
 
                 return res.status(200).json(newlyCreated);
+                // return console.log("Newly created media -\n", newlyCreated);
               }
             });
           });
