@@ -72,7 +72,7 @@ class Courses extends Component {
      return newcourses.map((course) => (
        <Link
        to={{
-         pathname: `/courses/${course._id}/videos/${course.videos[0]}`,
+         pathname: `/courses/${course._id}`,
          state: {
            details: {
              description: course.description,

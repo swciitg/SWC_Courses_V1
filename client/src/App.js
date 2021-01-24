@@ -15,8 +15,7 @@ import { UserContext } from "./contexts/UserContext";
 import { CoursesProvider } from "./contexts/CoursesContext";
 import ProtectedRoute from "./hoc/ProtectedRoute";
 import AdminRoute from "./hoc/AdminRoute";
-import AdminCourses from "./components/AdminCourses/AdminCourses";
-import AdminCourseDetail from "./components/AdminCourses/AdminCourseDetail";
+
 import VideosUpload from "./components/AdminCourses/VideosUpload";
 import spinner from "./images/spinner.gif";
 import CourseVideos from "./components/CourseVideos/CourseVideos";
