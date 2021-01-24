@@ -121,7 +121,15 @@ class AdminCourses extends Component  {
       </div>
         <span>___________________________________________________________________________________________________________________________________________________________________________</span>
         <br/>
-
+              <br />
+              <Link to={`/admin/courses/torrentUpload`}>
+                <h1 className={styles.h1}>TORRENT COURSES</h1>
+              </Link>
+              <span>
+                ___________________________________________________________________________________________________________________________________________________________________________
+              </span>
+              <br />
+              <br />
       <div className={styles.container}>
       <form onSubmit={this.handleSubmit}>
       <fieldset>
