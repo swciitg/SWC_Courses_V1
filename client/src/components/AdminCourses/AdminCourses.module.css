@@ -13,26 +13,26 @@
   position: absolute;
 }
 
-.blog{
-  display : inline-block ;
-  width : 100vh;
+.blog {
+  display: inline-block;
+  width: 100vh;
   height: 100%;
   margin: 20px 20px 20px 20px;
   font-size: 1rem;
 }
-.card{
+.card {
   position: relative;
   background-image: radial-gradient(
     circle farthest-corner at 10% 20%,
     rgba(255, 252, 200, 1) 0%,
     rgba(255, 247, 94, 1) 90%
   );
-    width : 100%;
-  }
-.search{
+  width: 100%;
+}
+.search {
   display: inline;
   height: 50px;
-  width : 200px;
+  width: 200px;
   text-align: center;
   font-size: 1.5rem;
   font-style: italic;
@@ -45,7 +45,9 @@
   text-decoration: underline;
 }
 /* Style inputs with type="text", select elements and textareas */
-input[type=text], select, textarea {
+.App input[type="text"],
+.App select,
+.App textarea {
   width: 100%; /* Full width */
   padding: 12px; /* Some padding */
   border: 1px solid #ccc; /* Gray border */
@@ -53,12 +55,12 @@ input[type=text], select, textarea {
   box-sizing: border-box; /* Make sure that padding and width stays in place */
   margin-top: 6px; /* Add a top margin */
   margin-bottom: 16px; /* Bottom margin */
-  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+  resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
 }
 
 /* Style the submit button with a specific background color etc */
-input[type=submit] {
-  background-color: #4CAF50;
+.App input[type="submit"] {
+  background-color: #4caf50;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -67,7 +69,7 @@ input[type=submit] {
 }
 
 /* When moving the mouse over the submit button, add a darker green color */
-input[type=submit]:hover {
+.App input[type="submit"]:hover {
   background-color: #45a049;
 }
 
@@ -77,17 +79,17 @@ input[type=submit]:hover {
   background-color: #f2f2f2;
   padding: 20px;
   height: 375px;
-  width : 100%;
+  width: 100%;
 }
-.input{
-  width : 500px;
-  height : 75px;
+.input {
+  width: 500px;
+  height: 75px;
 }
-.area{
-  width : 1000px;
-  height : 100px;
+.area {
+  width: 1000px;
+  height: 100px;
 }
-.h1{
+.h1 {
   background-color: white;
   margin: 30px 0;
   font-size: 1.3rem;
@@ -109,7 +111,7 @@ input[type=submit]:hover {
   cursor: pointer;
   background-color: grey;
 }
-.containerTitle{
+.containerTitle {
   background-color: white;
   background-color: white;
   margin: 30px 0;
@@ -132,12 +134,12 @@ input[type=submit]:hover {
   cursor: pointer;
   background-color: grey;
 }
-.plz{
+.plz {
   color: white;
   font-size: 1rem;
   font-style: oblique;
 }
-.home{
+.home {
   width: 20%;
   height: 10%;
   padding: 12px;

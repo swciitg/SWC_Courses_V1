@@ -52,7 +52,7 @@ export default function BookmarksList(props) {
                       Number(ts.substr(6, 2)) +
                       60 * Number(ts.substr(3, 2)) +
                       60 * 60 * Number(ts.substr(0, 2));
-                    console.log("TIMESTAMP", time);
+                    // console.log("TIMESTAMP", time);
                     goToBookmarkTime(time);
                   }}
                 />

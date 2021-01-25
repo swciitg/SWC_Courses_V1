@@ -46,7 +46,7 @@ const CourseVideos = (props) => {
   };
 
   const goToBookmarkTime = (time) => {
-    console.log("Time from the bookmark", time);
+    // console.log("Time from the bookmark", time);
     document.querySelector("video").currentTime = time;
   };
 

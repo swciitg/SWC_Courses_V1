@@ -34,6 +34,7 @@
     "passport": "^0.4.1",
     "passport-local-mongoose": "^6.0.1",
     "passport-outlook": "^2.3.0",
+    "react-alert": "^7.0.2",
     "video.js": "^7.10.2",
     "webtorrent-hybrid": "^4.0.3"
   },

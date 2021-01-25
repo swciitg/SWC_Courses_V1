@@ -18,8 +18,8 @@ const CoursePage = (props) => {
   // const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    console.log("Courses", courses);
-    console.log("User", user);
+    // console.log("Courses", courses);
+    // console.log("User", user);
     if (user.name !== undefined) {
       const eCourses = courses.filter((course) => {
         return user.enrolled_courses_id.includes(course._id);

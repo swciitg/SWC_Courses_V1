@@ -13,6 +13,7 @@ import Courses from "./components/Courses/Courses";
 import { AuthProvider } from "./contexts/AuthContext";
 import { UserContext } from "./contexts/UserContext";
 import { CoursesProvider } from "./contexts/CoursesContext";
+import { UserProvider } from "./contexts/UserContext";
 import ProtectedRoute from "./hoc/ProtectedRoute";
 import AdminRoute from "./hoc/AdminRoute";
 
@@ -25,61 +26,49 @@ import StreamingErrBound from "./hoc/StreamingErrBound";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 const App = (props) => {
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    ///////// @start
-    ///////// THIS IS AN API CALL TO THE "/user" ROUTE
-    const apiCall = () => {
-      axios
-        .get("/user")
-        .then((res) => {
-          //   console.log(res.data);
-          setUser(res.data);
-        })
-        .catch((err) => console.log(err));
-    };
-    apiCall();
-    ////////// @end
-  }, []);
-
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <div className={styles.App}>
-          <Switch>
-            <Route path="/" exact component={LandingPage} />
-            <ProtectedRoute
-              exact
-              path="/profile"
-              component={(props) => (
-                <CoursePage {...props} profile={true} courses={false} />
-              )}
-            ></ProtectedRoute>
-            <Route
-              path="/courses"
-              exact
-              // component={(props) => (
-              //   <CoursePage {...props} profile={false} courses={true} />
-              // )}
-              component={Courses}
-            />
-            <Route path="/courses/:id" exact component={CourseDetail} />
-            <Route path="/api/admin/courses" exact component={AdminCourses} />
-            <Route path="/api/admin/courses/:id" exact component={AdminCourseDetail} />
-            <Route
-              path="/courses/:courseId/videos/:id"
-              exact
-              component={CourseVideos}
-            />
-            {/* <VideoRoute
-              exact
-              path="/courses/:courseId/videos/:id"
-              component={CourseVideos}
-            ></VideoRoute> */}
-          </Switch>
-        </div>
-      </BrowserRouter>
+      <CoursesProvider>
+        <UserProvider>
+          <BrowserRouter>
+            <div className={styles.App}>
+              <Switch>
+                <Route path="/" exact component={LandingPage} />
+                <ProtectedRoute
+                  exact
+                  path="/profile"
+                  component={(props) => (
+                    <CoursePage {...props} profile={true} courses={false} />
+                  )}
+                ></ProtectedRoute>
+                <Route path="/courses" exact component={Courses} />
+                <Route path="/courses/:id" exact component={CourseDetail} />
+                <Route path="/admin/courses" exact component={AdminCourses} />
+                <Route
+                  path="/admin/courses/torrentUpload"
+                  exact
+                  component={TorrentUpload}
+                />
+                <Route
+                  path="/admin/courses/:id/videos"
+                  exact
+                  component={VideosUpload}
+                />
+                <Route
+                  path="/admin/courses/:id"
+                  exact
+                  component={AdminCourseDetail}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/courses/:courseId/videos/:id"
+                  component={CourseVideos}
+                ></ProtectedRoute>
+              </Switch>
+            </div>
+          </BrowserRouter>
+        </UserProvider>
+      </CoursesProvider>
     </AuthProvider>
   );
 };
