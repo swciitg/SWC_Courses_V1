@@ -176,10 +176,10 @@ class AdminCourses extends Component {
               </legend>
               <input
                 type="text"
-                className={`mb-4 ${styles.hscrInput}`}
                 placeholder="Find courses ..."
                 onChange={this.filterchange}
                 value={this.state.inputvalue}
+                style={{ width: "50%" }}
               />
             </fieldset>
           </form>

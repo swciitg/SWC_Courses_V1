@@ -16,11 +16,14 @@ class AdminCourseDetail extends Component {
     author: "",
     description: "",
   };
+
   GetCourses = () => {
     axios
       .get(`/api/courses/${this.props.match.params.id}`)
       .then((response) => {
-        const data = response.data;
+        const data = response.data.course;
+
+        console.log(response.data);
         this.setState({
           course: data,
           title: data.title,
@@ -70,9 +73,10 @@ class AdminCourseDetail extends Component {
       };
 
       apiCall();
-      window.open("http://localhost:3000/api/admin/courses");
+      window.open("http://localhost:3000/admin/courses", "_self");
     }
   };
+
   handleSubmit = (e) => {
     e.preventDefault();
 
@@ -98,13 +102,14 @@ class AdminCourseDetail extends Component {
     apiCall();
     window.location.reload(false);
   };
+
   render() {
     return (
       <div className={styles.App}>
         <br />
         <div className={styles.home}>
           <Button className={styles.plz}>
-            <Link to={{ pathname: "/api/admin/courses" }}>
+            <Link to={{ pathname: "/admin/courses" }}>
               <span className={styles.font}>BACK TO ALL COURSES</span>
             </Link>
           </Button>
@@ -153,6 +158,9 @@ class AdminCourseDetail extends Component {
             <Link
               to={{
                 pathname: `/admin/courses/${this.props.match.params.id}/videos`,
+                state: {
+                  title: this.state.title,
+                },
               }}
             >
               <span className={styles.font}>ADD VIDEOS FOR THE COURSE</span>

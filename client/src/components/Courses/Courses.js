@@ -33,7 +33,7 @@ class Courses extends Component {
 
   GetCourses = () => {
     axios
-      .get("/api/admin/courses")
+      .get("/api/courses")
       .then((response) => {
         const data = response.data.courses;
         this.setState({ courses: data, newcourses: data });
@@ -50,7 +50,7 @@ class Courses extends Component {
   };
 
   filterchange = (event) => {
-    console.log("hello", event.target.value);
+    // console.log("hello", event.target.value);
     this.setState({
       inputvalue: event.target.value,
     });
@@ -76,19 +76,17 @@ class Courses extends Component {
         to={{
           pathname: `/courses/${course._id}`,
           state: {
-            details: {
-              description: course.description,
-              id: course._id,
-              imgScr: course.imgScr,
-              title: course.title,
-              videos: course.videos,
-            },
+            description: course.description,
+            id: course._id,
+            imgScr: course.img,
+            title: course.title,
+            videos: course.videos,
           },
         }}
         style={{ textDecoration: "none" }}
       >
         <Card className={classNames(styles.CourseCard, "border-light")}>
-          <CardImg top width="100%" src={course.imgScr} alt="Card image cap" />
+          <CardImg top width="100%" src={course.img} alt="Card image cap" />
           <CardBody>
             <CardTitle>
               <h5>{course.title}</h5>
@@ -148,7 +146,7 @@ class Courses extends Component {
             </NavItem>
             <NavItem className={styles.NavItem}>
               <Link to="/profile">
-                <NavLink className={styles.NavLink}>{this.props.name}</NavLink>
+                <NavLink className={styles.NavLink}>MY COURSES</NavLink>
               </Link>
             </NavItem>
             <NavItem>

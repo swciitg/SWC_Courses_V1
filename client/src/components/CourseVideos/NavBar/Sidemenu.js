@@ -12,8 +12,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import logo from "../../../images/logo.png";
-import SearchBar from "../../LandingPage/HomeScreen/SearchBar/SearchBar";
-import { CoursesContext } from "../../../contexts/CoursesContext";
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -30,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Sidemenu() {
   const classes = useStyles();
   const [state, setState] = React.useState({ left: false });
-  const { courses } = useContext(CoursesContext);
 
   const logoutHandler = () => {
     window.open("http://localhost:5000/auth/logout", "_self");
@@ -69,9 +66,6 @@ export default function Sidemenu() {
               transform: "scale(0.9)",
             }}
           />
-        </ListItem>
-        <ListItem>
-          <SearchBar courses={courses} />
         </ListItem>
         <ListItem button style={{ paddingLeft: "30px", margin: "4px 0" }}>
           <Link

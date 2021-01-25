@@ -7,7 +7,7 @@ import spinner from "../../../images/spinner.gif";
 const CardContainer = ({ courses }) => {
   return (
     <div className={styles.container}>
-      <h1 className={styles.containerTitle}>ALL COURSES</h1>
+      <h1 className={styles.containerTitle}>TOP COURSES</h1>
       {!courses.length ? (
         <div className={styles.center} style={{ height: "60vh" }}>
           <img src={spinner} alt="" width="150px" height="150px" />
