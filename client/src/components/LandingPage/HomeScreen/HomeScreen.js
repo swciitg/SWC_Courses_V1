@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import CoursesBtn from "./CoursesBtn/CoursesBtn";
 import styles from "./HomeScreen.module.css";
 import SearchBar from "./SearchBar/SearchBar";
 // ${styles.HomeScreen}
