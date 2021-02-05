@@ -16,11 +16,11 @@ import { CoursesProvider } from "./contexts/CoursesContext";
 import { UserProvider } from "./contexts/UserContext";
 import ProtectedRoute from "./hoc/ProtectedRoute";
 import AdminRoute from "./hoc/AdminRoute";
-
 import VideosUpload from "./components/AdminCourses/VideosUpload";
 import spinner from "./images/spinner.gif";
 import CourseVideos from "./components/CourseVideos/CourseVideos";
 import TorrentUpload from "./components/AdminCourses/TorrentUpload";
+import UserPanel from "./components/AdminCourses/UserPanel/UserPanel";
 import StreamingErrBound from "./hoc/StreamingErrBound";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -48,6 +48,11 @@ const App = (props) => {
                   path="/admin/courses/torrentUpload"
                   exact
                   component={TorrentUpload}
+                />
+                <Route
+                  path="/admin/courses/userPanel"
+                  exact
+                  component={UserPanel}
                 />
                 <Route
                   path="/admin/courses/:id/videos"

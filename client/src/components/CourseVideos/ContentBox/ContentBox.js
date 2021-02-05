@@ -23,10 +23,6 @@ export default function ContentBox(props) {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([0]);
 
-  // React.useEffect(() => {
-  //   console.log("CodeBox loaded");
-  // }, []);
-
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];

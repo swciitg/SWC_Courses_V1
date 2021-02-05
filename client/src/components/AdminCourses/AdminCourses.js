@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styles from "./AdminCourses.module.css";
 import Button from "@material-ui/core/Button";
+import leftArrow from "../../images/left-arrow.png";
 
 class AdminCourses extends Component {
   state = {
@@ -109,24 +110,39 @@ class AdminCourses extends Component {
     return (
       <div className={styles.App}>
         <br />
-        <div className={styles.home}>
-          <Button>
+        <div className={styles.topBar}>
+          {/* <Button style={{ position: "absolute", left: "10px", top: "10px" }}>
             <Link to={{ pathname: "/" }}>
-              <span className={styles.plz}>BACK TO HOMEPAGE</span>
+              <span className={styles.backBtn}>BACK TO HOMEPAGE</span>
             </Link>
-          </Button>
+          </Button> */}
+          <Link to="/">
+            <button className={styles.BackButton}>
+              <img src={leftArrow} alt="back" />
+            </button>
+          </Link>
+          <h1
+            style={{
+              textAlign: "center",
+              fontSize: "5rem",
+              color: "#999",
+              marginTop: "25px",
+              fontWeight: "300",
+            }}
+          >
+            ADMIN PANEL
+          </h1>
         </div>
-        <span>
-          ___________________________________________________________________________________________________________________________________________________________________________
-        </span>
-        <br />
-        <br />
-        <Link to={`/admin/courses/torrentUpload`}>
-          <h1 className={styles.h1}>TORRENT COURSES</h1>
-        </Link>
-        <span>
-          ___________________________________________________________________________________________________________________________________________________________________________
-        </span>
+
+        <div className={styles.panelContainer}>
+          <Link to="/admin/courses/torrentUpload" className={styles.panelLinks}>
+            TORRENT COURSES
+          </Link>
+          <Link to="/admin/courses/userPanel" className={styles.panelLinks}>
+            USER PANEL
+          </Link>
+        </div>
+
         <br />
         <br />
         <div className={styles.container}>

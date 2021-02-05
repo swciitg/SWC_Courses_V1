@@ -627,3 +627,47 @@ exports.downloadAllTorrentFiles = async (req, res) => {
     }
   });
 };
+
+exports.createAdminController = async (req, res) => {
+  try {
+    const email = req.body.email;
+    const user = await User.findOneAndUpdate(
+      { email },
+      { isAdmin: true },
+      { new: true }
+    );
+    res.status(200).json({
+      status: "Success",
+      data: {
+        isAdmin: user.isAdmin,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "Fail",
+      message: err,
+    });
+  }
+};
+
+exports.deleteAdminController = async (req, res) => {
+  try {
+    const email = req.body.email;
+    const user = await User.findOneAndUpdate(
+      { email },
+      { isAdmin: false },
+      { new: true }
+    );
+    res.status(200).json({
+      status: "Success",
+      data: {
+        isAdmin: user.isAdmin,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "Fail",
+      message: err,
+    });
+  }
+};
