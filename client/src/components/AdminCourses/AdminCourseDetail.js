@@ -8,6 +8,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styles from "./AdminCourseDetail.module.css";
 import Button from "@material-ui/core/Button";
 import { useAlert } from "react-alert";
+import AdminCourseVideo from "./AdminCourseVideo";
 
 class AdminCourseDetail extends Component {
   state = {
@@ -21,7 +22,7 @@ class AdminCourseDetail extends Component {
     axios
       .get(`/api/courses/${this.props.match.params.id}`)
       .then((response) => {
-        const data = response.data.course;
+        const data = response.data;
 
         console.log(response.data);
         this.setState({
@@ -107,13 +108,22 @@ class AdminCourseDetail extends Component {
     return (
       <div className={styles.App}>
         <br />
+        <form onSubmit={this.deleteCourse}>
+          <input
+            type="submit"
+            value="DELETE THIS COURSE"
+            className={styles.delete}
+          />
+        </form>
         <div className={styles.home}>
           <Button className={styles.plz}>
             <Link to={{ pathname: "/admin/courses" }}>
               <span className={styles.font}>BACK TO ALL COURSES</span>
             </Link>
           </Button>
-        </div>
+          </div>
+
+
         <span>
           _______________________________________________________________________________________________________________________________________________________________________________
         </span>
@@ -154,7 +164,7 @@ class AdminCourseDetail extends Component {
 
         <br />
         <div className={styles.button}>
-          <Button>
+          <Button className={styles.plzadd}>
             <Link
               to={{
                 pathname: `/admin/courses/${this.props.match.params.id}/videos`,
@@ -163,18 +173,12 @@ class AdminCourseDetail extends Component {
                 },
               }}
             >
-              <span className={styles.font}>ADD VIDEOS FOR THE COURSE</span>
+              <span className={styles.font}>ADD COURSE VIDEOS</span>
             </Link>
           </Button>
         </div>
         <br />
-        <form onSubmit={this.deleteCourse}>
-          <input
-            type="submit"
-            value="DELETE THIS COURSE"
-            className={styles.delete}
-          />
-        </form>
+         <AdminCourseVideo/>
       </div>
     );
   }
