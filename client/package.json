@@ -15,6 +15,7 @@
     "classnames": "^2.2.6",
     "clsx": "^1.1.1",
     "js-cookie": "^2.2.1",
+    "mdbreact": "^5.0.1",
     "react": "^16.13.1",
     "react-alert": "^7.0.2",
     "react-alert-template-basic": "^1.0.0",

@@ -16,6 +16,7 @@ class AdminCourses extends Component {
     title: "",
     author: "",
     description: "",
+    file: null,
   };
   GetCourses = () => {
     axios
@@ -50,6 +51,11 @@ class AdminCourses extends Component {
   handleChangedescription = (event) => {
     this.setState({ description: event.target.value });
   };
+  handleChangeimg =(event)=> {
+   this.setState({
+     file: URL.createObjectURL(event.target.files[0])
+   })
+ };
 
   displaycourselist = (courses) => {
     const newcourses = this.state.courses.filter((course) => {
@@ -91,6 +97,7 @@ class AdminCourses extends Component {
           title: this.state.title,
           author: this.state.author,
           description: this.state.description,
+          imgPath: this.state.file,
         },
         withCredentials: true,
       })
@@ -175,7 +182,8 @@ class AdminCourses extends Component {
                   onChange={this.handleChangedescription}
                 />
               </label>
-              <br />
+              <input type="file" onChange={this.handleChangeimg}/>
+              <br/>
               <input type="submit" value="Submit" />
             </fieldset>
           </form>
