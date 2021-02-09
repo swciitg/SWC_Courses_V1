@@ -10,6 +10,7 @@ const LandingPage = (props) => {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
+    document.title = "SWC-COURSES";
     // AJAX call to /api/courses to retrieve json data on courses
     async function fetchCourses() {
       try {

@@ -32,8 +32,8 @@ class AdminCourses extends Component {
   };
 
   componentDidMount = () => {
+    document.title = "SWC-ADMIN";
     this.GetCourses();
-    console.log(this.state.courses);
   };
 
   filterchange = (event) => {
@@ -51,11 +51,11 @@ class AdminCourses extends Component {
   handleChangedescription = (event) => {
     this.setState({ description: event.target.value });
   };
-  handleChangeimg =(event)=> {
-   this.setState({
-     file: URL.createObjectURL(event.target.files[0])
-   })
- };
+  handleChangeimg = (event) => {
+    this.setState({
+      file: URL.createObjectURL(event.target.files[0]),
+    });
+  };
 
   displaycourselist = (courses) => {
     const newcourses = this.state.courses.filter((course) => {
@@ -182,8 +182,8 @@ class AdminCourses extends Component {
                   onChange={this.handleChangedescription}
                 />
               </label>
-              <input type="file" onChange={this.handleChangeimg}/>
-              <br/>
+              <input type="file" name="image" onChange={this.handleChangeimg} />
+              <br />
               <input type="submit" value="Submit" />
             </fieldset>
           </form>

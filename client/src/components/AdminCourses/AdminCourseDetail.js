@@ -9,7 +9,7 @@ import styles from "./AdminCourseDetail.module.css";
 import Button from "@material-ui/core/Button";
 import { useAlert } from "react-alert";
 import Table from "@material-ui/core/Table";
-import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 
 class AdminCourseDetail extends Component {
   state = {
@@ -24,15 +24,16 @@ class AdminCourseDetail extends Component {
     axios
       .get(`/api/courses/${this.props.match.params.id}`)
       .then((response) => {
-        const data = response.data;
+        const course = response.data.course;
+        const videos = response.data.media;
 
         console.log(response.data);
         this.setState({
-          course: data,
-          title: data.title,
-          author: data.author,
-          description: data.description,
-          videos: data.videos,
+          course: course,
+          title: course.title,
+          author: course.author,
+          description: course.description,
+          videos: videos,
         });
         console.log("Data has been received!!");
       })
@@ -81,16 +82,16 @@ class AdminCourseDetail extends Component {
     }
   };
   displayvideolist = (videos) => {
-
+    console.log("VIDEOS", videos);
     if (!videos.length)
       return <div className={styles.nocourse}>No Videos Found</div>;
-    return videos.map((video) => (
-      <tr className={styles.cell}>
-  <td>{video.title}</td>
-  <td>{video.viewcount}</td>
-  <td>{video.duration}</td>
- </tr>
-));
+    return videos.map((video, ind) => (
+      <tr className={styles.cell} key={ind}>
+        <td>{video.title}</td>
+        <td>{video.viewcount}</td>
+        <td>{video.duration}</td>
+      </tr>
+    ));
   };
   handleSubmit = (e) => {
     e.preventDefault();
@@ -135,8 +136,7 @@ class AdminCourseDetail extends Component {
               <span className={styles.font}>BACK TO ALL COURSES</span>
             </Link>
           </Button>
-          </div>
-
+        </div>
 
         <span>
           _______________________________________________________________________________________________________________________________________________________________________________
@@ -178,40 +178,42 @@ class AdminCourseDetail extends Component {
         <span>
           _______________________________________________________________________________________________________________________________________________________________________________
         </span>
-         <div className={styles.table}>
-        <MDBTable bordered hover  scrollY="true" maxHeight="200" size="sm" >
-        <caption>List of Course Videos(Total Videos-{this.state.videos.length})</caption>
+        <div className={styles.table}>
+          <MDBTable bordered hover scrollY="true" maxHeight="200" size="sm">
+            <caption>
+              List of Course Videos(Total Videos-{this.state.videos.length})
+            </caption>
 
-     <MDBTableHead  textWhite>
-     <tr className={styles.tablehead}>
-       <th>Title</th>
-       <th>Viewcount</th>
-       <th>Duration</th>
-     </tr>
-     </MDBTableHead>
-     <MDBTableBody>
-     {this.displayvideolist(this.state.videos)}
-     </MDBTableBody>
-  </MDBTable>
-  </div>
-  <br/>
-  <div className={styles.button}>
-    <Button className={styles.plzadd}>
-      <Link
-        to={{
-          pathname: `/admin/courses/${this.props.match.params.id}/videos`,
-          state: {
-            title: this.state.title,
-          },
-        }}
-      >
-        <span className={styles.font}>ADD COURSE VIDEOS</span>
-      </Link>
-    </Button>
-  </div>
-  <br />
-  <br />
-  <br />
+            <MDBTableHead textWhite>
+              <tr className={styles.tablehead}>
+                <th>Title</th>
+                <th>Viewcount</th>
+                <th>Duration</th>
+              </tr>
+            </MDBTableHead>
+            <MDBTableBody>
+              {this.displayvideolist(this.state.videos)}
+            </MDBTableBody>
+          </MDBTable>
+        </div>
+        <br />
+        <div className={styles.button}>
+          <Button className={styles.plzadd}>
+            <Link
+              to={{
+                pathname: `/admin/courses/${this.props.match.params.id}/videos`,
+                state: {
+                  title: this.state.title,
+                },
+              }}
+            >
+              <span className={styles.font}>ADD COURSE VIDEOS</span>
+            </Link>
+          </Button>
+        </div>
+        <br />
+        <br />
+        <br />
       </div>
     );
   }
