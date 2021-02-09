@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "video.js/dist/video-js.css";
 import axios from "axios";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import CoursePage from "./components/CoursePage/CoursePage";
+import ProfilePage from "./components/ProfilePage/ProfilePage";
 import LandingPage from "./components/LandingPage/LandingPage";
 import AdminCourses from "./components/AdminCourses/AdminCourses";
 import AdminCourseDetail from "./components/AdminCourses/AdminCourseDetail";
@@ -38,7 +38,7 @@ const App = (props) => {
                   exact
                   path="/profile"
                   component={(props) => (
-                    <CoursePage {...props} profile={true} courses={false} />
+                    <ProfilePage {...props} profile={true} courses={false} />
                   )}
                 ></ProtectedRoute>
                 <Route path="/courses" exact component={Courses} />

@@ -5,7 +5,7 @@ import AppNavbar from "./AppNavbar/AppNavbar";
 import { Container } from "reactstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
-import styles from "./CoursePage.module.css";
+import styles from "./ProfilePage.module.css";
 import CourseCard from "./CourseCard/CourseCard";
 import axios from "axios";
 
