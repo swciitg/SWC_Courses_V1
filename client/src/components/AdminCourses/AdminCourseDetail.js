@@ -8,6 +8,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styles from "./AdminCourseDetail.module.css";
 import Button from "@material-ui/core/Button";
 import { useAlert } from "react-alert";
+import Table from "@material-ui/core/Table";
+import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 
 class AdminCourseDetail extends Component {
   state = {
@@ -15,13 +17,14 @@ class AdminCourseDetail extends Component {
     title: "",
     author: "",
     description: "",
+    videos: [],
   };
 
   GetCourses = () => {
     axios
       .get(`/api/courses/${this.props.match.params.id}`)
       .then((response) => {
-        const data = response.data.course;
+        const data = response.data;
 
         console.log(response.data);
         this.setState({
@@ -29,6 +32,7 @@ class AdminCourseDetail extends Component {
           title: data.title,
           author: data.author,
           description: data.description,
+          videos: data.videos,
         });
         console.log("Data has been received!!");
       })
@@ -76,7 +80,18 @@ class AdminCourseDetail extends Component {
       window.open("http://localhost:3000/admin/courses", "_self");
     }
   };
+  displayvideolist = (videos) => {
 
+    if (!videos.length)
+      return <div className={styles.nocourse}>No Videos Found</div>;
+    return videos.map((video) => (
+      <tr className={styles.cell}>
+  <td>{video.title}</td>
+  <td>{video.viewcount}</td>
+  <td>{video.duration}</td>
+ </tr>
+));
+  };
   handleSubmit = (e) => {
     e.preventDefault();
 
@@ -107,13 +122,22 @@ class AdminCourseDetail extends Component {
     return (
       <div className={styles.App}>
         <br />
+        <form onSubmit={this.deleteCourse}>
+          <input
+            type="submit"
+            value="DELETE THIS COURSE"
+            className={styles.delete}
+          />
+        </form>
         <div className={styles.home}>
           <Button className={styles.plz}>
             <Link to={{ pathname: "/admin/courses" }}>
               <span className={styles.font}>BACK TO ALL COURSES</span>
             </Link>
           </Button>
-        </div>
+          </div>
+
+
         <span>
           _______________________________________________________________________________________________________________________________________________________________________________
         </span>
@@ -151,30 +175,43 @@ class AdminCourseDetail extends Component {
             <input type="submit" value="EDIT CURRENT DETAILS" />
           </form>
         </div>
+        <span>
+          _______________________________________________________________________________________________________________________________________________________________________________
+        </span>
+         <div className={styles.table}>
+        <MDBTable bordered hover  scrollY="true" maxHeight="200" size="sm" >
+        <caption>List of Course Videos(Total Videos-{this.state.videos.length})</caption>
 
-        <br />
-        <div className={styles.button}>
-          <Button>
-            <Link
-              to={{
-                pathname: `/admin/courses/${this.props.match.params.id}/videos`,
-                state: {
-                  title: this.state.title,
-                },
-              }}
-            >
-              <span className={styles.font}>ADD VIDEOS FOR THE COURSE</span>
-            </Link>
-          </Button>
-        </div>
-        <br />
-        <form onSubmit={this.deleteCourse}>
-          <input
-            type="submit"
-            value="DELETE THIS COURSE"
-            className={styles.delete}
-          />
-        </form>
+     <MDBTableHead  textWhite>
+     <tr className={styles.tablehead}>
+       <th>Title</th>
+       <th>Viewcount</th>
+       <th>Duration</th>
+     </tr>
+     </MDBTableHead>
+     <MDBTableBody>
+     {this.displayvideolist(this.state.videos)}
+     </MDBTableBody>
+  </MDBTable>
+  </div>
+  <br/>
+  <div className={styles.button}>
+    <Button className={styles.plzadd}>
+      <Link
+        to={{
+          pathname: `/admin/courses/${this.props.match.params.id}/videos`,
+          state: {
+            title: this.state.title,
+          },
+        }}
+      >
+        <span className={styles.font}>ADD COURSE VIDEOS</span>
+      </Link>
+    </Button>
+  </div>
+  <br />
+  <br />
+  <br />
       </div>
     );
   }
