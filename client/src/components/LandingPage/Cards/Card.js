@@ -9,6 +9,11 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Rating from "@material-ui/lab/Rating";
 import { Link } from "react-router-dom";
+import Box from '@material-ui/core/Box';
+import { flexbox } from '@material-ui/system';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
+import FiberManualRecordRoundedIcon from '@material-ui/icons/FiberManualRecordRounded';
 
 const useStyles = makeStyles({
   root: {
@@ -16,6 +21,7 @@ const useStyles = makeStyles({
     height: "350px",
     textAlign: "left",
     margin: "15px",
+    borderRadius: "8px",
     display: "inline-block", // important for layouting
     "&:hover": {
       boxShadow: "2px 2px 13px #888",
@@ -27,7 +33,21 @@ const useStyles = makeStyles({
     },
   },
   media: {
-    height: 140,
+    height: 150,
+    borderRadius: "8px",
+  },
+  starRating:{
+    height: 14,
+    width: 13,
+  },
+  primary:{
+    color:"#4A8EFF",
+  },
+  flexContainer:{
+    display:"flex",
+    justifyContent: "space-between",
+    alignItems:"flex-start",
+    padding:"0px 15px",
   },
 });
 
@@ -48,6 +68,9 @@ export default function MediaCard(props) {
           image={props.imgScr}
           title={props.title}
         />
+        <CardActions>
+        <Rating className={classes.starRating} name="read-only" value={value} readOnly />
+      </CardActions>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {name}
@@ -57,16 +80,20 @@ export default function MediaCard(props) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Rating name="read-only" value={value} readOnly />
-        <Button size="small" color="primary">
-          <Link
-            to={{ pathname: `/courses/${props.id}`, state: props }}
-            style={{ textDecoration: "none" }}
-          >
-            Learn more
-          </Link>
-        </Button>
+      <CardActions className={classes.flexContainer} >
+          <Box>
+            <FiberManualRecordRoundedIcon className={classes.primary}/>
+            <FiberManualRecordOutlinedIcon className={classes.primary}/>
+            <FiberManualRecordOutlinedIcon className={classes.primary}/>
+          </Box>
+            <Button size="small" color="primary" >
+              <Link
+                to={{ pathname: `/courses/${props.id}`, state: props }}
+                style={{ textDecoration: "none" }}
+              >
+              <ArrowForwardIcon/> Learn more 
+              </Link>
+            </Button>
       </CardActions>
     </Card>
   );
