@@ -10,10 +10,17 @@ import Typography from "@material-ui/core/Typography";
 import Rating from "@material-ui/lab/Rating";
 import { Link } from "react-router-dom";
 import Box from '@material-ui/core/Box';
-import { flexbox } from '@material-ui/system';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordRoundedIcon from '@material-ui/icons/FiberManualRecordRounded';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      'Poppins',
+    ].join(','),
+  },});
 
 const useStyles = makeStyles({
   root: {
@@ -61,6 +68,7 @@ export default function MediaCard(props) {
   const classes = useStyles();
 
   return (
+    <ThemeProvider theme={theme}>
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
@@ -73,7 +81,9 @@ export default function MediaCard(props) {
       </CardActions>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {name}
+            <Box fontWeight={500}>
+              {name}
+            </Box>
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {descript}
@@ -96,5 +106,6 @@ export default function MediaCard(props) {
             </Button>
       </CardActions>
     </Card>
+    </ThemeProvider>
   );
 }
