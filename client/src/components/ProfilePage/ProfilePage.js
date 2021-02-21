@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import styles from "./ProfilePage.module.css";
 import CourseCard from "./CourseCard/CourseCard";
 import axios from "axios";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const CoursePage = (props) => {
   const { courses } = useContext(CoursesContext);
@@ -15,18 +16,23 @@ const CoursePage = (props) => {
   // const [name, setName] = useState("");
   // const [user, setUser] = useState();
   const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   // const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     // console.log("Courses", courses);
     // console.log("User", user);
-    if (user.name !== undefined) {
+    if (user.hasOwnProperty("enrolled_courses_id") && courses.length !== 0) {
       const eCourses = courses.filter((course) => {
         return user.enrolled_courses_id.includes(course._id);
       });
       setEnrolledCourses(eCourses);
     }
   }, [courses]);
+
+  useEffect(() => {
+    if (courses.length !== 0) setIsLoading(false);
+  }, [enrolledCourses, courses]);
 
   return (
     <div className={styles.Body}>
@@ -42,7 +48,25 @@ const CoursePage = (props) => {
           className="d-flex"
           style={{ flexWrap: "wrap", justifyContent: "center" }}
         >
-          {enrolledCourses.length === 0 ? (
+          {isLoading ? (
+            [1, 2, 3].map((val) => {
+              return (
+                <Skeleton
+                  variant="rect"
+                  width={256}
+                  height={360}
+                  style={{
+                    width: "16rem",
+                    height: "22.5rem",
+                    padding: "1rem",
+                    margin: "1rem",
+                    borderRadius: "4px",
+                  }}
+                  key={val}
+                />
+              );
+            })
+          ) : enrolledCourses.length === 0 ? (
             <h6 style={{ color: "#555" }}>
               EXPLORE COURSES AND START LEARNING
             </h6>
@@ -68,6 +92,26 @@ const CoursePage = (props) => {
 };
 
 export default CoursePage;
+
+// {
+//   enrolledCourses.length === 0 ? (
+//     <h6 style={{ color: "#555" }}>EXPLORE COURSES AND START LEARNING</h6>
+//   ) : (
+//     enrolledCourses.map((course, i) => {
+//       return (
+//         <CourseCard
+//           key={i}
+//           imgScr={course.img}
+//           title={course.title}
+//           description={course.description}
+//           id={course._id}
+//           videos={course.videos}
+//           user={user}
+//         />
+//       );
+//     })
+//   );
+// }
 
 // useEffect(() => {
 //   ///////// @start
