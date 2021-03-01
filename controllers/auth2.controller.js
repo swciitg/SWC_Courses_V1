@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
-const config = require("config");
+
 const jwt = require("jsonwebtoken");
 const Token = require("../models/token");
 const nodemailer = require("nodemailer");
@@ -43,7 +43,7 @@ exports.login = async (req, res) => {
       enrolled_courses,
     };
 
-    const token = await jwt.sign({ user: data }, config.get("jwtSecret"), {
+    const token = await jwt.sign({ user: data }, process.env.jwtSecret, {
       expiresIn: 3 * 3600,
     });
 
