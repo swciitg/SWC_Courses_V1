@@ -1,11 +1,10 @@
 let express = require("express");
 let router = express.Router();
-let adminController = require("../controllers/admin.controller");
+// let adminController = require("../controllers/admin.controller");
+let adminController = require("../controllers/admin.controller2");
 let User = require("../models/user");
-const { isAdmin } = require("../middleware/index");
 
-//Auth middleware
-router.use("/", isAdmin);
+router.use("/", adminController.isAdminController);
 
 //home page route for admin
 router.get("/", function (req, res) {
@@ -16,7 +15,11 @@ router.get("/", function (req, res) {
 router.get("/courses", adminController.getAllCourses);
 
 //logic to handel adding new course
-router.post("/courses", adminController.addCourse);
+router.post(
+  "/courses",
+  adminController.thumbnailImageUpload,
+  adminController.addCourse
+);
 
 //view a specifc course
 router.get("/courses/:id", adminController.getOneCourse);
@@ -32,6 +35,14 @@ router.get("/courses/:id", adminController.getOneCourse);
 router.post("/courses/:id/videos", adminController.uploadVideo);
 
 //add full course via torrent
+/*router.post(
+  "/torrentUpload",
+  adminController.thumbnailImageUpload,
+  adminController.downloadAllTorrentFiles
+);*/
+
+//this is for testing the new admin
+
 router.post(
   "/torrentUpload",
   adminController.thumbnailImageUpload,
