@@ -4,11 +4,7 @@ const authController = require("../controllers/auth2.controller");
 const { authenticate, isLoggedIn } = require("../middleware/index");
 const passport = require("passport");
 const User = require("../models/user");
-const CLIENT_HOME_PAGE_URL = "http://localhost:3000/";
-
-router.get("/", (req, res) => {
-  res.send("<h1>WELCOME TO SWC-COURSES</h1>");
-});
+const CLIENT_HOME_PAGE_URL = "http://beta.courses.swciitg.in/";
 
 ////// USE THE BELOW ROUTES FOR JWT-TOKEN AUTH
 
