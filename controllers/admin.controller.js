@@ -9,13 +9,13 @@ const ffprobe = require("ffprobe-static");
 const multer = require("multer");
 let pathToFfmpeg = require("ffmpeg-static");
 const { getVideoDurationInSeconds } = require("get-video-duration");
-let WebTorrent = require("webtorrent-hybrid/index");
+//let WebTorrent = require("webtorrent-hybrid/index");
 const { dir } = require("console");
 const { exec } = require("child_process");
 const { title } = require("process");
 const { resolve } = require("path");
 
-let client = new WebTorrent();
+//let client = new WebTorrent();
 ffmpeg.setFfmpegPath(pathToFfmpeg);
 ffmpeg.setFfprobePath(ffprobe.path);
 //multer code
