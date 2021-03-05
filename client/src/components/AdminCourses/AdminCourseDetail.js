@@ -71,13 +71,12 @@ class AdminCourseDetail extends Component {
         })
           .then((res) => {
             console.log("Course deleted successfully");
-            window.open("http://localhost:3000/admin/courses", "_self");
           })
           .catch((err) => {
             console.error(err);
           });
       };
-
+      window.open("http://localhost:3000/admin/courses", "_self");
       apiCall();
     }
   };

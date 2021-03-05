@@ -26,14 +26,15 @@
   padding-top: 5%;
 }
 
-@media (max-width: 500px) {
+/* @media (max-width: 500px) {
   .App {
     background-size: 500% 120vh;
     background-position: 48% 0%;
     height: 100%;
     background-attachment: scroll;
   }
-}
+} */
+
 .container {
   background-color: rgb(255, 255, 255);
   margin-top: 5%;
@@ -58,7 +59,6 @@
   text-shadow: 1px 1px 2px black;
 }
 
-
 .Body {
   background-image: url("../../images/coursesback.png");
   background-position: center;
@@ -72,7 +72,11 @@
   background-color: rgb(255, 255, 255);
   margin-top: 5%;
   border-radius: 30px;
-  min-height: 50vh;
+  margin-bottom: 5%;
+  min-height: 60vh;
+  -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.56);
+  -moz-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.56);
+  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.56);
 }
 
 .Heading {
@@ -81,10 +85,15 @@
 }
 
 @media only screen and (max-width: 550px) {
+  .App {
+    padding-top: 13vh;
+  }
+
   .Container {
     width: 90%;
   }
 }
+
 .CourseCard {
   color: black;
   position: relative;
@@ -232,7 +241,7 @@
   }
 }
 .dropbtn {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -252,7 +261,7 @@
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -265,7 +274,9 @@
 }
 
 /* Change color of dropdown links on hover */
-.dropdowncontent a:hover {background-color: #f1f1f1}
+.dropdowncontent a:hover {
+  background-color: #f1f1f1;
+}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdowncontent {

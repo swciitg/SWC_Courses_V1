@@ -34,7 +34,7 @@ const CoursePage = (props) => {
 
   return (
     <div className={styles.Body}>
-      <AppNavbar name={user.name} />
+      <AppNavbar name={user.name} courses={courses} />
 
       <Container className={classNames(styles.Container, "py-5")}>
         <h2
