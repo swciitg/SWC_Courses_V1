@@ -29,8 +29,7 @@ let userSchema = new Schema(
     passwordResetExpires: { type: Date },
     isAdmin: { type: Boolean, default: false },
     isverified: { type: Boolean, default: false },
-    enrolled_courses: [courseSchema],
-    enrolled_courses_id: [{ type: mongoose.ObjectId, ref: "Course" }],
+    enrolled_courses: [{ type: mongoose.ObjectId, ref: "Course" }],
   },
   {
     versionKey: false, // set to false then it wont create in mongodb

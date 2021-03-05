@@ -58,14 +58,18 @@ router.get("/auth/logout", function (req, res) {
 ////// USER INFO "PROTECTED" ROUTE
 
 router.get("/user", isLoggedIn, (req, res) => {
-  User.findById(req.user.id, (err, foundUser) => {
-    if (err) {
-      console.log(err);
-    }
-    if (foundUser) {
-      res.status(200).json(foundUser);
-    }
-  });
+  User.findById(req.user.id)
+    .populate("enrolled_courses")
+    .exec(function (err, foundUser) {
+      if (err) {
+        console.log(err);
+        return res.status(404).json({ msg: err.message });
+      }
+      if (foundUser) {
+        return res.status(200).json(foundUser);
+      }
+      return res.status(500).json({ msg: "someting wrong happened" });
+    });
 });
 
 module.exports = router;

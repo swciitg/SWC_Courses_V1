@@ -1,4 +1,3 @@
-const config = require("config");
 const jwt = require("jsonwebtoken");
 
 ///////////////// AUTH MIDDLEWARES
@@ -11,7 +10,7 @@ function authenticate(req, res, next) {
     return res.status(401).json({ msg: "No token, authorization denied" });
 
   try {
-    const decoded = jwt.verify(token, config.get("jwtSecret"));
+    const decoded = jwt.verify(token, process.ennv.jwtSecret);
     req.user = decoded;
     next();
   } catch (error) {
@@ -28,12 +27,4 @@ const isLoggedIn = (req, res, next) => {
   }
 };
 
-const isAdmin = (req, res, next) => {
-  if (req.user.isAdmin) {
-    next();
-  } else {
-    res.status(401).json({ msg: "Only admin has access to this route" });
-  }
-};
-
-module.exports = { authenticate, isLoggedIn, isAdmin };
+module.exports = { authenticate, isLoggedIn };
