@@ -13,26 +13,24 @@ import Skeleton from "@material-ui/lab/Skeleton";
 const CoursePage = (props) => {
   const { courses } = useContext(CoursesContext);
   const { user } = useContext(UserContext);
-  // const [name, setName] = useState("");
-  // const [user, setUser] = useState();
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    // console.log("Courses", courses);
-    // console.log("User", user);
-    if (user.hasOwnProperty("enrolled_courses_id") && courses.length !== 0) {
-      const eCourses = courses.filter((course) => {
-        return user.enrolled_courses_id.includes(course._id);
-      });
-      setEnrolledCourses(eCourses);
-    }
-  }, [courses]);
-
-  useEffect(() => {
-    if (courses.length !== 0) setIsLoading(false);
-  }, [enrolledCourses, courses]);
+    ///////// @start
+    ///////// THIS IS AN API CALL TO THE "/user" ROUTE
+    const apiCall = () => {
+      axios
+        .get("/user")
+        .then((res) => {
+          setEnrolledCourses(res.data.enrolled_courses_id);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    };
+    apiCall();
+    ////////// @end
+  }, []);
 
   return (
     <div className={styles.Body}>
@@ -67,15 +65,23 @@ const CoursePage = (props) => {
               );
             })
           ) : enrolledCourses.length === 0 ? (
-            <h6 style={{ color: "#555" }}>
-              EXPLORE COURSES AND START LEARNING
+            <h6
+              style={{
+                color: "#555",
+                marginTop: "1.2rem",
+                textAlign: "center",
+                lineHeight: "1.5",
+              }}
+            >
+              EXPLORE COURSES AND START LEARNING &rarr;
+              <Link to="/courses"> HERE</Link>
             </h6>
           ) : (
             enrolledCourses.map((course, i) => {
               return (
                 <CourseCard
                   key={i}
-                  imgScr={course.img}
+                  imgScr={course.imgPath}
                   title={course.title}
                   description={course.description}
                   id={course._id}
@@ -92,6 +98,11 @@ const CoursePage = (props) => {
 };
 
 export default CoursePage;
+
+// if (user.hasOwnProperty("enrolled_courses_id")) {
+//   setEnrolledCourses(user.enrolled_courses_id);
+//   setIsLoading(false);
+// }
 
 // {
 //   enrolledCourses.length === 0 ? (
@@ -114,20 +125,20 @@ export default CoursePage;
 // }
 
 // useEffect(() => {
-//   ///////// @start
-//   ///////// THIS IS AN API CALL TO THE "/user" ROUTE
-//   const apiCall = () => {
-//     axios
-//       .get("/user")
-//       .then((res) => {
-//         // console.log(res.data);
-//         setUser(res.data);
-//         setName(res.data.name);
-//       })
-//       .catch((err) => console.log(err));
-//   };
-//   apiCall();
-//   ////////// @end
+// ///////// @start
+// ///////// THIS IS AN API CALL TO THE "/user" ROUTE
+// const apiCall = () => {
+//   axios
+//     .get("/user")
+//     .then((res) => {
+//       // console.log(res.data);
+//       setUser(res.data);
+//       setName(res.data.name);
+//     })
+//     .catch((err) => console.log(err));
+// };
+// apiCall();
+// ////////// @end
 // }, []);
 
 // useEffect(() => {

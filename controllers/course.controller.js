@@ -149,7 +149,7 @@ exports.enrollInCourse = async (req, res, next) => {
       res.status(400).json({ msg: "Already enrolled !!" });
     }
   } catch (err) {
-    console.log(error);
-    return res.status(500).json({ error: error.message });
+    console.log(err);
+    return res.status(500).json({ error: err.message });
   }
 };

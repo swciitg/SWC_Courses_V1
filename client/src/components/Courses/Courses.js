@@ -1,4 +1,4 @@
-import React, { Component , useState, useEffect } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Container } from "reactstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
@@ -12,8 +12,15 @@ import CardContainer from "../LandingPage/Cards/CardContainer";
 import ErrorBoundary from "../../hoc/ErrorBoundary";
 import Logo from "../Logo/Logo";
 import glass from "../../images/search-glass.png";
-import { Navbar, Nav, NavLink, NavItem,Collapse,NavbarBrand,
-  NavbarToggler} from "reactstrap";
+import {
+  Navbar,
+  Nav,
+  NavLink,
+  NavItem,
+  Collapse,
+  NavbarBrand,
+  NavbarToggler,
+} from "reactstrap";
 import Avatar from "@material-ui/core/Avatar";
 import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
 import newlogo from "../../images/newlogo.svg";
@@ -23,7 +30,7 @@ class Courses extends Component {
     courses: [],
     inputvalue: "",
     newcourses: [],
-    isScrolled: false
+    isScrolled: false,
   };
 
   logoutHandler = () => {
@@ -50,12 +57,12 @@ class Courses extends Component {
   componentDidMount = () => {
     this.GetCourses();
     window.onscroll = () => {
-      if(window.pageYOffset > 50) {
+      if (window.pageYOffset > 50) {
         this.setState({
           isScrolled: true,
         });
       }
-      if(window.pageYOffset < 50) {
+      if (window.pageYOffset < 50) {
         this.setState({
           isScrolled: false,
         });
@@ -93,7 +100,7 @@ class Courses extends Component {
           state: {
             description: course.description,
             id: course._id,
-            imgScr: course.img,
+            imgScr: course.imgPath,
             title: course.title,
             videos: course.videos,
           },
@@ -101,7 +108,7 @@ class Courses extends Component {
         style={{ textDecoration: "none" }}
       >
         <Card className={classNames(styles.CourseCard, "border-light")}>
-          <CardImg top width="100%" src={course.img} alt="Card image cap" />
+          <CardImg top width="100%" src={course.imgPath} alt="Card image cap" />
           <CardBody>
             <CardTitle>
               <h5>{course.title}</h5>
@@ -118,16 +125,16 @@ class Courses extends Component {
   render() {
     return (
       <div className={styles.App}>
-      <Navbar
-        // className="navbar navbar-expand-lg navbar-light d-flex justify-content-between pt-2"
-        id="navbar"
-        className={this.state.isScrolled ? styles.scroll : styles.NavBar}
-        light
-        expand="md"
-      >
-        <NavbarBrand>
-          <img src={newlogo} alt="logo" />
-        </NavbarBrand>
+        <Navbar
+          // className="navbar navbar-expand-lg navbar-light d-flex justify-content-between pt-2"
+          id="navbar"
+          className={this.state.isScrolled ? styles.scroll : styles.NavBar}
+          light
+          expand="md"
+        >
+          <NavbarBrand>
+            <img src={newlogo} alt="logo" />
+          </NavbarBrand>
           <form
             className={styles.SearchForm}
             // action="/courses/search"
@@ -150,28 +157,42 @@ class Courses extends Component {
           <Nav className={styles.Nav}>
             <NavItem className={styles.NavItem}>
               <Link to="/courses">
-                <NavLink className={this.state.isScrolled ? styles.NavLinkScroll : styles.NavLink}>
-                <div className={styles.dropdown}>
- <button className={styles.dropbtn}>CATEGORIES ▼</button>
- <div className={styles.dropdowncontent}>
-   <a onClick={this.GetCourses}>ALL COURSES</a>
-   <a >Link 2</a>
-   <a >Link 3</a>
- </div>
-</div>
+                <NavLink
+                  className={
+                    this.state.isScrolled
+                      ? styles.NavLinkScroll
+                      : styles.NavLink
+                  }
+                >
+                  <div className={styles.dropdown}>
+                    <button className={styles.dropbtn}>CATEGORIES ▼</button>
+                    <div className={styles.dropdowncontent}>
+                      <a onClick={this.GetCourses}>ALL COURSES</a>
+                      <a>Link 2</a>
+                      <a>Link 3</a>
+                    </div>
+                  </div>
                 </NavLink>
               </Link>
             </NavItem>
             <NavItem className={styles.NavItem}>
               <Link to="/logout">
                 <NavLink
-                  className={this.state.isScrolled ? styles.NavLinkScroll : styles.NavLink}
+                  className={
+                    this.state.isScrolled
+                      ? styles.NavLinkScroll
+                      : styles.NavLink
+                  }
                   onClick={this.logoutHandler}
                 >
                   LOGOUT
                 </NavLink>
                 <NavLink
-                  className={this.state.isScrolled ? styles.NavLinkScroll : styles.NavLink}
+                  className={
+                    this.state.isScrolled
+                      ? styles.NavLinkScroll
+                      : styles.NavLink
+                  }
                   onClick={this.loginHandler}
                 >
                   LOGIN
@@ -180,7 +201,15 @@ class Courses extends Component {
             </NavItem>
             <NavItem className={styles.NavItem}>
               <Link to="/profile">
-                <NavLink className={this.state.isScrolled ? styles.NavLinkScroll : styles.NavLink}>MY COURSES</NavLink>
+                <NavLink
+                  className={
+                    this.state.isScrolled
+                      ? styles.NavLinkScroll
+                      : styles.NavLink
+                  }
+                >
+                  MY COURSES
+                </NavLink>
               </Link>
             </NavItem>
             <NavItem>

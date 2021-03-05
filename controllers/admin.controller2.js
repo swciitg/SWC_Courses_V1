@@ -38,10 +38,7 @@ const storage2 = multer.diskStorage({
     cb(null, dir2);
   },
   filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
+    cb(null, req.imagePath + path.extname(file.originalname));
   },
 });
 
@@ -84,12 +81,9 @@ exports.getAllCourses = async (req, res) => {
 exports.addCourse = async (req, res) => {
   let imgPath = "";
   if (req.file) {
+    console.log("path img", req.imagePath);
     imgPath =
-      "/thumbnails/" +
-      req.file.fieldname +
-      "-" +
-      Date.now() +
-      path.extname(req.file.originalname);
+      "/thumbnails/" + req.imagePath + path.extname(req.file.originalname);
   }
   //data from form
   try {
@@ -573,6 +567,7 @@ const encodeFfmpegTorrentPro = (file, courseId, targetdir, fileName) => {
 };
 exports.thumbnailImageUpload = async (req, res, next) => {
   //thumbnail image for the course, download implementation using multur
+  console.log("image path", req.imagePath);
   upload2(req, res, (err) => {
     if (err) {
       console.log(err);
@@ -748,4 +743,10 @@ exports.deleteAdminController = async (req, res) => {
       message: err,
     });
   }
+};
+
+exports.imagePath = (req, res, next) => {
+  const imagePath = "image-" + Date.now();
+  req.imagePath = imagePath;
+  next();
 };

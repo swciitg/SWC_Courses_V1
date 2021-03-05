@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Logo from "../../Logo/Logo";
 import newlogo from "../../../images/newlogo.svg";
 import classNames from "classnames";
 import glass from "../../../images/search-glass.png";
@@ -55,7 +54,9 @@ const AppNavbar = (props) => {
     >
       <NavbarBrand>
         {/* <Logo /> */}
-        <img src={newlogo} alt="logo" />
+        <Link to="/">
+          <img src={newlogo} alt="logo" />
+        </Link>
       </NavbarBrand>
       <NavbarToggler onClick={toggleNavBar} />
       <Collapse isOpen={isNavOpen} navbar>
