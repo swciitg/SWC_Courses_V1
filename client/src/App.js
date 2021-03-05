@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./App.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "video.js/dist/video-js.css";
@@ -15,13 +15,11 @@ import { UserContext } from "./contexts/UserContext";
 import { CoursesProvider } from "./contexts/CoursesContext";
 import { UserProvider } from "./contexts/UserContext";
 import ProtectedRoute from "./hoc/ProtectedRoute";
-import AdminRoute from "./hoc/AdminRoute";
 import VideosUpload from "./components/AdminCourses/VideosUpload";
-import spinner from "./images/spinner.gif";
 import CourseVideos from "./components/CourseVideos/CourseVideos";
 import TorrentUpload from "./components/AdminCourses/TorrentUpload";
 import UserPanel from "./components/AdminCourses/UserPanel/UserPanel";
-import StreamingErrBound from "./hoc/StreamingErrBound";
+import My404Component from "./components/404/My404Component";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -69,6 +67,7 @@ const App = (props) => {
                   path="/courses/:courseId/videos/:id"
                   component={CourseVideos}
                 ></ProtectedRoute>
+                <Route path="*" exact={true} component={My404Component} />
               </Switch>
             </div>
           </BrowserRouter>
