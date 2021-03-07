@@ -1,75 +1,216 @@
-import React, { Component } from "react";
-import Logo from "../../Logo/Logo";
+import React, { useState, useEffect } from "react";
+import newlogo from "../../../images/newlogo.svg";
+import classNames from "classnames";
 import glass from "../../../images/search-glass.png";
-import { Navbar, Nav, NavLink, NavItem, Container } from "reactstrap";
+import {
+  Navbar,
+  Nav,
+  NavLink,
+  NavItem,
+  Collapse,
+  NavbarBrand,
+  NavbarToggler,
+} from "reactstrap";
 import { Link } from "react-router-dom";
 import styles from "./AppNavbar.module.css";
 import Avatar from "@material-ui/core/Avatar";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Card from "../../LandingPage/Cards/Card";
 
-class AppNavbar extends Component {
-  logoutHandler = () => {
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    position: "absolute",
+    width: "80%",
+    height: "90%",
+    backgroundColor: "#FEF49A",
+    backgroundImage:
+      'url("https://www.transparenttextures.com/patterns/asfalt-dark.png")',
+    // backdropFilter: "grayscale(0.5) opacity(1)",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    top: "5%",
+    left: "10%",
+    overflowY: "auto",
+    ["@media (max-width: 550px)"]: {
+      width: "90%",
+      left: "5%",
+    },
+    "&::-webkit-scrollbar": {
+      width: "8px",
+    },
+  },
+}));
+
+const AppNavbar = (props) => {
+  const { courses } = props;
+  const classes = useStyles();
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [search, setSearch] = React.useState("");
+
+  const handleOpen = (e) => {
+    e.preventDefault();
+    setOpen(true);
+  };
+
+  const handleClose = (e) => {
+    setOpen(false);
+  };
+
+  const searchList = courses.filter((course) => {
+    return course.title.toLowerCase().includes(search.toLowerCase());
+  });
+
+  // BODY FOR SEARCH MODAL
+  const body = (
+    <div className={classes.paper}>
+      <h2
+        id="simple-modal-title"
+        style={{
+          textAlign: "center",
+          margin: "10px 0 15px",
+          color: "#1B3D2F",
+          fontFamily: "myUbuntu",
+          fontSize: "3rem",
+        }}
+      >
+        Search Results
+      </h2>
+      {searchList.length ? (
+        <div className={styles.cardContainer}>
+          {searchList.map((course, i) => {
+            return (
+              <Card
+                key={i}
+                name={`simple-controlled-${i}`}
+                imgScr={course.imgPath}
+                title={course.title}
+                description={course.description}
+                id={course._id}
+                videos={course.videos}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <h6
+          style={{
+            textAlign: "center",
+            fontFamily: "myUbuntu",
+            fontSize: "1.3rem",
+          }}
+        >
+          No courses found !!
+        </h6>
+      )}
+    </div>
+  );
+
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollCheck = window.scrollY > 10;
+      if (scrollCheck !== isScrolled) {
+        setIsScrolled(scrollCheck);
+      }
+    };
+    document.addEventListener("scroll", onScroll);
+    return () => {
+      document.removeEventListener("scroll", onScroll);
+    };
+  }, [isScrolled, setIsScrolled]);
+
+  const toggleNavBar = () => setIsNavOpen(!isNavOpen);
+
+  const logoutHandler = () => {
     window.open("http://localhost:5000/auth/logout", "_self");
   };
 
-  submitHandler = (e) => {
-    e.preventDefault();
-  };
-
-  render() {
-    return (
-      <Navbar
-        className="navbar navbar-expand-lg navbar-light d-flex pt-2 px-4"
-        style={{ backgroundColor: "rgb(255, 224, 49)" }}
-      >
-        <Logo />
-
-        <form
-          className={styles.SearchForm}
-          // action="/courses/search"
-          // method="get"
-          onSubmit={this.submitHandler}
-        >
-          <div className="input-group">
-            <img src={glass} alt="glass" />
-            <input
-              type="text"
-              className="form-control"
-              name="dsearch"
-              placeholder="find courses"
-            />
-          </div>
-        </form>
-
-        <Nav className={styles.Nav}>
+  return (
+    <Navbar
+      // className="navbar navbar-expand-lg navbar-light d-flex justify-content-between pt-2"
+      id="navbar"
+      className={isScrolled ? styles.scroll : styles.NavBar}
+      light
+      expand="md"
+    >
+      <NavbarBrand>
+        {/* <Logo /> */}
+        <Link to="/">
+          <img src={newlogo} alt="logo" />
+        </Link>
+      </NavbarBrand>
+      <NavbarToggler onClick={toggleNavBar} />
+      <Collapse isOpen={isNavOpen} navbar>
+        <Nav className={classNames(styles.Nav)}>
+          <NavItem className={styles.NavItem}>
+            <form className={styles.SearchForm} onSubmit={handleOpen}>
+              <div className="input-group">
+                <img src={glass} alt="glass" />
+                <input
+                  type="text"
+                  className="form-control"
+                  name="dsearch"
+                  placeholder="find courses"
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                  }}
+                />
+              </div>
+            </form>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="simple-modal-title"
+              aria-describedby="simple-modal-description"
+            >
+              {body}
+            </Modal>
+          </NavItem>
           <NavItem className={styles.NavItem}>
             <Link to="/courses">
-              <NavLink className={styles.NavLink}>COURSES</NavLink>
+              <NavLink
+                className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
+              >
+                COURSES
+              </NavLink>
             </Link>
           </NavItem>
           <NavItem className={styles.NavItem}>
             <Link to="/logout">
-              <NavLink className={styles.NavLink} onClick={this.logoutHandler}>
+              <NavLink
+                className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
+                onClick={logoutHandler}
+              >
                 LOGOUT
               </NavLink>
             </Link>
           </NavItem>
           <NavItem className={styles.NavItem}>
             <Link to="/profile">
-              <NavLink className={styles.NavLink}>{this.props.name}</NavLink>
+              <NavLink
+                className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
+              >
+                Hi {props.name !== undefined ? props.name.split(" ")[0] : ""}!
+              </NavLink>
             </Link>
           </NavItem>
-          <NavItem>
+          <NavItem
+            className={classNames("d-none", "d-sm-block", styles.NavItem)}
+          >
             <Link to="/profile" style={{ textDecoration: "none" }}>
-              <NavLink>
-                {/* <img src={avatar} alt="avatar" /> */}
-                <Avatar alt={this.props.name} src="#" />
+              <NavLink
+                className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
+              >
+                <Avatar alt={props.name} src="#" />
               </NavLink>
             </Link>
           </NavItem>
         </Nav>
-      </Navbar>
-    );
-  }
-}
+      </Collapse>
+    </Navbar>
+  );
+};
 
 export default AppNavbar;

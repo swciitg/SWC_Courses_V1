@@ -17,37 +17,33 @@
 }
 .App {
   text-align: center;
-  background-color: rgb(255, 224, 49);
-  background-image: url("../../images/home-bg.png");
-  background-size: 100% 115vh;
-  background-repeat: no-repeat;
+  background-color: #edf8ff;
   background-position: center;
-  background-attachment: fixed;
-  font-family: "Roboto", sans-serif;
-  min-height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
   padding-bottom: 5%;
-  position: relative;
+  padding-top: 5%;
 }
-.search {
-  width: 800px;
-  height: 70px;
-  text-align: center;
-  font-size: 2.5rem;
-  font-style: italic;
-}
-@media (max-width: 500px) {
+
+/* @media (max-width: 500px) {
   .App {
     background-size: 500% 120vh;
     background-position: 48% 0%;
     height: 100%;
     background-attachment: scroll;
   }
-}
+} */
+
 .container {
-  width: 100%;
-  padding: 20px;
-  background-image: linear-gradient(rgb(255, 224, 49), rgb(255, 247, 212));
-  border-top: 0.5px solid white;
+  background-color: rgb(255, 255, 255);
+  margin-top: 5%;
+  border-radius: 30px;
+  margin-bottom: 5%;
+  min-height: 50vh;
+  -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.56);
+  -moz-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.56);
+  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.56);
 }
 
 .center {
@@ -63,20 +59,126 @@
   text-shadow: 1px 1px 2px black;
 }
 
-@media all and (max-width: 500px) {
-  .containerTitle {
-    margin: 0 0 15px;
-    font-size: 2.5rem;
+.Body {
+  background-image: url("../../images/coursesback.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100%;
+  padding-bottom: 5%;
+}
+
+.Container {
+  background-color: rgb(255, 255, 255);
+  margin-top: 5%;
+  border-radius: 30px;
+  margin-bottom: 5%;
+  min-height: 60vh;
+  -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.56);
+  -moz-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.56);
+  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.56);
+}
+
+.Heading {
+  padding-top: 3%;
+  font-family: "Roboto", sans-serif;
+}
+
+@media only screen and (max-width: 550px) {
+  .App {
+    padding-top: 13vh;
+  }
+
+  .Container {
+    width: 90%;
   }
 }
+
+.CourseCard {
+  color: black;
+  position: relative;
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-out;
+  text-decoration: none;
+  width: 16rem;
+  height: 22.5rem;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.CourseCard:hover,
+.CourseCard:focus {
+  transform: translateY(-5px) scale(1.01) translateZ(0);
+  box-shadow: 0 24px 36px rgba(0, 0, 0, 0.2);
+}
+
+.CourseCard:active {
+  transform: scale(1) translateZ(0);
+  box-shadow: 0 15px 24px rgba(0, 0, 0, 0.15);
+}
+
+.CourseCard p {
+  max-height: 90%;
+  overflow: hidden;
+  text-align: justify-all;
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+.NavBar {
+  -webkit-box-shadow: 0px -10px 25px 0px rgba(50, 50, 50, 0.26);
+  -moz-box-shadow: 0px -10px 25px 0px rgba(50, 50, 50, 0.26);
+  box-shadow: 0px -10px 25px 0px rgba(50, 50, 50, 0.26);
+  padding: 0.8rem 4.5rem;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  transition: all 0.4s;
+  font-weight: 500;
+  color: #000000;
+  margin-right: 1rem;
+}
+.scroll {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  padding: 0.4rem 4.5rem;
+  background-color: #7dcbff;
+  background-color: rgb(37, 47, 90);
+  transition: all 0.4s;
+  font-weight: 500;
+  color: #fff;
+  margin-right: 1rem;
+}
+
 .Nav {
-  font-family: "Rubik", sans-serif;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .NavLink {
   font-weight: 500;
   color: #000000;
   margin-right: 1rem;
+}
+
+.NavLinkScroll {
+  font-weight: 500;
+  color: #fff;
+  margin-right: 1rem;
+}
+
+.NavLink:hover {
+  color: #000000;
+  text-decoration: none;
 }
 
 .SearchForm {
@@ -112,66 +214,76 @@
   align-items: center;
 }
 
-.NavLink:hover {
-  color: #000000;
-  text-decoration: none;
-}
-.Body {
-  background-image: url("../../images/coursesback.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 100%;
-  padding-bottom: 5%;
-}
-
-.Container {
-  background-color: rgb(255, 255, 255);
-  margin-top: 5%;
-  border-radius: 30px;
-  min-height: 50vh;
-}
-
-.Heading {
-  padding-top: 3%;
-  font-family: "Roboto", sans-serif;
-}
-
 @media only screen and (max-width: 550px) {
-  .Container {
-    width: 90%;
+  .NavBar {
+    padding: 0.8rem 1.5rem;
+  }
+
+  .scroll {
+    padding: 0.4rem 1.5rem;
+    background-color: #fff;
+  }
+
+  .NavLinkScroll {
+    color: #000;
+  }
+
+  .NavItem {
+    padding: 3px;
+  }
+
+  .NavItem form {
+    transform: scale(0.8);
+  }
+
+  .Nav {
+    flex-direction: column-reverse;
   }
 }
-.CourseCard {
-  color: black;
+.dropbtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
   position: relative;
-  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease-out;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdowncontent {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdowncontent a {
+  color: black;
+  padding: 12px 16px;
   text-decoration: none;
-  width: 16rem;
-  height: 22.5rem;
-  padding: 1rem;
-  margin: 1rem;
-}
-
-.CourseCard:hover,
-.CourseCard:focus {
-  transform: translateY(-5px) scale(1.01) translateZ(0);
-  box-shadow: 0 24px 36px rgba(0, 0, 0, 0.2);
-}
-
-.CourseCard:active {
-  transform: scale(1) translateZ(0);
-  box-shadow: 0 15px 24px rgba(0, 0, 0, 0.15);
-}
-
-.CourseCard p {
-  max-height: 90%;
-  overflow: hidden;
-  text-align: justify-all;
   display: block;
-  display: -webkit-box;
-  -webkit-line-clamp: 6;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
+}
+
+/* Change color of dropdown links on hover */
+.dropdowncontent a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdowncontent {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
 }

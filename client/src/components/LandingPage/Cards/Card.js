@@ -9,18 +9,17 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Rating from "@material-ui/lab/Rating";
 import { Link } from "react-router-dom";
-import Box from '@material-ui/core/Box';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
-import FiberManualRecordRoundedIcon from '@material-ui/icons/FiberManualRecordRounded';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Box from "@material-ui/core/Box";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
+import FiberManualRecordRoundedIcon from "@material-ui/icons/FiberManualRecordRounded";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
   typography: {
-    fontFamily: [
-      'Poppins',
-    ].join(','),
-  },});
+    fontFamily: ["Poppins"].join(","),
+  },
+});
 
 const useStyles = makeStyles({
   root: {
@@ -48,7 +47,7 @@ const useStyles = makeStyles({
     height: 149.4,
     borderRadius: "8px",
   },
-  starRating:{
+  starRating: {
     height: 14,
     width: 13.03,
   },
@@ -59,14 +58,14 @@ const useStyles = makeStyles({
   contentStar:{
     padding:"15px 21px 8px 20px",
   },
-  primary:{
-    color:"#4A8EFF",
+  primary: {
+    color: "#4A8EFF",
   },
-  flexContainer:{
-    display:"flex",
+  flexContainer: {
+    display: "flex",
     justifyContent: "space-between",
     alignItems:"flex-start",
-    padding:"0px 21px",
+    padding:"0px 15px",
   },
   overflowhide:{
     overflow:'hidden',
@@ -75,7 +74,10 @@ const useStyles = makeStyles({
 
 export default function MediaCard(props) {
   // shortening the description from the DB to a fixed length
-  const descript = props.description.substring(0, 100) + "...";
+  const descript =
+    props.description !== null
+      ? props.description.substring(0, 100) + "..."
+      : "Course Description";
   const name = props.title.substring(0, 25) + "...";
 
   const [value, setValue] = React.useState(2); // To be replaced by the ratings from DB
@@ -109,20 +111,20 @@ export default function MediaCard(props) {
       </CardActionArea>
       <CardActions className={classes.flexContainer} >
           <Box>
-            <FiberManualRecordRoundedIcon className={classes.primary}/>
-            <FiberManualRecordOutlinedIcon className={classes.primary}/>
-            <FiberManualRecordOutlinedIcon className={classes.primary}/>
+            <FiberManualRecordRoundedIcon className={classes.primary} />
+            <FiberManualRecordOutlinedIcon className={classes.primary} />
+            <FiberManualRecordOutlinedIcon className={classes.primary} />
           </Box>
-            <Button size="small" color="primary" >
-              <Link
-                to={{ pathname: `/courses/${props.id}`, state: props }}
-                style={{ textDecoration: "none" }}
-              >
-              <ArrowForwardIcon/> Learn more 
-              </Link>
-            </Button>
-      </CardActions>
-    </Card>
+          <Button size="small" color="primary">
+            <Link
+              to={{ pathname: `/courses/${props.id}`, state: props }}
+              style={{ textDecoration: "none" }}
+            >
+              <ArrowForwardIcon /> Learn more
+            </Link>
+          </Button>
+        </CardActions>
+      </Card>
     </ThemeProvider>
   );
 }

@@ -76,9 +76,8 @@ class AdminCourseDetail extends Component {
             console.error(err);
           });
       };
-
-      apiCall();
       window.open("http://localhost:3000/admin/courses", "_self");
+      apiCall();
     }
   };
   displayvideolist = (videos) => {

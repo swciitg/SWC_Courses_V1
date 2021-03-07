@@ -8,29 +8,33 @@ import { Link } from "react-router-dom";
 import styles from "./ProfilePage.module.css";
 import CourseCard from "./CourseCard/CourseCard";
 import axios from "axios";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const CoursePage = (props) => {
   const { courses } = useContext(CoursesContext);
   const { user } = useContext(UserContext);
-  // const [name, setName] = useState("");
-  // const [user, setUser] = useState();
   const [enrolledCourses, setEnrolledCourses] = useState([]);
-  // const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // console.log("Courses", courses);
-    // console.log("User", user);
-    if (user.name !== undefined) {
-      const eCourses = courses.filter((course) => {
-        return user.enrolled_courses_id.includes(course._id);
-      });
-      setEnrolledCourses(eCourses);
-    }
-  }, [courses]);
+    ///////// @start
+    ///////// THIS IS AN API CALL TO THE "/user" ROUTE
+    const apiCall = () => {
+      axios
+        .get("/user")
+        .then((res) => {
+          setEnrolledCourses(res.data.enrolled_courses_id);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    };
+    apiCall();
+    ////////// @end
+  }, []);
 
   return (
     <div className={styles.Body}>
-      <AppNavbar name={user.name} />
+      <AppNavbar name={user.name} courses={courses} />
 
       <Container className={classNames(styles.Container, "py-5")}>
         <h2
@@ -42,16 +46,42 @@ const CoursePage = (props) => {
           className="d-flex"
           style={{ flexWrap: "wrap", justifyContent: "center" }}
         >
-          {enrolledCourses.length === 0 ? (
-            <h6 style={{ color: "#555" }}>
-              EXPLORE COURSES AND START LEARNING
+          {isLoading ? (
+            [1, 2, 3].map((val) => {
+              return (
+                <Skeleton
+                  variant="rect"
+                  width={256}
+                  height={360}
+                  style={{
+                    width: "16rem",
+                    height: "22.5rem",
+                    padding: "1rem",
+                    margin: "1rem",
+                    borderRadius: "4px",
+                  }}
+                  key={val}
+                />
+              );
+            })
+          ) : enrolledCourses.length === 0 ? (
+            <h6
+              style={{
+                color: "#555",
+                marginTop: "1.2rem",
+                textAlign: "center",
+                lineHeight: "1.5",
+              }}
+            >
+              EXPLORE COURSES AND START LEARNING &rarr;
+              <Link to="/courses"> HERE</Link>
             </h6>
           ) : (
             enrolledCourses.map((course, i) => {
               return (
                 <CourseCard
                   key={i}
-                  imgScr={course.img}
+                  imgScr={course.imgPath}
                   title={course.title}
                   description={course.description}
                   id={course._id}
@@ -69,21 +99,46 @@ const CoursePage = (props) => {
 
 export default CoursePage;
 
+// if (user.hasOwnProperty("enrolled_courses_id")) {
+//   setEnrolledCourses(user.enrolled_courses_id);
+//   setIsLoading(false);
+// }
+
+// {
+//   enrolledCourses.length === 0 ? (
+//     <h6 style={{ color: "#555" }}>EXPLORE COURSES AND START LEARNING</h6>
+//   ) : (
+//     enrolledCourses.map((course, i) => {
+//       return (
+//         <CourseCard
+//           key={i}
+//           imgScr={course.img}
+//           title={course.title}
+//           description={course.description}
+//           id={course._id}
+//           videos={course.videos}
+//           user={user}
+//         />
+//       );
+//     })
+//   );
+// }
+
 // useEffect(() => {
-//   ///////// @start
-//   ///////// THIS IS AN API CALL TO THE "/user" ROUTE
-//   const apiCall = () => {
-//     axios
-//       .get("/user")
-//       .then((res) => {
-//         // console.log(res.data);
-//         setUser(res.data);
-//         setName(res.data.name);
-//       })
-//       .catch((err) => console.log(err));
-//   };
-//   apiCall();
-//   ////////// @end
+// ///////// @start
+// ///////// THIS IS AN API CALL TO THE "/user" ROUTE
+// const apiCall = () => {
+//   axios
+//     .get("/user")
+//     .then((res) => {
+//       // console.log(res.data);
+//       setUser(res.data);
+//       setName(res.data.name);
+//     })
+//     .catch((err) => console.log(err));
+// };
+// apiCall();
+// ////////// @end
 // }, []);
 
 // useEffect(() => {

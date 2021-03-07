@@ -204,7 +204,7 @@ export default function UsersTable() {
                             size="sm"
                             onClick={() => removeAdmin(user.email)}
                           >
-                            Remove-Admin
+                            Demote
                           </Button>
                         ) : (
                           <Button
@@ -213,7 +213,7 @@ export default function UsersTable() {
                             size="sm"
                             onClick={() => addAdmin(user.email)}
                           >
-                            Add-Admin
+                            Promote
                           </Button>
                         )}
                       </TableCell>

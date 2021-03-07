@@ -5,10 +5,11 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 5000;
-//const url = "mo
-ngodb://localhost:27017/SWC_Media";
+
+//const url = "mongodb://localhost:27017/SWC_Media";
+const url = "mongodb://localhost:27017/SWC_Media";
 const config = require("config");
-const url = config.get("MONGO_URL");
+// const url = config.get("MONGO_URL");
 const session = require("express-session");
 const cookieSession = require("cookie-session");
 const MongoStore = require("connect-mongo")(session);

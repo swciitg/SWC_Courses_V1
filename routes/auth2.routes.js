@@ -1,14 +1,12 @@
 const express = require("express");
+const config = require("config");
 const router = express.Router({ mergeParams: true });
 const authController = require("../controllers/auth2.controller");
 const { authenticate, isLoggedIn } = require("../middleware/index");
 const passport = require("passport");
 const User = require("../models/user");
+// const CLIENT_HOME_PAGE_URL = config.get("CLIENT_HOME_PAGE_URL") + "/";
 const CLIENT_HOME_PAGE_URL = "http://localhost:3000/";
-
-router.get("/", (req, res) => {
-  res.send("<h1>WELCOME TO SWC-COURSES</h1>");
-});
 
 ////// USE THE BELOW ROUTES FOR JWT-TOKEN AUTH
 
@@ -62,14 +60,18 @@ router.get("/auth/logout", function (req, res) {
 ////// USER INFO "PROTECTED" ROUTE
 
 router.get("/user", isLoggedIn, (req, res) => {
-  User.findById(req.user.id, (err, foundUser) => {
-    if (err) {
-      console.log(err);
-    }
-    if (foundUser) {
-      res.status(200).json(foundUser);
-    }
-  });
+  User.findById(req.user.id)
+    .populate("enrolled_courses_id")
+    .exec(function (err, foundUser) {
+      if (err) {
+        console.log(err);
+        return res.status(404).json({ msg: err.message });
+      }
+      if (foundUser) {
+        return res.status(200).json(foundUser);
+      }
+      return res.status(500).json({ msg: "someting wrong happened" });
+    });
 });
 
 module.exports = router;

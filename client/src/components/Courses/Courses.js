@@ -1,42 +1,55 @@
-import React, { Component } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 import { Container } from "reactstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import CourseDetail from "../CourseDetail/CourseDetail";
 import styles from "./Courses.module.css";
-import Button from "@material-ui/core/Button";
-import CardContainer from "../LandingPage/Cards/CardContainer";
-import ErrorBoundary from "../../hoc/ErrorBoundary";
-import Logo from "../Logo/Logo";
 import glass from "../../images/search-glass.png";
-import { Navbar, Nav, NavLink, NavItem } from "reactstrap";
+import {
+  Navbar,
+  Nav,
+  NavLink,
+  NavItem,
+  Collapse,
+  NavbarBrand,
+  NavbarToggler,
+  NavbarText,
+} from "reactstrap";
 import Avatar from "@material-ui/core/Avatar";
 import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
+import newlogo from "../../images/newlogo.svg";
 
-class Courses extends Component {
-  state = {
-    courses: [],
-    inputvalue: "",
-    newcourses: [],
-  };
+const Courses = (props) => {
+  const { isLoggedIn, setisLoggedIn } = useContext(AuthContext);
+  const [courses, setCourses] = useState([]);
+  const [inputvalue, setInputvalue] = useState("");
+  const [newcourses, setNewcourses] = useState([]);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
-  logoutHandler = () => {
+  const toggleNavBar = () => setIsNavOpen(!isNavOpen);
+
+  const logoutHandler = () => {
     window.open("http://localhost:5000/auth/logout", "_self");
   };
 
-  submitHandler = (e) => {
+  const loginHandler = () => {
+    window.open("http://localhost:5000/auth/outlook", "_self");
+  };
+
+  const submitHandler = (e) => {
     e.preventDefault();
   };
 
-  GetCourses = () => {
+  const GetCourses = () => {
     axios
       .get("/api/courses")
       .then((response) => {
         const data = response.data.courses;
-        this.setState({ courses: data, newcourses: data });
+        setCourses(data);
+        setNewcourses(data);
         console.log("Data has been received!!");
       })
       .catch(() => {
@@ -44,29 +57,31 @@ class Courses extends Component {
       });
   };
 
-  componentDidMount = () => {
-    this.GetCourses();
-    console.log(this.state.courses);
-  };
+  useEffect(() => {
+    GetCourses();
+    window.onscroll = () => {
+      if (window.pageYOffset > 50) {
+        setIsScrolled(true);
+      }
+      if (window.pageYOffset < 50) {
+        setIsScrolled(false);
+      }
+    };
+    console.log(courses);
+  }, [isScrolled, setIsScrolled]);
 
-  filterchange = (event) => {
+  const filterchange = (event) => {
     // console.log("hello", event.target.value);
-    this.setState({
-      inputvalue: event.target.value,
+    setInputvalue(event.target.value);
+    const newcourses = courses.filter((course) => {
+      return course.title.toLowerCase().includes(inputvalue.toLowerCase());
     });
-    const newcourses = this.state.courses.filter((course) => {
-      return course.title
-        .toLowerCase()
-        .includes(this.state.inputvalue.toLowerCase());
-    });
-    this.setState({ newcourses: newcourses });
+    setNewcourses(newcourses);
   };
 
-  displaycourselist = (courses) => {
-    const newcourses = this.state.courses.filter((course) => {
-      return course.title
-        .toLowerCase()
-        .includes(this.state.inputvalue.toLowerCase());
+  const displaycourselist = (courses) => {
+    const newcourses = courses.filter((course) => {
+      return course.title.toLowerCase().includes(inputvalue.toLowerCase());
     });
     if (!newcourses.length)
       return <div className={styles.nocourse}>No Courses Found</div>;
@@ -78,7 +93,7 @@ class Courses extends Component {
           state: {
             description: course.description,
             id: course._id,
-            imgScr: course.img,
+            imgScr: course.imgPath,
             title: course.title,
             videos: course.videos,
           },
@@ -86,7 +101,7 @@ class Courses extends Component {
         style={{ textDecoration: "none" }}
       >
         <Card className={classNames(styles.CourseCard, "border-light")}>
-          <CardImg top width="100%" src={course.img} alt="Card image cap" />
+          <CardImg top width="100%" src={course.imgPath} alt="Card image cap" />
           <CardBody>
             <CardTitle>
               <h5>{course.title}</h5>
@@ -100,81 +115,144 @@ class Courses extends Component {
     ));
   };
 
-  render() {
-    return (
-      <div className={styles.App}>
-        <Navbar
-          className="navbar navbar-expand-lg navbar-light d-flex pt-2 px-4"
-          style={{ backgroundColor: "rgb(255, 224, 49)" }}
-        >
-          <Logo />
-
-          <form
-            className={styles.SearchForm}
-            // action="/courses/search"
-            // method="get"
-            onSubmit={this.submitHandler}
-          >
-            <div className="input-group">
-              <img src={glass} alt="glass" />
-              <input
-                type="text"
-                className="form-control"
-                name="dsearch"
-                value={this.state.inputvalue}
-                onChange={this.filterchange}
-                placeholder="find courses"
-              />
-            </div>
-          </form>
-
+  return (
+    <div className={styles.App}>
+      <Navbar
+        // className="navbar navbar-expand-lg navbar-light d-flex justify-content-between pt-2"
+        id="navbar"
+        className={isScrolled ? styles.scroll : styles.NavBar}
+        light
+        expand="md"
+      >
+        <NavbarBrand>
+          <Link to="/">
+            <img src={newlogo} alt="logo" />
+          </Link>
+        </NavbarBrand>
+        <NavbarToggler onClick={toggleNavBar} />
+        <Collapse isOpen={isNavOpen} navbar>
           <Nav className={styles.Nav}>
             <NavItem className={styles.NavItem}>
-              <Link to="/courses">
-                <NavLink className={styles.NavLink}>COURSES</NavLink>
-              </Link>
+              <form
+                className={styles.SearchForm}
+                // action="/courses/search"
+                // method="get"
+                onSubmit={submitHandler}
+              >
+                <div className="input-group">
+                  <img src={glass} alt="glass" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="dsearch"
+                    value={inputvalue}
+                    onChange={filterchange}
+                    placeholder="find courses"
+                  />
+                </div>
+              </form>
             </NavItem>
-            <NavItem className={styles.NavItem}>
-              <Link to="/logout">
-                <NavLink
-                  className={styles.NavLink}
-                  onClick={this.logoutHandler}
+            {isLoggedIn ? (
+              <NavItem className={styles.NavItem}>
+                <Link to="/logout">
+                  <NavLink
+                    className={
+                      isScrolled ? styles.NavLinkScroll : styles.NavLink
+                    }
+                    onClick={logoutHandler}
+                  >
+                    LOGOUT
+                  </NavLink>
+                </Link>
+              </NavItem>
+            ) : (
+              <NavItem className={styles.NavItem}>
+                <Link to="/login">
+                  <NavLink
+                    className={
+                      isScrolled ? styles.NavLinkScroll : styles.NavLink
+                    }
+                    onClick={loginHandler}
+                  >
+                    LOGIN
+                  </NavLink>
+                </Link>
+              </NavItem>
+            )}
+
+            {isLoggedIn ? (
+              <>
+                <NavItem className={styles.NavItem}>
+                  <Link to="/profile">
+                    <NavLink
+                      className={
+                        isScrolled ? styles.NavLinkScroll : styles.NavLink
+                      }
+                    >
+                      MY COURSES
+                    </NavLink>
+                  </Link>
+                </NavItem>
+                <NavItem
+                  className={classNames("d-none", "d-sm-block", styles.NavItem)}
                 >
-                  LOGOUT
-                </NavLink>
-              </Link>
-            </NavItem>
-            <NavItem className={styles.NavItem}>
-              <Link to="/profile">
-                <NavLink className={styles.NavLink}>MY COURSES</NavLink>
-              </Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/profile" style={{ textDecoration: "none" }}>
-                <NavLink>
-                  {/* <img src={avatar} alt="avatar" /> */}
-                  <Avatar alt={this.props.name} src="#" />
-                </NavLink>
-              </Link>
-            </NavItem>
+                  <Link to="/profile" style={{ textDecoration: "none" }}>
+                    <NavLink>
+                      {/* <img src={avatar} alt="avatar" /> */}
+                      <Avatar alt={props.name} src="#" />
+                    </NavLink>
+                  </Link>
+                </NavItem>
+              </>
+            ) : (
+              <NavbarText
+                className={styles.NavItem}
+                style={{ color: isScrolled ? "#fff" : "#999" }}
+              >
+                Welcome Visitor !!
+              </NavbarText>
+            )}
           </Nav>
-        </Navbar>
-        <Container className={classNames(styles.Container, "py-5")}>
-          <h2
-            style={{ color: "#333", textAlign: "center", marginBottom: "30px" }}
-          >
-            ALL COURSES
-          </h2>
-          <Container
-            className="d-flex"
-            style={{ flexWrap: "wrap", justifyContent: "center" }}
-          >
-            {this.displaycourselist(this.state.courses)}
-          </Container>
+        </Collapse>
+      </Navbar>
+      <Container className={classNames(styles.Container, "py-5")}>
+        <h2
+          style={{ color: "#333", textAlign: "center", marginBottom: "30px" }}
+        >
+          ALL COURSES
+        </h2>
+        <Container
+          className="d-flex"
+          style={{ flexWrap: "wrap", justifyContent: "center" }}
+        >
+          {displaycourselist(courses)}
         </Container>
-      </div>
-    );
-  }
-}
+      </Container>
+    </div>
+  );
+};
 
 export default Courses;
+
+{
+  /* <NavItem className={styles.NavItem}>
+              <Link to="/courses">
+                <NavLink
+                  className={
+                    this.state.isScrolled
+                      ? styles.NavLinkScroll
+                      : styles.NavLink
+                  }
+                >
+                  <div className={styles.dropdown}>
+                    <button className={styles.dropbtn}>CATEGORIES ▼</button>
+                    <div className={styles.dropdowncontent}>
+                      <a onClick={this.GetCourses}>ALL COURSES</a>
+                      <a>Link 2</a>
+                      <a>Link 3</a>
+                    </div>
+                  </div>
+                </NavLink>
+              </Link>
+            </NavItem> */
+}

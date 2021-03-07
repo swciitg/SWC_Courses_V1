@@ -69,7 +69,7 @@ const SearchBar = (props) => {
               <Card
                 key={i}
                 name={`simple-controlled-${i}`}
-                imgScr={course.img}
+                imgScr={course.imgPath}
                 title={course.title}
                 description={course.description}
                 id={course._id}
