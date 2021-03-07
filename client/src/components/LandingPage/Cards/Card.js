@@ -23,28 +23,40 @@ const theme = createMuiTheme({
 
 const useStyles = makeStyles({
   root: {
-    width: "300px",
-    height: "350px",
+    width: "285px",
+    height: "374px",
     textAlign: "left",
     margin: "15px",
-    borderRadius: "8px",
+    borderRadius: "9px",
     display: "inline-block", // important for layouting
+    backgroundColor: "#FFFFFF",
+    border: '0.626214px solid rgba(0, 0, 0, 0.09)',
+    boxShadow: "0px 17px 38px 5px rgba(93, 108, 133, 0.05)",
+    transition: "transform .3s cubic-bezier(.4,0,.2,1)",
     "&:hover": {
-      boxShadow: "2px 2px 13px #888",
-      transform: "scale(1.02,1.02)",
-      transition: "all 0.3s ease",
+      boxShadow: "0 4px 25px 6px rgb(63 63 63 / 25%)",
+      transition: "transform .3s cubic-bezier(.4,0,.2,1)",
+      transform: "scale(1.05)",
     },
     ["@media (max-width: 550px)"]: {
       width: "280px",
     },
   },
   media: {
-    height: 150,
+    width:285,
+    height: 149.4,
     borderRadius: "8px",
   },
   starRating: {
     height: 14,
-    width: 13,
+    width: 13.03,
+  },
+  content:{
+    padding:"0px 21px",
+    overflow:'hidden',
+  },
+  contentStar:{
+    padding:"15px 21px 8px 20px",
   },
   primary: {
     color: "#4A8EFF",
@@ -52,8 +64,11 @@ const useStyles = makeStyles({
   flexContainer: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "flex-start",
-    padding: "0px 15px",
+    alignItems:"flex-start",
+    padding:"0px 15px",
+  },
+  overflowhide:{
+    overflow:'hidden',
   },
 });
 
@@ -71,31 +86,30 @@ export default function MediaCard(props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image={props.imgScr}
-            title={props.title}
-          />
-          <CardActions>
-            <Rating
-              className={classes.starRating}
-              name="read-only"
-              value={value}
-              readOnly
-            />
-          </CardActions>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              <Box fontWeight={500}>{name}</Box>
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+    <Card className={classes.root}>
+      <CardActionArea>
+        <CardMedia
+          className={classes.media}
+          image={props.imgScr}
+          title={props.title}
+        />
+        <CardActions className={classes.contentStar} >
+        <Rating className={classes.starRating} name="read-only" value={value} readOnly />
+      </CardActions>
+        <CardContent className={classes.content}>
+          <Typography gutterBottom variant="h5" component="h2">
+            <Box  fontWeight={500} height={54}>
+              {name}
+            </Box>
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            <Box  fontWeight={400} height={85}>
               {descript}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions className={classes.flexContainer}>
+            </Box>
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions className={classes.flexContainer} >
           <Box>
             <FiberManualRecordRoundedIcon className={classes.primary} />
             <FiberManualRecordOutlinedIcon className={classes.primary} />

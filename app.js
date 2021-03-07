@@ -5,6 +5,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 5000;
+
+//const url = "mongodb://localhost:27017/SWC_Media";
 const url = "mongodb://localhost:27017/SWC_Media";
 const config = require("config");
 // const url = config.get("MONGO_URL");
