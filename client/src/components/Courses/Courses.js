@@ -154,29 +154,25 @@ const Courses = (props) => {
             </NavItem>
             {isLoggedIn ? (
               <NavItem className={styles.NavItem}>
-                <Link to="/logout">
-                  <NavLink
-                    className={
-                      isScrolled ? styles.NavLinkScroll : styles.NavLink
-                    }
-                    onClick={logoutHandler}
-                  >
-                    LOGOUT
-                  </NavLink>
-                </Link>
+                {/* <Link to="/logout"> */}
+                <NavLink
+                  className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
+                  onClick={logoutHandler}
+                >
+                  LOGOUT
+                </NavLink>
+                {/* </Link> */}
               </NavItem>
             ) : (
               <NavItem className={styles.NavItem}>
-                <Link to="/login">
-                  <NavLink
-                    className={
-                      isScrolled ? styles.NavLinkScroll : styles.NavLink
-                    }
-                    onClick={loginHandler}
-                  >
-                    LOGIN
-                  </NavLink>
-                </Link>
+                {/* <Link to="/login"> */}
+                <NavLink
+                  className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
+                  onClick={loginHandler}
+                >
+                  LOGIN
+                </NavLink>
+                {/* </Link> */}
               </NavItem>
             )}
 
