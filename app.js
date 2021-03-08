@@ -92,6 +92,11 @@ app.use((err, req, res, next) => {
   }
 });
 
+///// CHANGE THIS BEFORE DEPLOYMENT
+app.get("*", function (req, res) {
+  res.send("PAGE NOT FOUND 404");
+});
+
 app.listen(PORT, function () {
   console.log(`SWC Media server has started at port ${PORT}`);
 });
