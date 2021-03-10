@@ -571,6 +571,13 @@ const encodeFfmpegTorrentPro = (file, courseId, targetdir, fileName) => {
     }
   });
 };
+
+exports.imagePath = (req, res, next) => {
+  const imagePath = "image-" + Date.now();
+  req.imagePath = imagePath;
+  next();
+};
+
 exports.thumbnailImageUpload = async (req, res, next) => {
   //thumbnail image for the course, download implementation using multur
   upload2(req, res, (err) => {
