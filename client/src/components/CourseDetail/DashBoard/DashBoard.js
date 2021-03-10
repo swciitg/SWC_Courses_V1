@@ -22,8 +22,12 @@ const DashBoard = ({ details }) => {
         .get("/user")
         .then((res) => {
           setUser(res.data);
-          setEnCourseIDs(res.data.enrolled_courses_id);
-          setIsEnrolled(res.data.enrolled_courses_id.includes(details.id));
+          let ids = [];
+          res.data.enrolled_courses_id.map(({ _id }, i) => {
+            ids.push(_id);
+          });
+          setEnCourseIDs(ids);
+          setIsEnrolled(ids.includes(details.id));
           setFname(res.data.name.substring(0, res.data.name.indexOf(" ")));
         })
         .catch((err) => console.log(err));

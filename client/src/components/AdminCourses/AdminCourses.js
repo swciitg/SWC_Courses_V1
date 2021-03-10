@@ -16,7 +16,7 @@ class AdminCourses extends Component {
     title: "",
     author: "",
     description: "",
-    file: null,
+    file: "",
   };
   GetCourses = () => {
     axios
@@ -53,7 +53,7 @@ class AdminCourses extends Component {
   };
   handleChangeimg = (event) => {
     this.setState({
-      file: URL.createObjectURL(event.target.files[0]),
+      file: event.target.files[0],
     });
   };
 
@@ -66,7 +66,7 @@ class AdminCourses extends Component {
     if (!newcourses.length)
       return <div className={styles.nocourse}>No Courses Found</div>;
 
-    return newcourses.map((course) => (
+    return newcourses.reverse().map((course) => (
       <div className={styles.blog}>
         <div className="card" id="cards">
           <div className="card-block">
@@ -90,27 +90,31 @@ class AdminCourses extends Component {
     e.preventDefault();
 
     const apiCall = () => {
-      axios({
-        method: "post",
-        url: "/api/admin/courses/",
-        data: {
-          title: this.state.title,
-          author: this.state.author,
-          description: this.state.description,
-          imgPath: this.state.file,
+      const url = `/api/admin/courses`;
+      const formData = new FormData();
+      formData.append("author", this.state.author);
+      formData.append("title", this.state.title);
+      formData.append("description", this.state.description);
+      formData.append("image", this.state.file);
+      const config = {
+        headers: {
+          "content-type": "multipart/form-data",
         },
         withCredentials: true,
-      })
+        // timeout:
+      };
+      axios
+        .post(url, formData, config)
         .then((res) => {
           console.log("Data has been added!!");
           alert("Data has been added!");
+          window.location.reload(false);
         })
         .catch((err) => {
           console.error(err);
         });
     };
     apiCall();
-    window.location.reload(false);
   };
 
   render() {
@@ -164,6 +168,7 @@ class AdminCourses extends Component {
                   type="text"
                   value={this.state.title}
                   onChange={this.handleChangetitle}
+                  required={true}
                 />
               </label>
               <label className={styles.input}>
@@ -172,6 +177,7 @@ class AdminCourses extends Component {
                   type="text"
                   value={this.state.author}
                   onChange={this.handleChangeauthor}
+                  required={true}
                 />
               </label>
               <br />
@@ -180,9 +186,17 @@ class AdminCourses extends Component {
                 <textarea
                   value={this.state.description}
                   onChange={this.handleChangedescription}
+                  required={true}
                 />
               </label>
-              <input type="file" name="image" onChange={this.handleChangeimg} />
+              <input
+                id="file"
+                type="file"
+                name="image"
+                onChange={this.handleChangeimg}
+                required={true}
+              />
+              <label for="file">&larr; Thumbnail Image</label>
               <br />
               <input type="submit" value="Submit" />
             </fieldset>

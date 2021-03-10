@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import DashBoard from "./DashBoard/DashBoard";
 import classNames from "classnames";
 import styles from "./CourseDetail.module.css";
@@ -6,6 +6,7 @@ import axios from "axios";
 
 const CourseDetail = (props) => {
   const details = { ...props.location.state };
+  console.log(details);
   // const [videos, setVideos] = useState([]);
 
   useEffect(() => {

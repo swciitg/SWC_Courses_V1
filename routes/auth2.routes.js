@@ -1,10 +1,12 @@
 const express = require("express");
+const config = require("config");
 const router = express.Router({ mergeParams: true });
 const authController = require("../controllers/auth2.controller");
 const { authenticate, isLoggedIn } = require("../middleware/index");
 const passport = require("passport");
 const User = require("../models/user");
-const CLIENT_HOME_PAGE_URL = "http://beta.courses.swciitg.in/";
+// const CLIENT_HOME_PAGE_URL = config.get("CLIENT_HOME_PAGE_URL") + "/";
+const CLIENT_HOME_PAGE_URL = "http://localhost:3000/";
 
 ////// USE THE BELOW ROUTES FOR JWT-TOKEN AUTH
 
@@ -59,7 +61,7 @@ router.get("/auth/logout", function (req, res) {
 
 router.get("/user", isLoggedIn, (req, res) => {
   User.findById(req.user.id)
-    .populate("enrolled_courses")
+    .populate("enrolled_courses_id")
     .exec(function (err, foundUser) {
       if (err) {
         console.log(err);

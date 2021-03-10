@@ -17,6 +17,7 @@ router.get("/courses", adminController.getAllCourses);
 //logic to handel adding new course
 router.post(
   "/courses",
+  adminController.imagePath,
   adminController.thumbnailImageUpload,
   adminController.addCourse
 );
