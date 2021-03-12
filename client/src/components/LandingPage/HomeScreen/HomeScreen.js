@@ -16,26 +16,23 @@ const HomeScreen = (props) => {
       className={`container-fluid pb-4 d-flex align-items-center px-4 pl-md-5 ${styles.content}`}
     >
       <div className="row">
-        <div className={`col-12 col-md-7 col-lg-6 px-5 ${styles.introBlock}`}>
+        <div className={`col-8 col-md-8 col-lg-7 px-5 py-5 ${styles.introBlock}`}>
           <p
             id="introPara"
             className={`text-center text-sm-left ${styles.introPara}`}
           >
-            A simple and sweet learning platform, build for the campus. Access
-            to various premium online courses and learning material covering
-            skills from basic to advanced. Collaborate with peers and experts.
+            A simple and sweet learning platform.
           </p>
           <SearchBar courses={courses} />
-          <div class="container-fluid pl-2 pl-md-5 text-center text-sm-left d-none d-sm-block mt-4">
-            <h4>Top Grossing</h4>
-            <div id="linkWrapper" class="d-flex flex-column">
-              <a href="#">Javascript</a>
-              <a href="#">CSS</a>
-              <a href="#">Machine Learning</a>
-              <a href="#">Django</a>
+        </div>
+        <image></image>
+        <div class="container-fluid pl-2 pl-md-5 text-center text-sm-left d-none d-sm-block mt-4">
+            <div class="row">
+              <div class="col-4"></div>
+              <div class="col-4"></div>
+              <div class="col-4"></div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   );

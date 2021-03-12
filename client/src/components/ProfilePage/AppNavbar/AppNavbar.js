@@ -23,9 +23,10 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     width: "80%",
     height: "90%",
-    backgroundColor: "#FEF49A",
-    backgroundImage:
-      'url("https://www.transparenttextures.com/patterns/asfalt-dark.png")',
+    border: "#edf8ff 7px solid",
+    borderRadius:30,
+    backgroundColor: "#ffffff",
+    backgroundImage: "url('https://www.transparenttextures.com/patterns/checkered-light-emboss.png')",
     // backdropFilter: "grayscale(0.5) opacity(1)",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -39,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
     "&::-webkit-scrollbar": {
       width: "8px",
     },
+    "&:focus": {
+      outline: "none"
+    }
   },
 }));
 

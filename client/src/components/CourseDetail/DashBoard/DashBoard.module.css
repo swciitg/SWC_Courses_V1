@@ -1,94 +1,113 @@
-.MainBody{
-	background-color: #FFFFFF;
-	border-radius:3rem;
-	min-height:90%;
+.MainBody {
+  margin-top: 7%;
+  background-color: #ffffff;
+  border-radius: 3rem;
+  min-height: 85%;
 }
 
-.Header{
-	background-color: #FFF4B5;
-	padding:1rem 5.6rem 2rem 0;
-	border-radius:2.25rem;
-	box-shadow:0 8px 15px rgba(0,0,0,0.12);
+.Header {
+  background-color: #fff4b5;
+  padding: 1rem 5.6rem 2rem 0;
+  border-radius: 2.25rem;
+  box-shadow: rgba(50, 50, 50, 0.56) 1px 1px 5px 0px;
 }
 
-.Navbar{
-	margin-bottom:3rem;
-	font-size:1.1rem;
-	font-family:'Rubik',sans-serif;
-	font-weight: 500;
+.Navbar {
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+  font-family: "Rubik", sans-serif;
+  font-weight: 500;
 }
 
-.Badge{
-	font-family:'Roboto',sans-serif;
-	font-weight: 300;
-	font-size:1rem;
-	margin-right:1rem;
-	background-color: #FFFFFF;
+.Badge {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  margin-right: 1rem;
+  background-color: #ffffff;
 }
 
-.BackButton{
-	height:2.2rem;
-	padding:6px 1rem;
-	border-radius:20px;
-	border-style: none;
-	background-color: #FFFFFF;
-	box-shadow:4px 6px 15px rgba(0,0,0,0.16);
-	position: relative;
-	transition: all 0.1s ease-out;
-	  text-decoration: none;
+.BackButton {
+  height: 2.2rem;
+  padding: 6px 1rem;
+  border-radius: 20px;
+  border-style: none;
+  background-color: #ffffff;
+  box-shadow: 4px 6px 15px rgba(0, 0, 0, 0.16);
+  position: relative;
+  transition: all 0.1s ease-out;
+  text-decoration: none;
 }
 
-.BackButton:hover,.BackButton:focus {
+.BackButton:hover,
+.BackButton:focus {
   transform: translateY(-2px) scale(1.01) translateZ(0);
-  box-shadow: 0 12px 18px rgba(0,0,0,0.20)
+  box-shadow: 0 12px 18px rgba(0, 0, 0, 0.2);
 }
 
 .BackButton:active {
   transform: scale(1) translateZ(0);
-  box-shadow: 0 7.5px 12px rgba(0,0,0,0.15),
+  box-shadow: 0 7.5px 12px rgba(0, 0, 0, 0.15);
 }
 
-.BackButton:focus{
-	outline:none;
+.BackButton:focus {
+  outline: none;
 }
 
-.BackButton>img{
-	height:100%;
+.BackButton > img {
+  height: 100%;
 }
 
-.Dashboard{
-	opacity: 0.5;
-	padding-left:0.5rem;
+.Dashboard {
+  opacity: 0.5;
+  padding-left: 0.5rem;
 }
 
-.Title{
-	font-size:1.75rem;
-	font-family: 'Roboto', sans-serif;
-	font-weight: 500;
-	margin:0;
+.Title {
+  font-size: 1.75rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  margin: 0;
 }
 
-.Avatar{
-	height:2.5rem;
-	margin-left:1rem;
+.Avatar {
+  height: 2.5rem;
+  margin-left: 1rem;
 }
 
-.Avatar img{
-	height:2.5rem;
+.Avatar img {
+  height: 2.5rem;
 }
 
-.Enrol{
-	font-size:1.1rem;
-	font-family: 'Rubik',sans-serif;
-	font-weight:500;
+.Enrol {
+  font-size: 1.1rem;
+  font-family: "Rubik", sans-serif;
+  font-weight: 500;
 }
 
-.Enrolled{
-	color:#FFE031;
+.Enrolled {
+  color: #ffe031;
 }
 
-.Enrolled>img{
-	max-height: 1.1rem;
-	margin-top:-4px;
-	margin-left:5px;
+.Enrolled > img {
+  max-height: 1.1rem;
+  margin-top: -4px;
+  margin-left: 5px;
+}
+@media only screen and (max-width: 986px) {
+  .MainBody {
+    margin-top: 15%;
+  }
+}
+
+@media only screen and (max-width: 830px) {
+  .MainBody {
+    margin-top: 20%;
+  }
+}
+
+@media only screen and (max-width: 368px) {
+  .MainBody {
+    margin-top: 25%;
+  }
 }

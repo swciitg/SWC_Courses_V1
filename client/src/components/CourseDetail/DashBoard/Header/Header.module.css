@@ -6,13 +6,14 @@
 
 .Header_wrapper {
   border-radius: 2.25rem;
+  margin: 0;
 }
 
 .Header {
   padding: 1rem 5.6rem 1rem 0;
   border-radius: 2.25rem;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
-  color: rgb(207, 207, 0);
+  box-shadow: rgba(50, 50, 50, 0.56) 1px 1px 5px 0px;
+  color: black;
   text-shadow: 0.5px 0.5px 2px rgb(255, 246, 246);
 }
 
@@ -29,6 +30,7 @@
   font-size: 1rem;
   margin-right: 1rem;
   background-color: #ffffff;
+  border: #edf8ff 2px solid;
 }
 
 .BackButton {
@@ -109,14 +111,14 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: #ffffff;
-  background-color: orange;
+  background-color: #bfe6ff;
   border: none;
   border-radius: 10px;
-  box-shadow: 1px 1px 2px #000;
+  box-shadow: rgba(50, 50, 50, 0.56) 1px 1px 5px 0px;
 }
 
 .Enrol_button:hover {
-  color: orange;
+  color: #bfe6ff;
   background-color: white;
 }
 

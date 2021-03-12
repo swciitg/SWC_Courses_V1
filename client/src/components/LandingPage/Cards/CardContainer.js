@@ -31,7 +31,7 @@ const CardContainer = ({ courses }) => {
           <img src={spinner} alt="" width="150px" height="150px" />
         </div>
       ) : (
-        courses.map((course, i) => {
+        courses.reverse().slice(0,6).map((course, i) => {
           return (
             <Card
               key={i}

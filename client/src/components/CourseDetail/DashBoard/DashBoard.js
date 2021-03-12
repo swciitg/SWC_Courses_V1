@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext,useEffect, useState } from "react";
 import styles from "./DashBoard.module.css";
 import classNames from "classnames";
 import Aux from "../../../hoc/Auxilary";
 import Content from "./Content/Content";
 import Header from "./Header/Header";
 import axios from "axios";
+import AppNavbar from "../../ProfilePage/AppNavbar/AppNavbar";
+import { CoursesContext } from "../../../contexts/CoursesContext";
 
 const DashBoard = ({ details }) => {
   const [user, setUser] = useState({});
@@ -13,6 +15,8 @@ const DashBoard = ({ details }) => {
   const [isEnrolled, setIsEnrolled] = useState(
     enCourseIDs.includes(details.id)
   );
+
+  const { courses } = useContext(CoursesContext);
 
   useEffect(() => {
     ///////// @start
@@ -51,14 +55,16 @@ const DashBoard = ({ details }) => {
   return (
     <Aux>
       <div
+       
         className={classNames(
-          "container-fluid",
-          "p-0",
+          "container",
+          "py-3",
           "d-flex",
           "flex-column",
           styles.MainBody
         )}
       >
+        <AppNavbar name={user.name} courses={courses} />
         <Header
           details={details}
           user={user}

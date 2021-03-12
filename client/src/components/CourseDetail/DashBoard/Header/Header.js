@@ -64,11 +64,11 @@ const Header = (props) => {
           )}
         >
           <span className="mr-auto">
-            <Link to="/">
+            {/* <Link to="/">
               <button className={styles.BackButton}>
                 <img src={leftArrow} alt="back" />
               </button>
-            </Link>
+            </Link> */}
             <span
               className={classNames(
                 styles.Dashboard,
@@ -76,11 +76,11 @@ const Header = (props) => {
                 "d-sm-inline-block"
               )}
             >
-              DASHBOARD
+              {details.title}
             </span>
           </span>
 
-          {isLoggedIn ? (
+          {/* {isLoggedIn ? (
             <Aux>
               <span
                 className="d-none d-sm-inline"
@@ -102,11 +102,11 @@ const Header = (props) => {
             >
               Welcome Visitor !!
             </span>
-          )}
+          )} */}
         </nav>
 
         <div class="container-fluid pl-sm-5">
-          <h2 className={styles.Title}>{details.title}</h2>
+          <h2 className={styles.Title}>{details.author}</h2>
 
           <Navbar className="justify-content-start px-0 d-flex">
             <span className="d-none d-sm-inline-block">

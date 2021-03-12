@@ -10,7 +10,7 @@ router.get("/courses", courseController.getAllCourses);
 router.get("/courses/search", courseController.searchCourse);
 
 //course page
-router.get("/courses/:id", isLoggedIn, courseController.getOneCourse);
+router.get("/courses/:id", courseController.getOneCourse);
 
 //course enrol
 router.get("/courses/:id/enrol", courseController.enrollInCourse);
