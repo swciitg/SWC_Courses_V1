@@ -97,7 +97,7 @@ const SearchBar = (props) => {
   );
 
   return (
-    <div style={{ width: "100%", scale:"1.3", marginLeft:"3rem"}}>
+    <div style={{ width: "85%", scale:"1.3"}}>
       <form onSubmit={handleOpen} style={{ position: "relative" }} >
         <input
           type="text"
@@ -115,9 +115,10 @@ const SearchBar = (props) => {
           className={styles.todobtn}
           style={{
             position: "absolute",
-            top: "-13%",
-            right: "-0.3%",
-            transform: "scale(0.73)",
+            top: "3%",
+            width: "3rem",
+            height: "3.1rem",
+            right: "1%",
           }}
         />
       </form>

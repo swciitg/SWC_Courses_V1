@@ -1,3 +1,6 @@
+#content {
+  height: 90vh;
+}
 .Logo {
   width: 26rem;
   max-width: 100%;
@@ -17,6 +20,7 @@
   font-family: Poppins;
   font-style: normal;
   font-weight: 600;
+  width: 80%;
   color: #313131;
 }
 
@@ -87,7 +91,7 @@
 }
 
 .todoinput {
-  width: 400px;
+  width: 100%;
 }
 
 .todobtn {
@@ -97,6 +101,47 @@
 .todobtn:hover {
   background: #fff061;
 }
+
+.threetagscontainer {
+  width: 80%;
+  margin: 8% auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.tagcontainer {
+  width: 30%;
+  padding: 1rem;
+  outline: none;
+  border: none;
+  border-radius: 9px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.threetags {
+  display: flex;
+  font-size: 1.2rem;
+  align-items: center;
+}
+
+.tagname {
+  margin: 0;
+}
+
+.tagimg {
+  margin-right: 2rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+/* @media (max-width: ) {
+  .introBlock {
+    transform: scale(0.9);
+  }
+} */
 
 @media (max-width: 500px) {
   .content {
