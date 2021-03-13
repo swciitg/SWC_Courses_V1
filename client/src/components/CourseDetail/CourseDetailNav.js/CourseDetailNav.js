@@ -19,7 +19,13 @@ import Card from "../../LandingPage/Cards/Card";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import urls from "../../../constants";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -61,6 +67,7 @@ const CourseDetailNav = (props) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = React.useState(false);
+  const [msgOpen, setMsgOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
 
   useEffect(() => {
@@ -74,6 +81,12 @@ const CourseDetailNav = (props) => {
     };
   }, [isScrolled, setIsScrolled]);
 
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setMsgOpen(true);
+    }
+  }, []);
+
   const toggleNavBar = () => setIsNavOpen(!isNavOpen);
 
   const handleOpen = (e) => {
@@ -83,6 +96,10 @@ const CourseDetailNav = (props) => {
 
   const handleClose = (e) => {
     setOpen(false);
+  };
+
+  const handleCloseMsg = (e) => {
+    setMsgOpen(false);
   };
 
   const logoutHandler = () => {
@@ -144,112 +161,124 @@ const CourseDetailNav = (props) => {
   );
 
   return (
-    <Navbar
-      id="navbar"
-      className={isScrolled ? styles.scroll : styles.NavBar}
-      light
-      expand="md"
-    >
-      <NavbarBrand>
-        <Link to="/">
-          <img src={newlogo} alt="logo" />
-        </Link>
-      </NavbarBrand>
-      <NavbarToggler onClick={toggleNavBar} />
-      <Collapse isOpen={isNavOpen} navbar>
-        <Nav className={styles.Nav}>
-          <NavItem className={styles.NavItem}>
-            <form className={styles.SearchForm} onSubmit={handleOpen}>
-              <div className="input-group">
-                <img src={glass} alt="glass" />
-                <input
-                  type="text"
-                  className="form-control"
-                  name="dsearch"
-                  value={search}
-                  onChange={(e) => {
-                    setSearch(e.target.value);
-                  }}
-                  placeholder="find courses"
-                />
-              </div>
-            </form>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="simple-modal-title"
-              aria-describedby="simple-modal-description"
-            >
-              {body}
-            </Modal>
-          </NavItem>
-          <NavItem className={styles.NavItem}>
-            <Link to="/courses">
-              <NavLink
-                className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
-              >
-                COURSES
-              </NavLink>
-            </Link>
-          </NavItem>
-          {isLoggedIn ? (
+    <>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={msgOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseMsg}
+      >
+        <Alert onClose={handleCloseMsg} severity="info">
+          Please LOGIN to access the course contents :)
+        </Alert>
+      </Snackbar>
+      <Navbar
+        id="navbar"
+        className={isScrolled ? styles.scroll : styles.NavBar}
+        light
+        expand="md"
+      >
+        <NavbarBrand>
+          <Link to="/">
+            <img src={newlogo} alt="logo" />
+          </Link>
+        </NavbarBrand>
+        <NavbarToggler onClick={toggleNavBar} />
+        <Collapse isOpen={isNavOpen} navbar>
+          <Nav className={styles.Nav}>
             <NavItem className={styles.NavItem}>
-              {/* <Link to="/logout"> */}
-              <NavLink
-                className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
-                onClick={logoutHandler}
+              <form className={styles.SearchForm} onSubmit={handleOpen}>
+                <div className="input-group">
+                  <img src={glass} alt="glass" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="dsearch"
+                    value={search}
+                    onChange={(e) => {
+                      setSearch(e.target.value);
+                    }}
+                    placeholder="find courses"
+                  />
+                </div>
+              </form>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
               >
-                LOGOUT
-              </NavLink>
-              {/* </Link> */}
+                {body}
+              </Modal>
             </NavItem>
-          ) : (
             <NavItem className={styles.NavItem}>
-              {/* <Link to="/login"> */}
-              <NavLink
-                className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
-                onClick={loginHandler}
-              >
-                LOGIN
-              </NavLink>
-              {/* </Link> */}
+              <Link to="/courses">
+                <NavLink
+                  className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
+                >
+                  COURSES
+                </NavLink>
+              </Link>
             </NavItem>
-          )}
-
-          {isLoggedIn ? (
-            <>
+            {isLoggedIn ? (
               <NavItem className={styles.NavItem}>
-                <Link to="/profile">
-                  <NavLink
-                    className={
-                      isScrolled ? styles.NavLinkScroll : styles.NavLink
-                    }
-                  >
-                    MY COURSES
-                  </NavLink>
-                </Link>
+                {/* <Link to="/logout"> */}
+                <NavLink
+                  className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
+                  onClick={logoutHandler}
+                >
+                  LOGOUT
+                </NavLink>
+                {/* </Link> */}
               </NavItem>
-              <NavItem
-                className={classNames("d-none", "d-sm-block", styles.NavItem)}
+            ) : (
+              <NavItem className={styles.NavItem}>
+                {/* <Link to="/login"> */}
+                <NavLink
+                  className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
+                  onClick={loginHandler}
+                >
+                  LOGIN
+                </NavLink>
+                {/* </Link> */}
+              </NavItem>
+            )}
+
+            {isLoggedIn ? (
+              <>
+                <NavItem className={styles.NavItem}>
+                  <Link to="/profile">
+                    <NavLink
+                      className={
+                        isScrolled ? styles.NavLinkScroll : styles.NavLink
+                      }
+                    >
+                      MY COURSES
+                    </NavLink>
+                  </Link>
+                </NavItem>
+                <NavItem
+                  className={classNames("d-none", "d-sm-block", styles.NavItem)}
+                >
+                  <Link to="/profile" style={{ textDecoration: "none" }}>
+                    <NavLink>
+                      <Avatar alt={props.name} src="#" />
+                    </NavLink>
+                  </Link>
+                </NavItem>
+              </>
+            ) : (
+              <NavbarText
+                className={styles.NavItem}
+                style={{ color: isScrolled ? "#fff" : "#999" }}
               >
-                <Link to="/profile" style={{ textDecoration: "none" }}>
-                  <NavLink>
-                    <Avatar alt={props.name} src="#" />
-                  </NavLink>
-                </Link>
-              </NavItem>
-            </>
-          ) : (
-            <NavbarText
-              className={styles.NavItem}
-              style={{ color: isScrolled ? "#fff" : "#999" }}
-            >
-              Welcome Visitor !!
-            </NavbarText>
-          )}
-        </Nav>
-      </Collapse>
-    </Navbar>
+                Welcome Visitor !!
+              </NavbarText>
+            )}
+          </Nav>
+        </Collapse>
+      </Navbar>
+    </>
   );
 };
 

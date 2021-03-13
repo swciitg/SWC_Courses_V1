@@ -11,9 +11,10 @@ const useStyles = makeStyles((theme) => ({
     width: "80%",
     height: "90%",
     border: "#edf8ff 7px solid",
-    borderRadius:30,
+    borderRadius: 30,
     backgroundColor: "#ffffff",
-    backgroundImage: "url('https://www.transparenttextures.com/patterns/checkered-light-emboss.png')",
+    backgroundImage:
+      "url('https://www.transparenttextures.com/patterns/checkered-light-emboss.png')",
     // backdropFilter: "grayscale(0.5) opacity(1)",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -28,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
       width: "8px",
     },
     "&:focus": {
-      outline: "none"
-    }
+      outline: "none",
+    },
   },
 }));
 
@@ -97,11 +98,11 @@ const SearchBar = (props) => {
   );
 
   return (
-    <div style={{ width: "85%", scale:"1.3"}}>
-      <form onSubmit={handleOpen} style={{ position: "relative" }} >
+    <div style={{ scale: "1.3" }} className={styles.searchBar}>
+      <form onSubmit={handleOpen} style={{ position: "relative" }}>
         <input
           type="text"
-          className={`mb-4 ${styles.hscrInput}`,styles.todoinput}
+          className={(`mb-4 ${styles.hscrInput}`, styles.todoinput)}
           name="dsearch"
           placeholder="Search for courses"
           value={search}

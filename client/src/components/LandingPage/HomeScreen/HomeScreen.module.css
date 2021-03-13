@@ -1,6 +1,12 @@
-#content {
-  height: 90vh;
+.content {
+  max-height: 90vh;
 }
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
 .Logo {
   width: 26rem;
   max-width: 100%;
@@ -11,7 +17,23 @@
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
+  height: 70vh;
+}
+
+.imgCont {
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tagsCont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
 }
 
 .introPara {
@@ -22,6 +44,10 @@
   font-weight: 600;
   width: 80%;
   color: #313131;
+}
+
+.searchBar {
+  width: 85%;
 }
 
 .HomeScreen {
@@ -104,7 +130,6 @@
 
 .threetagscontainer {
   width: 80%;
-  margin: 8% auto;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -119,6 +144,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transform: scale(0.85);
 }
 
 .threetags {
@@ -129,6 +155,8 @@
 
 .tagname {
   margin: 0;
+  font-weight: 400;
+  color: #555;
 }
 
 .tagimg {
@@ -143,10 +171,28 @@
   }
 } */
 
-@media (max-width: 500px) {
+@media only screen and (max-width: 500px) {
   .content {
     margin-top: 5px;
   }
+
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .imgCont > img {
+    width: 90vw;
+  }
+
+  .introPara {
+    width: 100%;
+    font-size: 2.5rem;
+  }
+
+  .searchBar {
+    width: 100%;
+  }
+
   .cardContainer {
     width: 100%;
     padding: 0 3px;

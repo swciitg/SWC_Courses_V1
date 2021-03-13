@@ -19,8 +19,10 @@ const HomeScreen = (props) => {
       id="content"
       className={`container-fluid pb-4 d-flex align-items-center px-4 pl-md-5 ${styles.content}`}
     >
-      <div className="row">
-        <div className={`col-6 col-md-6 col-lg-6 px-5 py-5 ${styles.introBlock}`}>
+      <div className={`row ${styles.wrapper}`}>
+        <div
+          className={`col-12 col-md-6 col-lg-6 px-2 px-sm-5 py-0 py-sm-5 ${styles.introBlock}`}
+        >
           <p
             id="introPara"
             className={`text-center text-sm-left ${styles.introPara}`}
@@ -29,31 +31,33 @@ const HomeScreen = (props) => {
           </p>
           <SearchBar courses={courses} />
         </div>
-        <div className={`col-6 col-md-6 col-lg-6 px-1 py-5`}>
+        <div className={`col-12 col-md-6 col-lg-6 px-1 py-5 ${styles.imgCont}`}>
           <img src={homescreenimg} />
         </div>
-        <div class="container-fluid pl-2 pl-md-5 text-center text-sm-left d-none d-sm-block mt-4">
-            <div class="row" className={styles.threetagscontainer}>
-              <div className={`col-4`,styles.tagcontainer}>
-                <div className={styles.threetags}>
-                  <img className={styles.tagimg} src={gift}></img>
-                  <p className={styles.tagname}>Premuim Courses</p>
-                </div>
+        <div
+          class={`container-fluid pl-2 pl-md-5 text-center text-sm-left d-none d-sm-flex ${styles.tagsCont}`}
+        >
+          <div class="row" className={styles.threetagscontainer}>
+            <div className={(`col-4`, styles.tagcontainer)}>
+              <div className={styles.threetags}>
+                <img className={styles.tagimg} src={gift}></img>
+                <p className={styles.tagname}>Premuim Courses</p>
               </div>
-              <div class="col-4" className={styles.tagcontainer}>
+            </div>
+            <div class="col-4" className={styles.tagcontainer}>
               <div className={styles.threetags}>
                 <img className={styles.tagimg} src={users}></img>
                 <p className={styles.tagname}>Peer Learning</p>
               </div>
-              </div>
-              <div className={`col-4`,styles.tagcontainer}>
+            </div>
+            <div className={(`col-4`, styles.tagcontainer)}>
               <div className={styles.threetags}>
                 <img className={styles.tagimg} src={repeat} />
-                <p className={styles.tagname}>Basic to Advance</p>
-              </div>
+                <p className={styles.tagname}>Basic to Advanced</p>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
   );
