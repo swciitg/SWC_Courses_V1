@@ -44,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
     "&::-webkit-scrollbar": {
       width: "8px",
     },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#96c6e5",
+      borderRadius: 30,
+    },
     "&:focus": {
       outline: "none",
     },
@@ -60,7 +64,6 @@ const CourseDetailNav = (props) => {
   const [search, setSearch] = React.useState("");
 
   useEffect(() => {
-    console.log("URLS HAI", urls);
     window.onscroll = () => {
       if (window.pageYOffset > 50) {
         setIsScrolled(true);
@@ -103,7 +106,7 @@ const CourseDetailNav = (props) => {
           textAlign: "center",
           margin: "10px 0 15px",
           color: "#1B3D2F",
-          fontFamily: "myUbuntu",
+          fontFamily: "Poppins",
           fontSize: "3rem",
         }}
       >
@@ -130,7 +133,7 @@ const CourseDetailNav = (props) => {
         <h6
           style={{
             textAlign: "center",
-            fontFamily: "myUbuntu",
+            fontFamily: "Poppins",
             fontSize: "1.3rem",
           }}
         >

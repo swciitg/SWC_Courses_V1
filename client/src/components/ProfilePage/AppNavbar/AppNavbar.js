@@ -42,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
     "&::-webkit-scrollbar": {
       width: "8px",
     },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#96c6e5",
+      borderRadius: 30,
+    },
     "&:focus": {
       outline: "none",
     },
@@ -71,14 +75,14 @@ const AppNavbar = (props) => {
 
   // BODY FOR SEARCH MODAL
   const body = (
-    <div className={classes.paper}>
+    <div className={classNames(classes.paper)}>
       <h2
         id="simple-modal-title"
         style={{
           textAlign: "center",
           margin: "10px 0 15px",
           color: "#1B3D2F",
-          fontFamily: "myUbuntu",
+          fontFamily: "Poppins",
           fontSize: "3rem",
         }}
       >
@@ -105,7 +109,7 @@ const AppNavbar = (props) => {
         <h6
           style={{
             textAlign: "center",
-            fontFamily: "myUbuntu",
+            fontFamily: "Poppins",
             fontSize: "1.3rem",
           }}
         >
@@ -185,14 +189,12 @@ const AppNavbar = (props) => {
             </Link>
           </NavItem>
           <NavItem className={styles.NavItem}>
-            {/* <Link to="/logout"> */}
             <NavLink
               className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
               onClick={logoutHandler}
             >
               LOGOUT
             </NavLink>
-            {/* </Link> */}
           </NavItem>
           <NavItem className={styles.NavItem}>
             <Link to="/profile">
