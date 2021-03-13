@@ -12,6 +12,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import logo from "../../../images/logo.png";
+import urls from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -30,7 +31,7 @@ export default function Sidemenu() {
   const [state, setState] = React.useState({ left: false });
 
   const logoutHandler = () => {
-    window.open("http://localhost:5000/auth/logout", "_self");
+    window.open(urls.LOGOUT, "_self");
   };
 
   const toggleDrawer = (anchor, open) => (event) => {

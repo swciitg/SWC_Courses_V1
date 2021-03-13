@@ -1,8 +1,8 @@
 .MainBody {
-  margin-top: 7%;
   background-color: #ffffff;
   border-radius: 3rem;
   min-height: 85%;
+  box-shadow: 1px 1px 5px 0px rgb(50 50 50 / 56%);
 }
 
 .Header {

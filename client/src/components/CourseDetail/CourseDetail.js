@@ -3,11 +3,15 @@ import DashBoard from "./DashBoard/DashBoard";
 import classNames from "classnames";
 import styles from "./CourseDetail.module.css";
 import axios from "axios";
+import AppNavbar from "../ProfilePage/AppNavbar/AppNavbar";
+import { CoursesContext } from "../../contexts/CoursesContext";
+import { UserContext } from "../../contexts/UserContext";
+import CourseDetailNav from "./CourseDetailNav.js/CourseDetailNav";
 
 const CourseDetail = (props) => {
   const details = { ...props.location.state };
-  console.log(details);
-  // const [videos, setVideos] = useState([]);
+  const { courses } = useContext(CoursesContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     console.log("Props from card", details);
@@ -27,7 +31,9 @@ const CourseDetail = (props) => {
   }, []);
 
   return (
-    <div className={classNames("p-3", "p-sm-4", styles.MainBody)}>
+    <div className={classNames(styles.MainBody)}>
+      {/* <AppNavbar name={user.name} courses={courses} /> */}
+      <CourseDetailNav courses={courses} />
       <DashBoard details={details} />
     </div>
   );

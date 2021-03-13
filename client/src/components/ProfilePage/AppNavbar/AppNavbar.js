@@ -17,6 +17,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Card from "../../LandingPage/Cards/Card";
+import urls from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -24,9 +25,10 @@ const useStyles = makeStyles((theme) => ({
     width: "80%",
     height: "90%",
     border: "#edf8ff 7px solid",
-    borderRadius:30,
+    borderRadius: 30,
     backgroundColor: "#ffffff",
-    backgroundImage: "url('https://www.transparenttextures.com/patterns/checkered-light-emboss.png')",
+    backgroundImage:
+      "url('https://www.transparenttextures.com/patterns/checkered-light-emboss.png')",
     // backdropFilter: "grayscale(0.5) opacity(1)",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -41,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
       width: "8px",
     },
     "&:focus": {
-      outline: "none"
-    }
+      outline: "none",
+    },
   },
 }));
 
@@ -94,6 +96,7 @@ const AppNavbar = (props) => {
                 description={course.description}
                 id={course._id}
                 videos={course.videos}
+                author={course.author}
               />
             );
           })}
@@ -128,7 +131,7 @@ const AppNavbar = (props) => {
   const toggleNavBar = () => setIsNavOpen(!isNavOpen);
 
   const logoutHandler = () => {
-    window.open("http://localhost:5000/auth/logout", "_self");
+    window.open(urls.LOGOUT, "_self");
   };
 
   return (
@@ -182,14 +185,14 @@ const AppNavbar = (props) => {
             </Link>
           </NavItem>
           <NavItem className={styles.NavItem}>
-            <Link to="/logout">
-              <NavLink
-                className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
-                onClick={logoutHandler}
-              >
-                LOGOUT
-              </NavLink>
-            </Link>
+            {/* <Link to="/logout"> */}
+            <NavLink
+              className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
+              onClick={logoutHandler}
+            >
+              LOGOUT
+            </NavLink>
+            {/* </Link> */}
           </NavItem>
           <NavItem className={styles.NavItem}>
             <Link to="/profile">
