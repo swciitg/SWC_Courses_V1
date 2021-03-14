@@ -66,9 +66,9 @@ const CourseDetailNav = (props) => {
   const { isLoggedIn } = useContext(AuthContext);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [open, setOpen] = React.useState(false);
-  const [msgOpen, setMsgOpen] = React.useState(false);
-  const [search, setSearch] = React.useState("");
+  const [open, setOpen] = useState(false);
+  const [msgOpen, setMsgOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     window.onscroll = () => {
@@ -180,7 +180,7 @@ const CourseDetailNav = (props) => {
       >
         <NavbarBrand>
           <Link to="/">
-            <img src={newlogo} alt="logo" />
+            <img src={newlogo} alt="logo" className={styles.logoImg} />
           </Link>
         </NavbarBrand>
         <NavbarToggler onClick={toggleNavBar} />
@@ -258,7 +258,7 @@ const CourseDetailNav = (props) => {
                   </Link>
                 </NavItem>
                 <NavItem
-                  className={classNames("d-none", "d-sm-block", styles.NavItem)}
+                  className={classNames("d-none", "d-lg-block", styles.NavItem)}
                 >
                   <Link to="/profile" style={{ textDecoration: "none" }}>
                     <NavLink>

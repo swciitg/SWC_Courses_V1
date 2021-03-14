@@ -41,7 +41,7 @@ const HomeScreen = (props) => {
             <div className={(`col-4`, styles.tagcontainer)}>
               <div className={styles.threetags}>
                 <img className={styles.tagimg} src={gift}></img>
-                <p className={styles.tagname}>Premuim Courses</p>
+                <p className={styles.tagname}>Quality Courses</p>
               </div>
             </div>
             <div class="col-4" className={styles.tagcontainer}>

@@ -58,7 +58,7 @@ const CoursesNav = (props) => {
     >
       <NavbarBrand>
         <Link to="/">
-          <img src={newlogo} alt="logo" />
+          <img src={newlogo} alt="logo" className={styles.logoImg} />
         </Link>
       </NavbarBrand>
       <NavbarToggler onClick={toggleNavBar} />

@@ -94,20 +94,15 @@
   margin-top: -4px;
   margin-left: 5px;
 }
-@media only screen and (max-width: 986px) {
+
+@media only screen and (min-width: 551px) and (max-width: 765px) {
   .MainBody {
-    margin-top: 15%;
+    margin-top: 15vh;
   }
 }
 
-@media only screen and (max-width: 830px) {
+@media only screen and (max-width: 550px) {
   .MainBody {
-    margin-top: 20%;
-  }
-}
-
-@media only screen and (max-width: 368px) {
-  .MainBody {
-    margin-top: 25%;
+    margin-top: 12vh;
   }
 }

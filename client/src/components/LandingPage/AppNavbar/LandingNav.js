@@ -39,7 +39,7 @@ const LandingNav = () => {
     <Navbar id="navbar" className={styles.NavBar} light expand="md">
       <NavbarBrand>
         <Link to="/" style={{ textDecoration: "none" }}>
-          <img src={newlogo} alt="logo" />
+          <img src={newlogo} alt="logo" className={styles.logoImg} />
           {/* <span className="pl-3" style={{ color: "#000" }}>
             SWC COURSES
           </span> */}

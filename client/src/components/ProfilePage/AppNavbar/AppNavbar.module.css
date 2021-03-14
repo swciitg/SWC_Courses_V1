@@ -87,6 +87,25 @@
   align-items: center;
 }
 
+.logoImg:hover {
+  animation: colorChange 1.5s infinite;
+}
+
+@keyframes colorChange {
+  from {
+    filter: hue-rotate(0deg);
+    transform: scale(1);
+  }
+  50% {
+    filter: hue-rotate(180deg);
+    transform: scale(1.1);
+  }
+  to {
+    filter: hue-rotate(360deg);
+    transform: scale(1);
+  }
+}
+
 @media only screen and (max-width: 550px) {
   .NavBar {
     padding: 0.8rem 1.5rem;

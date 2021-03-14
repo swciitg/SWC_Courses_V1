@@ -140,16 +140,14 @@ const AppNavbar = (props) => {
 
   return (
     <Navbar
-      // className="navbar navbar-expand-lg navbar-light d-flex justify-content-between pt-2"
       id="navbar"
       className={isScrolled ? styles.scroll : styles.NavBar}
       light
       expand="md"
     >
       <NavbarBrand>
-        {/* <Logo /> */}
         <Link to="/">
-          <img src={newlogo} alt="logo" />
+          <img src={newlogo} alt="logo" className={styles.logoImg} />
         </Link>
       </NavbarBrand>
       <NavbarToggler onClick={toggleNavBar} />
@@ -206,7 +204,7 @@ const AppNavbar = (props) => {
             </Link>
           </NavItem>
           <NavItem
-            className={classNames("d-none", "d-sm-block", styles.NavItem)}
+            className={classNames("d-none", "d-lg-block", styles.NavItem)}
           >
             <Link to="/profile" style={{ textDecoration: "none" }}>
               <NavLink
