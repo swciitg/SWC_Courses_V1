@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-import { Container } from "reactstrap";
-import classNames from "classnames";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styles from "./AdminCourses.module.css";
 import Button from "@material-ui/core/Button";
 import leftArrow from "../../images/left-arrow.png";

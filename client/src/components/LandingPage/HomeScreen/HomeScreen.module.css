@@ -171,7 +171,7 @@
   }
 }
 
-@media (max-width: 710px) {
+@media only screen and (min-width:551px) and (max-width: 710px) {
   .introBlock {
     margin-top: 10rem;
     justify-content: flex-end;

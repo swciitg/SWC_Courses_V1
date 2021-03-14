@@ -8,7 +8,9 @@ const Content = ({ details }) => {
       <div className={styles.Content_box}>
         <div className={classNames(styles.Header)}>
           <span>CONTENTS</span>
-          <span>{details.videos.length} Lessons</span>
+          <span>
+            {details.videos !== undefined && details.videos.length} Lessons
+          </span>
           <span>_ hrs</span>
         </div>
         <div className={styles.lessons}>

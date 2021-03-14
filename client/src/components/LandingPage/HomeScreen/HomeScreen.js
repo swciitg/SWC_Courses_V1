@@ -17,7 +17,7 @@ const HomeScreen = (props) => {
   return (
     <div
       id="content"
-      className={`container-fluid pb-4 d-flex align-items-center px-4 pl-md-5 ${styles.content}`}
+      className={`container-fluid pb-4 d-flex align-items-center px-4 px-md-5 ${styles.content}`}
     >
       <div className={`row ${styles.wrapper}`}>
         <div
