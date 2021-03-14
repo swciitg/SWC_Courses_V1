@@ -119,7 +119,7 @@ const SearchBar = (props) => {
             top: "3%",
             width: "3rem",
             height: "3.1rem",
-            right: "1%",
+            right: "0.5%",
           }}
         />
       </form>

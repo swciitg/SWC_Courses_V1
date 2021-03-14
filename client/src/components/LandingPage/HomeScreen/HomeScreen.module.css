@@ -165,11 +165,24 @@
   height: 2rem;
 }
 
-/* @media (max-width: ) {
-  .introBlock {
-    transform: scale(0.9);
+@media (max-width: 1210px) {
+  .hsimg {
+    width: 85%;
   }
-} */
+}
+
+@media (max-width: 710px) {
+  .introBlock {
+    margin-top: 10rem;
+    justify-content: flex-end;
+  }
+  .hsimg {
+    height: 50%;
+  }
+  .imgCont {
+    align-items: flex-start;
+  }
+}
 
 @media only screen and (max-width: 500px) {
   .content {

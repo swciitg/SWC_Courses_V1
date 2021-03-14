@@ -32,7 +32,7 @@ const HomeScreen = (props) => {
           <SearchBar courses={courses} />
         </div>
         <div className={`col-12 col-md-6 col-lg-6 px-1 py-5 ${styles.imgCont}`}>
-          <img src={homescreenimg} />
+          <img src={homescreenimg} className={styles.hsimg} />
         </div>
         <div
           class={`container-fluid pl-2 pl-md-5 text-center text-sm-left d-none d-sm-flex ${styles.tagsCont}`}
