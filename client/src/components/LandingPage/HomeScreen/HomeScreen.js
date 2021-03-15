@@ -27,7 +27,7 @@ const HomeScreen = (props) => {
             id="introPara"
             className={`text-center text-sm-left ${styles.introPara}`}
           >
-            A simple and sweet learning platform.
+            SWC Courses, <span>A simple and sweet learning platform.</span>
           </p>
           <SearchBar courses={courses} />
         </div>

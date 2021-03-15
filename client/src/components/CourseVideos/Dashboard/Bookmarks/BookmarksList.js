@@ -34,7 +34,7 @@ export default function BookmarksList(props) {
       <div className={classes.demo}>
         <List dense={false}>
           {bookmarks.length !== 0 ? (
-            bookmarks.reverse().map((bookmark, id) => (
+            [...bookmarks].reverse().map((bookmark, id) => (
               <ListItem key={id}>
                 <ListItemAvatar>
                   <Avatar>
