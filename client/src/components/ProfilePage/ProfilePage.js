@@ -9,6 +9,7 @@ import styles from "./ProfilePage.module.css";
 import CourseCard from "./CourseCard/CourseCard";
 import axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
+import Footer from "../Footer/Footer";
 
 const CoursePage = (props) => {
   const { courses } = useContext(CoursesContext);
@@ -33,6 +34,7 @@ const CoursePage = (props) => {
   }, []);
 
   return (
+    <>
     <div className={styles.Body}>
       <AppNavbar name={user.name} courses={courses} />
 
@@ -94,6 +96,8 @@ const CoursePage = (props) => {
         </Container>
       </Container>
     </div>
+    <Footer/>
+    </>
   );
 };
 

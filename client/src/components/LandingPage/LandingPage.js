@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import LandingNav from "./AppNavbar/LandingNav";
 import HomeScreen from "./HomeScreen/HomeScreen";
+import Footer from "../Footer/Footer";
 import styles from "./LandingPage.module.css";
 import CardContainer from "./Cards/CardContainer";
 import ErrorBoundary from "../../hoc/ErrorBoundary";
@@ -19,6 +20,7 @@ const LandingPage = (props) => {
       <ErrorBoundary>
         <CardContainer courses={courses} />
       </ErrorBoundary>
+      <Footer/>
     </div>
   );
 };

@@ -97,12 +97,12 @@ export default function MediaCard(props) {
           image={props.imgScr}
           title={props.title}
         />
-        <CardActions className={classes.contentStar} >
+      <CardActions className={classes.contentStar} >
         <Rating className={classes.starRating} name="read-only" value={value} readOnly />
       </CardActions>
         <CardContent className={classes.content}>
           <Typography gutterBottom variant="h5" component="h2">
-            <Box  fontWeight={500} height={54}>
+            <Box style={{ display:"flex", alignItems:"center", }}  fontWeight={500} height={54}>
               {name}
             </Box>
           </Typography>

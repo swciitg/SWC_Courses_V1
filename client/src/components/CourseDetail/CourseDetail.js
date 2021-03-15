@@ -4,7 +4,7 @@ import classNames from "classnames";
 import styles from "./CourseDetail.module.css";
 import { CoursesContext } from "../../contexts/CoursesContext";
 import CourseDetailNav from "./CourseDetailNav.js/CourseDetailNav";
-
+import Footer from "../Footer/Footer";
 const CourseDetail = (props) => {
   const details = { ...props.location.state };
   const { courses } = useContext(CoursesContext);
@@ -27,10 +27,11 @@ const CourseDetail = (props) => {
   }, []);
 
   return (
-    <div className={classNames(styles.MainBody)}>
+    <><div className={classNames(styles.MainBody)}>
       <CourseDetailNav courses={courses} />
       <DashBoard details={details} />
     </div>
+    <Footer/></>
   );
 };
 

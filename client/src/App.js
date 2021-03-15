@@ -14,6 +14,7 @@ import { CoursesProvider } from "./contexts/CoursesContext";
 import { UserProvider } from "./contexts/UserContext";
 import ProtectedRoute from "./hoc/ProtectedRoute";
 import CourseVideos from "./components/CourseVideos/CourseVideos";
+// import Footer from "./components/Footer/Footer";
 // import AdminCourses from "./components/AdminCourses/AdminCourses";
 // import AdminCourseDetail from "./components/AdminCourses/AdminCourseDetail";
 // import VideosUpload from "./components/AdminCourses/VideosUpload";
@@ -91,6 +92,7 @@ const App = (props) => {
           </BrowserRouter>
         </UserProvider>
       </CoursesProvider>
+      {/* <Footer/> */}
     </AuthProvider>
   );
 };

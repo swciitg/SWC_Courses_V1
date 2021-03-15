@@ -4,6 +4,7 @@ import glass from "../../../../images/search-glass.png";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Card from "../../Cards/Card";
+import CNFImg from "../../../../images/coursesnotfound.svg";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -84,6 +85,8 @@ const SearchBar = (props) => {
           })}
         </div>
       ) : (
+        <div style={{ display:"flex", flexDirection:"column", alignItems:"center" , justifyContent:"center"}}>
+        <img style={{ width:"50%", height:"50%", clipPath:"inset(0 0 6% 0)"}} src={CNFImg} />
         <h6
           style={{
             textAlign: "center",
@@ -93,6 +96,7 @@ const SearchBar = (props) => {
         >
           No courses found.
         </h6>
+        </div>
       )}
     </div>
   );

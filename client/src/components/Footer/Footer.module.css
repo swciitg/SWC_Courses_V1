@@ -1,0 +1,28 @@
+.footerContainer{
+  height:10vh;
+  width: 100% !important;
+  background-color: #ececec;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+  bottom: 0;
+}
+
+.footerText{
+  color: #3f3f3f;
+  font-size: 1rem;
+  font-family: Poppins;
+}
+
+.footerLink{
+  color: #464646;
+}
+
+.footerLink:hover{
+  outline: none;
+  color: #151515;
+  cursor: pointer;
+
+}
+  
