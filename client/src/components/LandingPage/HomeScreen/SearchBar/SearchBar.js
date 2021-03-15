@@ -116,11 +116,12 @@ const SearchBar = (props) => {
           className={styles.todobtn}
           style={{
             position: "absolute",
-            top: "3%",
-            width: "3rem",
+            top: "5%",
+            width: "3.1rem",
             height: "3.1rem",
-            right: "0.5%",
+            right: "1%",
           }}
+          onClick={handleOpen}
         />
       </form>
       <Modal

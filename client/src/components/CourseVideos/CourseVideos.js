@@ -7,7 +7,9 @@ import Dashboard from "./Dashboard/Dashboard";
 import axios from "axios";
 
 const CourseVideos = (props) => {
-  const { user, details } = props.location.state;
+  const { user, details } =
+    props.location.state !== undefined && props.location.state;
+
   let currentId = 0;
 
   ////@start setup/retrieve last viewed ID(array index of the playlist) to/from localStorage.

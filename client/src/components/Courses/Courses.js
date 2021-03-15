@@ -14,7 +14,7 @@ const Courses = (props) => {
       .get("/api/courses")
       .then((response) => {
         const data = response.data.courses;
-        console.log(data);
+        // console.log(data);
         setCourses(data);
         setNewcourses(data);
         console.log("Courses has been received!!");

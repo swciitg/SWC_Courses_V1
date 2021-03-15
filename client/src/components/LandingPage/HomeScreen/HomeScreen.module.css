@@ -122,10 +122,13 @@
 
 .todobtn {
   background: #fed75c;
+  transition: all ease 0.5s;
 }
 
 .todobtn:hover {
-  background: #fff061;
+  background: #ffd341;
+  transform: scale(1.05);
+  cursor: pointer;
 }
 
 .threetagscontainer {

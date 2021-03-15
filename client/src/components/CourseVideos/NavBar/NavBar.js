@@ -38,7 +38,7 @@ export default function NavBar(props) {
             {/* </Link> */}
           </Typography>
           <Link to="/profile" style={{ textDecoration: "none" }}>
-            <Avatar alt={user.name} src="#" />
+            <Avatar alt={user.name !== undefined && user.name} src="#" />
           </Link>
         </Toolbar>
       </AppBar>
