@@ -16,6 +16,7 @@ import {
   NavbarText,
 } from "reactstrap";
 import Avatar from "@material-ui/core/Avatar";
+import urls from "../../constants";
 
 const CoursesNav = (props) => {
   const { inputvalue, filterchange } = props;
@@ -37,11 +38,11 @@ const CoursesNav = (props) => {
   const toggleNavBar = () => setIsNavOpen(!isNavOpen);
 
   const logoutHandler = () => {
-    window.open("http://localhost:5000/auth/logout", "_self");
+    window.open(urls.LOGOUT, "_self");
   };
 
   const loginHandler = () => {
-    window.open("http://localhost:5000/auth/outlook", "_self");
+    window.open(urls.LOGIN, "_self");
   };
 
   const submitHandler = (e) => {
@@ -57,7 +58,7 @@ const CoursesNav = (props) => {
     >
       <NavbarBrand>
         <Link to="/">
-          <img src={newlogo} alt="logo" />
+          <img src={newlogo} alt="logo" className={styles.logoImg} />
         </Link>
       </NavbarBrand>
       <NavbarToggler onClick={toggleNavBar} />

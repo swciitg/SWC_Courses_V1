@@ -86,6 +86,10 @@ export default function MediaCard(props) {
 
   return (
     <ThemeProvider theme={theme}>
+    <Link
+              to={{ pathname: `/courses/${props.id}`, state: props }}
+              style={{ textDecoration: "none" }}
+            >
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
@@ -125,6 +129,7 @@ export default function MediaCard(props) {
           </Button>
         </CardActions>
       </Card>
+      </Link>
     </ThemeProvider>
   );
 }

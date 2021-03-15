@@ -31,6 +31,7 @@ const CardsContainer = (props) => {
             imgScr: course.imgPath,
             title: course.title,
             videos: course.videos,
+            author: course.author,
           },
         }}
         style={{ textDecoration: "none" }}

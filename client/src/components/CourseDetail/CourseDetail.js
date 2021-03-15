@@ -2,15 +2,15 @@ import React, { useEffect, useState, useContext } from "react";
 import DashBoard from "./DashBoard/DashBoard";
 import classNames from "classnames";
 import styles from "./CourseDetail.module.css";
-import axios from "axios";
+import { CoursesContext } from "../../contexts/CoursesContext";
+import CourseDetailNav from "./CourseDetailNav.js/CourseDetailNav";
 
 const CourseDetail = (props) => {
   const details = { ...props.location.state };
-  console.log(details);
-  // const [videos, setVideos] = useState([]);
+  const { courses } = useContext(CoursesContext);
 
   useEffect(() => {
-    console.log("Props from card", details);
+    // console.log("Props from card", details);
     // ///////// @start
     // ///////// THIS IS AN API CALL TO THE "/api/courses/:id" ROUTE
     // const apiCall = () => {
@@ -27,7 +27,8 @@ const CourseDetail = (props) => {
   }, []);
 
   return (
-    <div className={classNames("p-3", "p-sm-4", styles.MainBody)}>
+    <div className={classNames(styles.MainBody)}>
+      <CourseDetailNav courses={courses} />
       <DashBoard details={details} />
     </div>
   );

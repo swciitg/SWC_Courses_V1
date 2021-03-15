@@ -10,9 +10,11 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     width: "80%",
     height: "90%",
-    backgroundColor: "#FEF49A",
+    border: "#edf8ff 7px solid",
+    borderRadius: 30,
+    backgroundColor: "#ffffff",
     backgroundImage:
-      'url("https://www.transparenttextures.com/patterns/asfalt-dark.png")',
+      "url('https://www.transparenttextures.com/patterns/checkered-light-emboss.png')",
     // backdropFilter: "grayscale(0.5) opacity(1)",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -25,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     },
     "&::-webkit-scrollbar": {
       width: "8px",
+    },
+    "&:focus": {
+      outline: "none",
     },
   },
 }));
@@ -86,33 +91,35 @@ const SearchBar = (props) => {
             fontSize: "1.3rem",
           }}
         >
-          No courses found !!
+          No courses found.
         </h6>
       )}
     </div>
   );
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ scale: "1.3" }} className={styles.searchBar}>
       <form onSubmit={handleOpen} style={{ position: "relative" }}>
-        <img
-          src={glass}
-          alt="glass"
-          style={{
-            position: "absolute",
-            top: "13%",
-            left: "3%",
-            transform: "scale(0.8)",
-          }}
-        />
         <input
           type="text"
-          className={`mb-4 ${styles.hscrInput}`}
+          className={(`mb-4 ${styles.hscrInput}`, styles.todoinput)}
           name="dsearch"
-          placeholder="Find courses ..."
+          placeholder="Search for courses"
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
+          }}
+        />
+        <img
+          src={glass}
+          alt="glass"
+          className={styles.todobtn}
+          style={{
+            position: "absolute",
+            top: "3%",
+            width: "3rem",
+            height: "3.1rem",
+            right: "0.5%",
           }}
         />
       </form>

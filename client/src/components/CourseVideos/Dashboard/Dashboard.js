@@ -196,8 +196,8 @@ export default function Dashboard(props) {
         Coming Soon...
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <h3 style={{ fontFamily: "myUbuntu" }}>Description</h3>
-        <p style={{ color: "#444", fontFamily: "myUbuntu" }}>
+        <h3 style={{ fontFamily: "Poppins" }}>Description</h3>
+        <p style={{ color: "#444", fontFamily: "Poppins" }}>
           {details.description}
         </p>
       </TabPanel>

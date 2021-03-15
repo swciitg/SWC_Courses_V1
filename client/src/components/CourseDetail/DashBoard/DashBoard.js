@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./DashBoard.module.css";
 import classNames from "classnames";
 import Aux from "../../../hoc/Auxilary";
@@ -52,8 +52,8 @@ const DashBoard = ({ details }) => {
     <Aux>
       <div
         className={classNames(
-          "container-fluid",
-          "p-0",
+          "container",
+          "py-3",
           "d-flex",
           "flex-column",
           styles.MainBody

@@ -99,7 +99,7 @@ const CourseVideos = (props) => {
         timeUpdate={timeUpdate}
       />
       <div className={styles.contentBox}>
-        <h3 style={{ fontFamily: "myUbuntu", marginTop: "10px" }}>
+        <h3 style={{ fontFamily: "Poppins", marginTop: "10px" }}>
           Content Box
         </h3>
         <ContentBox

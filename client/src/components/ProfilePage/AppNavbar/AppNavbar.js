@@ -17,15 +17,18 @@ import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Card from "../../LandingPage/Cards/Card";
+import urls from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
     width: "80%",
     height: "90%",
-    backgroundColor: "#FEF49A",
+    border: "#edf8ff 7px solid",
+    borderRadius: 30,
+    backgroundColor: "#ffffff",
     backgroundImage:
-      'url("https://www.transparenttextures.com/patterns/asfalt-dark.png")',
+      "url('https://www.transparenttextures.com/patterns/checkered-light-emboss.png')",
     // backdropFilter: "grayscale(0.5) opacity(1)",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -38,6 +41,13 @@ const useStyles = makeStyles((theme) => ({
     },
     "&::-webkit-scrollbar": {
       width: "8px",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#96c6e5",
+      borderRadius: 30,
+    },
+    "&:focus": {
+      outline: "none",
     },
   },
 }));
@@ -65,14 +75,14 @@ const AppNavbar = (props) => {
 
   // BODY FOR SEARCH MODAL
   const body = (
-    <div className={classes.paper}>
+    <div className={classNames(classes.paper)}>
       <h2
         id="simple-modal-title"
         style={{
           textAlign: "center",
           margin: "10px 0 15px",
           color: "#1B3D2F",
-          fontFamily: "myUbuntu",
+          fontFamily: "Poppins",
           fontSize: "3rem",
         }}
       >
@@ -90,6 +100,7 @@ const AppNavbar = (props) => {
                 description={course.description}
                 id={course._id}
                 videos={course.videos}
+                author={course.author}
               />
             );
           })}
@@ -98,7 +109,7 @@ const AppNavbar = (props) => {
         <h6
           style={{
             textAlign: "center",
-            fontFamily: "myUbuntu",
+            fontFamily: "Poppins",
             fontSize: "1.3rem",
           }}
         >
@@ -124,21 +135,19 @@ const AppNavbar = (props) => {
   const toggleNavBar = () => setIsNavOpen(!isNavOpen);
 
   const logoutHandler = () => {
-    window.open("http://localhost:5000/auth/logout", "_self");
+    window.open(urls.LOGOUT, "_self");
   };
 
   return (
     <Navbar
-      // className="navbar navbar-expand-lg navbar-light d-flex justify-content-between pt-2"
       id="navbar"
       className={isScrolled ? styles.scroll : styles.NavBar}
       light
       expand="md"
     >
       <NavbarBrand>
-        {/* <Logo /> */}
         <Link to="/">
-          <img src={newlogo} alt="logo" />
+          <img src={newlogo} alt="logo" className={styles.logoImg} />
         </Link>
       </NavbarBrand>
       <NavbarToggler onClick={toggleNavBar} />
@@ -178,14 +187,12 @@ const AppNavbar = (props) => {
             </Link>
           </NavItem>
           <NavItem className={styles.NavItem}>
-            <Link to="/logout">
-              <NavLink
-                className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
-                onClick={logoutHandler}
-              >
-                LOGOUT
-              </NavLink>
-            </Link>
+            <NavLink
+              className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
+              onClick={logoutHandler}
+            >
+              LOGOUT
+            </NavLink>
           </NavItem>
           <NavItem className={styles.NavItem}>
             <Link to="/profile">
@@ -197,7 +204,7 @@ const AppNavbar = (props) => {
             </Link>
           </NavItem>
           <NavItem
-            className={classNames("d-none", "d-sm-block", styles.NavItem)}
+            className={classNames("d-none", "d-lg-block", styles.NavItem)}
           >
             <Link to="/profile" style={{ textDecoration: "none" }}>
               <NavLink

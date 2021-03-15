@@ -63,24 +63,16 @@ const Header = (props) => {
             styles.Navbar
           )}
         >
-          <span className="mr-auto">
-            <Link to="/">
+          {/* <span className="mr-auto"> */}
+          {/* <Link to="/">
               <button className={styles.BackButton}>
                 <img src={leftArrow} alt="back" />
               </button>
-            </Link>
-            <span
-              className={classNames(
-                styles.Dashboard,
-                "d-none",
-                "d-sm-inline-block"
-              )}
-            >
-              DASHBOARD
-            </span>
-          </span>
+            </Link> */}
+          <p className={classNames(styles.Dashboard)}>{details.title}</p>
+          {/* </span> */}
 
-          {isLoggedIn ? (
+          {/* {isLoggedIn ? (
             <Aux>
               <span
                 className="d-none d-sm-inline"
@@ -102,11 +94,11 @@ const Header = (props) => {
             >
               Welcome Visitor !!
             </span>
-          )}
+          )} */}
         </nav>
 
-        <div class="container-fluid pl-sm-5">
-          <h2 className={styles.Title}>{details.title}</h2>
+        <div class="container-fluid pl-sm-3">
+          <h2 className={styles.Title}>by {details.author}</h2>
 
           <Navbar className="justify-content-start px-0 d-flex">
             <span className="d-none d-sm-inline-block">
@@ -117,7 +109,7 @@ const Header = (props) => {
                   "badge-light"
                 )}
               >
-                CSS
+                SWC
               </Badge>
               <Badge
                 className={classNames(
@@ -126,7 +118,7 @@ const Header = (props) => {
                   "badge-light"
                 )}
               >
-                Bootstrap
+                IITG
               </Badge>
               <Badge
                 className={classNames(
@@ -136,7 +128,7 @@ const Header = (props) => {
                   "my-1"
                 )}
               >
-                Javascript
+                Learning
               </Badge>
             </span>
             <span

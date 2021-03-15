@@ -3,15 +3,13 @@ import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import logo from "../../../images/logo.png";
+import newlogo from "../../../images/newlogo.svg";
+import urls from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -30,7 +28,7 @@ export default function Sidemenu() {
   const [state, setState] = React.useState({ left: false });
 
   const logoutHandler = () => {
-    window.open("http://localhost:5000/auth/logout", "_self");
+    window.open(urls.LOGOUT, "_self");
   };
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -55,17 +53,7 @@ export default function Sidemenu() {
     >
       <List>
         <ListItem>
-          <img
-            src={logo}
-            alt="logo"
-            style={{
-              width: "26rem",
-              maxWidth: "100%",
-              boxShadow: "2px 2px 30px rgba(0, 0, 0, 0.2)",
-              borderRadius: "30px",
-              transform: "scale(0.9)",
-            }}
-          />
+          <img src={newlogo} alt="logo" style={{ paddingLeft: "15px" }} />
         </ListItem>
         <ListItem button style={{ paddingLeft: "30px", margin: "4px 0" }}>
           <Link

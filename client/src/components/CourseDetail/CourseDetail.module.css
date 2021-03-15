@@ -1,26 +1,12 @@
-/* .Body {
-  background-color: #ffe031;
-  height: 100%;
+.MainBody {
+  background-color: #edf8ff;
+  min-height: 100vh;
+  padding: 7rem 5vw 5vh;
 }
 
-.MainBody {
-  background-color: #ffffff;
-  border-radius: 3rem;
-  min-height: 90%;
-} */
-
-/* .Body {
-  background-color: #ffe031;
-  height: 100%;
-} */
-
-.MainBody {
-  background-image: linear-gradient(rgb(255, 224, 49), rgb(255, 229, 83));
-  height: 100vh;
-}
-
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 768px) {
   .MainBody {
     height: 100%;
+    padding: 1rem 4vw;
   }
 }

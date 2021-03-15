@@ -6,14 +6,16 @@
 
 .Header_wrapper {
   border-radius: 2.25rem;
+  margin: 0;
 }
 
 .Header {
   padding: 1rem 5.6rem 1rem 0;
   border-radius: 2.25rem;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
-  color: rgb(207, 207, 0);
-  text-shadow: 0.5px 0.5px 2px rgb(255, 246, 246);
+  box-shadow: rgba(50, 50, 50, 0.56) 1px 1px 5px 0px;
+  color: rgb(233, 233, 233);
+  /* text-shadow: 0.5px 0.5px 2px rgb(255, 246, 246); */
+  text-shadow: 0.5px 0.5px 2px #000;
 }
 
 .Navbar {
@@ -29,59 +31,23 @@
   font-size: 1rem;
   margin-right: 1rem;
   background-color: #ffffff;
-}
-
-.BackButton {
-  height: 2.2rem;
-  padding: 6px 1rem;
-  border-radius: 20px;
-  border-style: none;
-  background-color: #ffffff;
-  box-shadow: 4px 6px 15px rgba(0, 0, 0, 0.16);
-  position: relative;
-  transition: all 0.1s ease-out;
-  text-decoration: none;
-}
-
-.BackButton:hover,
-.BackButton:focus {
-  transform: translateY(-2px) scale(1.01) translateZ(0);
-  box-shadow: 0 12px 18px rgba(0, 0, 0, 0.2);
-}
-
-.BackButton:active {
-  transform: scale(1) translateZ(0);
-  box-shadow: 0 7.5px 12px rgba(0, 0, 0, 0.15);
-}
-
-.BackButton:focus {
-  outline: none;
-}
-
-.BackButton > img {
-  height: 100%;
+  border: #edf8ff 2px solid;
+  text-shadow: none;
 }
 
 .Dashboard {
   font-size: 2rem;
-  padding-left: 1rem;
+  overflow-x: hidden;
+  margin: 0;
+  /* padding-left: 1rem; */
 }
 
 .Title {
-  font-size: 1.75rem;
+  font-size: 1.45rem;
   font-family: "Roboto", sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   margin: 0;
 }
-
-/* .Avatar {
-  height: 2.5rem;
-  margin-left: 1rem;
-}
-
-.Avatar img {
-  height: 2.5rem;
-} */
 
 .Enrol {
   font-size: 1.1rem;
@@ -109,14 +75,15 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: #ffffff;
-  background-color: orange;
+  background-color: #bfe6ff;
   border: none;
   border-radius: 10px;
-  box-shadow: 1px 1px 2px #000;
+  text-shadow: 0.5px 0.5px 2px rgb(97, 97, 97);
+  box-shadow: rgba(50, 50, 50, 0.56) 1px 1px 5px 0px;
 }
 
 .Enrol_button:hover {
-  color: orange;
+  color: #bfe6ff;
   background-color: white;
 }
 
