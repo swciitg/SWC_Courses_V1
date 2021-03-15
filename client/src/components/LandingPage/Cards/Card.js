@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     borderRadius: "9px",
     display: "inline-block", // important for layouting
     backgroundColor: "#FFFFFF",
-    border: '0.626214px solid rgba(0, 0, 0, 0.09)',
+    border: "0.626214px solid rgba(0, 0, 0, 0.09)",
     boxShadow: "0px 17px 38px 5px rgba(93, 108, 133, 0.05)",
     transition: "transform .3s cubic-bezier(.4,0,.2,1)",
     "&:hover": {
@@ -40,10 +40,11 @@ const useStyles = makeStyles({
     },
     ["@media (max-width: 550px)"]: {
       width: "280px",
+      margin: "15px 0px",
     },
   },
   media: {
-    width:285,
+    width: 285,
     height: 149.4,
     borderRadius: "8px",
   },
@@ -51,12 +52,12 @@ const useStyles = makeStyles({
     height: 14,
     width: 13.03,
   },
-  content:{
-    padding:"0px 21px",
-    overflow:'hidden',
+  content: {
+    padding: "0px 21px",
+    overflow: "hidden",
   },
-  contentStar:{
-    padding:"15px 21px 8px 20px",
+  contentStar: {
+    padding: "15px 21px 8px 20px",
   },
   primary: {
     color: "#4A8EFF",
@@ -64,11 +65,11 @@ const useStyles = makeStyles({
   flexContainer: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems:"flex-start",
-    padding:"0px 15px",
+    alignItems: "flex-start",
+    padding: "0px 15px",
   },
-  overflowhide:{
-    overflow:'hidden',
+  overflowhide: {
+    overflow: "hidden",
   },
 });
 
@@ -86,49 +87,49 @@ export default function MediaCard(props) {
 
   return (
     <ThemeProvider theme={theme}>
-    <Link
-              to={{ pathname: `/courses/${props.id}`, state: props }}
-              style={{ textDecoration: "none" }}
-            >
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={props.imgScr}
-          title={props.title}
-        />
-      <CardActions className={classes.contentStar} >
-        <Rating className={classes.starRating} name="read-only" value={value} readOnly />
-      </CardActions>
-        <CardContent className={classes.content}>
-          <Typography gutterBottom variant="h5" component="h2">
-            <Box style={{ display:"flex", alignItems:"center", }}  fontWeight={500} height={54}>
-              {name}
+      <Link
+        to={{ pathname: `/courses/${props.id}`, state: props }}
+        style={{ textDecoration: "none" }}
+      >
+        <Card className={classes.root}>
+          <CardActionArea>
+            <CardMedia
+              className={classes.media}
+              image={props.imgScr}
+              title={props.title}
+            />
+            <CardActions className={classes.contentStar}>
+              <Rating name="read-only" value={value} readOnly />
+            </CardActions>
+            <CardContent className={classes.content}>
+              <Typography gutterBottom variant="h5" component="h2">
+                <Box fontWeight={500} height={54}>
+                  {name}
+                </Box>
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                <Box fontWeight={400} height={85}>
+                  {descript}
+                </Box>
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+          <CardActions className={classes.flexContainer}>
+            <Box>
+              <FiberManualRecordRoundedIcon className={classes.primary} />
+              <FiberManualRecordOutlinedIcon className={classes.primary} />
+              <FiberManualRecordOutlinedIcon className={classes.primary} />
             </Box>
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            <Box  fontWeight={400} height={85}>
-              {descript}
-            </Box>
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions className={classes.flexContainer} >
-          <Box>
-            <FiberManualRecordRoundedIcon className={classes.primary} />
-            <FiberManualRecordOutlinedIcon className={classes.primary} />
-            <FiberManualRecordOutlinedIcon className={classes.primary} />
-          </Box>
-          <Button size="small" color="primary">
-            <Link
-              to={{ pathname: `/courses/${props.id}`, state: props }}
-              style={{ textDecoration: "none" }}
-            >
-              <ArrowForwardIcon /> Learn more
-            </Link>
-          </Button>
-        </CardActions>
-      </Card>
+            <Button size="small" color="primary">
+              <Link
+                to={{ pathname: `/courses/${props.id}`, state: props }}
+                style={{ textDecoration: "none" }}
+              >
+                <ArrowForwardIcon /> Learn more
+              </Link>
+            </Button>
+          </CardActions>
+        </Card>
       </Link>
     </ThemeProvider>
   );
