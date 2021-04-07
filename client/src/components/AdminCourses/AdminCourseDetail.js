@@ -76,7 +76,7 @@ class AdminCourseDetail extends Component {
             console.error(err);
           });
       };
-      window.open("http://localhost:3000/admin/courses", "_self");
+      window.open("http://swc2.iitg.ac.in/admin/courses", "_self");
       apiCall();
     }
   };

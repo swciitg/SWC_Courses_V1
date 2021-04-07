@@ -4,7 +4,7 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 12275;
 // const url = "mongodb://localhost:27017/SWC_Media";
 const config = require("config");
 const url = config.get("MONGO_URL");
@@ -34,7 +34,7 @@ mongoose
   .catch((err) => console.error("DB connection fail"));
 
 var corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "http://swc2.iitg.ac.in",
   // origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,

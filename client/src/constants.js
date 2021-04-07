@@ -1,6 +1,6 @@
 const urls = {
-  LOGIN: "http://localhost:5000/auth/outlook",
-  LOGOUT: "http://localhost:5000/auth/logout",
+  LOGIN: "http://swc2.iitg.ac.in/auth/outlook",
+  LOGOUT: "http://swc2.iitg.ac.in/auth/logout",
 };
 
 module.exports = urls;

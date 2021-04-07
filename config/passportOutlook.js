@@ -21,7 +21,7 @@ passport.use(
     {
       clientID: OUTLOOK_CLIENT_ID,
       clientSecret: OUTLOOK_CLIENT_SECRET,
-      callbackURL: "http://localhost:5000/auth/outlook/callback",
+      callbackURL: "http://swc2.iitg.ac.in/auth/outlook/callback",
       passReqToCallback: true,
     },
     function (req, accessToken, refreshToken, profile, done) {
