@@ -2,9 +2,9 @@ const passport = require("passport");
 const OutlookStrategy = require("passport-outlook").Strategy;
 const express = require("express");
 const User = require("../models/user");
-const config = require("config");
-const OUTLOOK_CLIENT_ID = config.get("OUTLOOK_CLIENT_ID");
-const OUTLOOK_CLIENT_SECRET = config.get("OUTLOOK_CLIENT_SECRET");
+
+const OUTLOOK_CLIENT_ID = process.env.OUTLOOK_CLIENT_ID;
+const OUTLOOK_CLIENT_SECRET = process.env.OUTLOOK_CLIENT_SECRET;
 
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -21,7 +21,7 @@ passport.use(
     {
       clientID: OUTLOOK_CLIENT_ID,
       clientSecret: OUTLOOK_CLIENT_SECRET,
-      callbackURL: "http://localhost:5000/auth/outlook/callback",
+      callbackURL: `${process.env.BASE_DOM}/auth/outlook/callback`,
       passReqToCallback: true,
     },
     function (req, accessToken, refreshToken, profile, done) {
