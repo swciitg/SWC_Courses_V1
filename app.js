@@ -1,11 +1,24 @@
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config.env" });
+
+const PORT = process.env.PORT || 5000;
+
+process.env.BASE_DOM =
+  process.env.NODE_ENV === "production"
+    ? `http://swc2.iitg.ac.in`
+    : `http://localhost:${PORT}`;
+
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const PORT = process.env.PORT || 5000;
-const url = "mongodb://localhost:27017/SWC_Courses";
-const config = require("config");
+
+const url =
+  process.env.NODE_ENV === "production"
+    ? process.env.url
+    : process.env.MONGO_URL;
+
 //const url = config.get("MONGO_URL");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
@@ -17,6 +30,16 @@ const authRoutes = require("./routes/auth.routes");
 const testingRoutes = require("./routes/course.routes");
 const adminRoutes = require("./routes/admin.routes");
 //const uploadRoute = require('./routes/upload.routes');
+
+/**
+ * base url
+ */
+//if you want different base url in dev and production then use this line of code
+
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? process.env.BASE_URL
+    : process.env.BASE_URL;
 
 //mongoose setup
 mongoose
@@ -30,14 +53,14 @@ mongoose
   .catch((err) => console.error("DB connection fail"));
 
 var corsOptions = {
-  origin: "http://localhost:3000",
+  origin: process.env.BASE_DOM,
   // origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
 app.use(cors(corsOptions));
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); //Change this later to restrict it to react app only
+  res.setHeader("Access-Control-Allow-Origin", process.env.BASE_DOM); //Change this later to restrict it to react app only
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PATCH, PUT, DELETE"
@@ -69,10 +92,10 @@ app.use(passport.session());
 
 //Setup routes
 // app.use("/api/", authRoutes); //// changed it temporarily to test outlookOauth
-app.use("/", authRoutes);
-app.use("/api/courses/:id/", streamRoutes);
-app.use("/api/", testingRoutes);
-app.use("/api/admin", adminRoutes);
+app.use(`${baseUrl}/`, authRoutes);
+app.use(`${baseUrl}/api/courses/:id/`, streamRoutes);
+app.use(`${baseUrl}/api/`, testingRoutes);
+app.use(`${baseUrl}/api/admin`, adminRoutes);
 
 //Error handler
 app.use((err, req, res, next) => {
@@ -86,9 +109,24 @@ app.use((err, req, res, next) => {
 });
 
 ///// CHANGE THIS BEFORE DEPLOYMENT
-app.get("*", function (req, res) {
-  res.send("PAGE NOT FOUND 404");
-});
+// app.get("*", function (req, res) {
+//   res.send("PAGE NOT FOUND 404");
+// });
+
+//Setup routes
+// Serve static assets if in production
+console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === "production") {
+  //set static folder
+  console.log("i'm running");
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+
+console.log(process.env);
 
 app.listen(PORT, function () {
   console.log(`SWC Media server has started at port ${PORT}`);

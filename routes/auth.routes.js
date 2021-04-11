@@ -1,5 +1,4 @@
 const express = require("express");
-const config = require("config");
 const router = express.Router({ mergeParams: true });
 
 const { authenticate, isLoggedIn } = require("../middleware/index");
