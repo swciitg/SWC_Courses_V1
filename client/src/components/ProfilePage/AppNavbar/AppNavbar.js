@@ -146,7 +146,7 @@ const AppNavbar = (props) => {
       expand="md"
     >
       <NavbarBrand>
-        <Link to="/">
+        <Link to="/courses">
           <img src={newlogo} alt="logo" className={styles.logoImg} />
         </Link>
       </NavbarBrand>
@@ -178,7 +178,7 @@ const AppNavbar = (props) => {
             </Modal>
           </NavItem>
           <NavItem className={styles.NavItem}>
-            <Link to="/courses">
+            <Link to="/courses/courses">
               <NavLink
                 className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
               >
@@ -195,7 +195,7 @@ const AppNavbar = (props) => {
             </NavLink>
           </NavItem>
           <NavItem className={styles.NavItem}>
-            <Link to="/profile">
+            <Link to="/courses/profile">
               <NavLink
                 className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
               >
@@ -206,7 +206,7 @@ const AppNavbar = (props) => {
           <NavItem
             className={classNames("d-none", "d-lg-block", styles.NavItem)}
           >
-            <Link to="/profile" style={{ textDecoration: "none" }}>
+            <Link to="/courses/profile" style={{ textDecoration: "none" }}>
               <NavLink
                 className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
               >

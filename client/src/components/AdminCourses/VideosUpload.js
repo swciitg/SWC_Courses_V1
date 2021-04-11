@@ -51,7 +51,7 @@ const VideosUpload = (props) => {
       <div className={styles.topBar}>
         <Link
           to={{
-            pathname: `/admin/courses/${props.match.params.id}`,
+            pathname: `/courses/admin/courses/${props.match.params.id}`,
           }}
         >
           <button className={styles.BackButton}>

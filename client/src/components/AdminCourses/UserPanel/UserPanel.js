@@ -9,7 +9,7 @@ const UserPanel = () => {
   return (
     <div className={styles.userPanelRoot}>
       <div className={styles.topBar}>
-        <Link to="/admin/courses">
+        <Link to="/courses/admin">
           <button className={styles.BackButton}>
             <img src={leftArrow} alt="back" />
           </button>

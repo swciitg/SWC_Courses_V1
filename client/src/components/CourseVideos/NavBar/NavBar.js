@@ -37,7 +37,7 @@ export default function NavBar(props) {
             {details.title}
             {/* </Link> */}
           </Typography>
-          <Link to="/profile" style={{ textDecoration: "none" }}>
+          <Link to="/courses/profile" style={{ textDecoration: "none" }}>
             <Avatar alt={user.name !== undefined && user.name} src="#" />
           </Link>
         </Toolbar>

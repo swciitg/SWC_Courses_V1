@@ -64,7 +64,7 @@ const Header = (props) => {
           )}
         >
           {/* <span className="mr-auto"> */}
-          {/* <Link to="/">
+          {/* <Link to="/courses">
               <button className={styles.BackButton}>
                 <img src={leftArrow} alt="back" />
               </button>
@@ -81,7 +81,7 @@ const Header = (props) => {
                 Welcome {fname} !!
               </span>
 
-              <Link to="/profile" style={{ textDecoration: "none" }}>
+              <Link to="/courses/profile" style={{ textDecoration: "none" }}>
                 <NavLink className={styles.Avatar}>
                   <Avatar alt={user.name} src="#" />
                 </NavLink>
@@ -140,7 +140,7 @@ const Header = (props) => {
               {isEnrolled ? (
                 <Link
                   to={{
-                    pathname: `/courses/${details.id}/videos/${details.videos[0]}`,
+                    pathname: `/courses/courses/${details.id}/videos/${details.videos[0]}`,
                     state: {
                       details: details,
                       user: user,

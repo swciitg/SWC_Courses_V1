@@ -7,7 +7,7 @@ import classNames from "classnames";
 const Logo = () => {
   return (
     <Link
-      to="/"
+      to="/courses"
       className={classNames("ml-auto", "ml-md-0", "mr-auto", styles.root)}
     >
       <img src={logo} alt="logo" className={styles.Logo} />

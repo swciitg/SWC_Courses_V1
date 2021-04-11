@@ -169,7 +169,7 @@ const CourseDetailNav = (props) => {
         onClose={handleCloseMsg}
       >
         <Alert onClose={handleCloseMsg} severity="info">
-          Please LOGIN to access the course contents :)
+          Please LOGIN to access the course contents..
         </Alert>
       </Snackbar>
       <Navbar
@@ -179,7 +179,7 @@ const CourseDetailNav = (props) => {
         expand="md"
       >
         <NavbarBrand>
-          <Link to="/">
+          <Link to="/courses">
             <img src={newlogo} alt="logo" className={styles.logoImg} />
           </Link>
         </NavbarBrand>
@@ -212,7 +212,7 @@ const CourseDetailNav = (props) => {
               </Modal>
             </NavItem>
             <NavItem className={styles.NavItem}>
-              <Link to="/courses">
+              <Link to="/courses/courses">
                 <NavLink
                   className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
                 >
@@ -222,32 +222,28 @@ const CourseDetailNav = (props) => {
             </NavItem>
             {isLoggedIn ? (
               <NavItem className={styles.NavItem}>
-                {/* <Link to="/logout"> */}
                 <NavLink
                   className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
                   onClick={logoutHandler}
                 >
                   LOGOUT
                 </NavLink>
-                {/* </Link> */}
               </NavItem>
             ) : (
               <NavItem className={styles.NavItem}>
-                {/* <Link to="/login"> */}
                 <NavLink
                   className={isScrolled ? styles.NavLinkScroll : styles.NavLink}
                   onClick={loginHandler}
                 >
                   LOGIN
                 </NavLink>
-                {/* </Link> */}
               </NavItem>
             )}
 
             {isLoggedIn ? (
               <>
                 <NavItem className={styles.NavItem}>
-                  <Link to="/profile">
+                  <Link to="/courses/profile">
                     <NavLink
                       className={
                         isScrolled ? styles.NavLinkScroll : styles.NavLink
@@ -260,7 +256,10 @@ const CourseDetailNav = (props) => {
                 <NavItem
                   className={classNames("d-none", "d-lg-block", styles.NavItem)}
                 >
-                  <Link to="/profile" style={{ textDecoration: "none" }}>
+                  <Link
+                    to="/courses/profile"
+                    style={{ textDecoration: "none" }}
+                  >
                     <NavLink>
                       <Avatar alt={props.name} src="#" />
                     </NavLink>

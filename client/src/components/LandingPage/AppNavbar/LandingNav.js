@@ -38,7 +38,7 @@ const LandingNav = () => {
   return (
     <Navbar id="navbar" className={styles.NavBar} light expand="md">
       <NavbarBrand>
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link to="/courses" style={{ textDecoration: "none" }}>
           <img src={newlogo} alt="logo" className={styles.logoImg} />
           {/* <span className="pl-3" style={{ color: "#000" }}>
             SWC COURSES
@@ -50,19 +50,19 @@ const LandingNav = () => {
         <Nav className={styles.Nav}>
           {user.isAdmin ? (
             <NavItem className={styles.NavItem}>
-              <Link to="/admin/courses">
+              <Link to="/courses/admin">
                 <NavLink className={styles.NavLink}>Admin</NavLink>
               </Link>
             </NavItem>
           ) : null}
           <NavItem className={styles.NavItem}>
-            <Link to="/courses">
+            <Link to="/courses/courses">
               <NavLink className={styles.NavLink}>Explore</NavLink>
             </Link>
           </NavItem>
           {isLoggedIn ? (
             <NavItem className={styles.NavItem}>
-              <Link to="/profile">
+              <Link to="/courses/profile">
                 <NavLink
                   className={classNames(styles.NavLink, styles.YellowLink)}
                 >

@@ -57,7 +57,7 @@ export default function Sidemenu() {
         </ListItem>
         <ListItem button style={{ paddingLeft: "30px", margin: "4px 0" }}>
           <Link
-            to="/"
+            to="/courses"
             style={{
               textDecoration: "none",
               color: "#252f5a",
@@ -68,7 +68,7 @@ export default function Sidemenu() {
         </ListItem>
         <ListItem button style={{ paddingLeft: "30px", margin: "4px 0" }}>
           <Link
-            to="/profile"
+            to="/courses/profile"
             style={{
               textDecoration: "none",
               color: "#252f5a",
@@ -79,7 +79,7 @@ export default function Sidemenu() {
         </ListItem>
         <ListItem button style={{ paddingLeft: "30px", margin: "4px 0" }}>
           <Link
-            to="/courses"
+            to="/courses/courses"
             style={{
               textDecoration: "none",
               color: "#252f5a",

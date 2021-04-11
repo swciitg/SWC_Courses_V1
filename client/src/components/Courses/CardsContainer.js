@@ -42,7 +42,7 @@ const CardsContainer = (props) => {
     return newcourses.map((course) => (
       <Link
         to={{
-          pathname: `/courses/${course._id}`,
+          pathname: `/courses/courses/${course._id}`,
           state: {
             description: course.description,
             id: course._id,

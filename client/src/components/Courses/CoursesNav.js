@@ -57,7 +57,7 @@ const CoursesNav = (props) => {
       expand="md"
     >
       <NavbarBrand>
-        <Link to="/">
+        <Link to="/courses">
           <img src={newlogo} alt="logo" className={styles.logoImg} />
         </Link>
       </NavbarBrand>
@@ -106,7 +106,7 @@ const CoursesNav = (props) => {
           {isLoggedIn ? (
             <>
               <NavItem className={styles.NavItem}>
-                <Link to="/profile">
+                <Link to="/courses/profile">
                   <NavLink
                     className={
                       isScrolled ? styles.NavLinkScroll : styles.NavLink
@@ -119,7 +119,7 @@ const CoursesNav = (props) => {
               <NavItem
                 className={classNames("d-none", "d-sm-block", styles.NavItem)}
               >
-                <Link to="/profile" style={{ textDecoration: "none" }}>
+                <Link to="/courses/profile" style={{ textDecoration: "none" }}>
                   <NavLink>
                     <Avatar alt={props.name} src="#" />
                   </NavLink>

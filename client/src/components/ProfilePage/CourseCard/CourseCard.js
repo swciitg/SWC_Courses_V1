@@ -10,7 +10,7 @@ const CourseCard = (props) => {
   return (
     <Link
       to={{
-        pathname: `/courses/${id}/videos/${videos[0]}`,
+        pathname: `/courses/courses/${id}/videos/${videos[0]}`,
         state: {
           details: {
             description: description,

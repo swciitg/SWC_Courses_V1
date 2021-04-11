@@ -72,7 +72,7 @@ class AdminCourses extends Component {
             </div>
             <div>
               <Button size="small" color="primary">
-                <Link to={{ pathname: `/admin/courses/${course._id}` }}>
+                <Link to={`/courses/admin/courses/${course._id}`}>
                   Edit/Delete Details
                 </Link>
               </Button>
@@ -123,7 +123,7 @@ class AdminCourses extends Component {
               <span className={styles.backBtn}>BACK TO HOMEPAGE</span>
             </Link>
           </Button> */}
-          <Link to="/">
+          <Link to="/courses">
             <button className={styles.BackButton}>
               <img src={leftArrow} alt="back" />
             </button>
@@ -142,10 +142,10 @@ class AdminCourses extends Component {
         </div>
 
         <div className={styles.panelContainer}>
-          <Link to="/admin/courses/torrentUpload" className={styles.panelLinks}>
+          <Link to="/courses/admin/torrentUpload" className={styles.panelLinks}>
             TORRENT COURSES
           </Link>
-          <Link to="/admin/courses/userPanel" className={styles.panelLinks}>
+          <Link to="/courses/admin/userPanel" className={styles.panelLinks}>
             USER PANEL
           </Link>
         </div>

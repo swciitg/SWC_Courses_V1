@@ -88,7 +88,7 @@ export default function MediaCard(props) {
   return (
     <ThemeProvider theme={theme}>
       <Link
-        to={{ pathname: `/courses/${props.id}`, state: props }}
+        to={{ pathname: `/courses/courses/${props.id}`, state: props }}
         style={{ textDecoration: "none" }}
       >
         <Card className={classes.root}>
@@ -122,7 +122,7 @@ export default function MediaCard(props) {
             </Box>
             <Button size="small" color="primary">
               <Link
-                to={{ pathname: `/courses/${props.id}`, state: props }}
+                to={{ pathname: `/courses/courses/${props.id}`, state: props }}
                 style={{ textDecoration: "none" }}
               >
                 <ArrowForwardIcon /> Learn more

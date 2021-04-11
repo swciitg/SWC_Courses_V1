@@ -35,68 +35,68 @@ const CoursePage = (props) => {
 
   return (
     <>
-    <div className={styles.Body}>
-      <AppNavbar name={user.name} courses={courses} />
+      <div className={styles.Body}>
+        <AppNavbar name={user.name} courses={courses} />
 
-      <Container className={classNames(styles.Container, "py-5")}>
-        <h2
-          style={{ color: "#333", textAlign: "center", marginBottom: "30px" }}
-        >
-          ENROLLED COURSES
-        </h2>
-        <Container
-          className="d-flex"
-          style={{ flexWrap: "wrap", justifyContent: "center" }}
-        >
-          {isLoading ? (
-            [1, 2, 3].map((val) => {
-              return (
-                <Skeleton
-                  variant="rect"
-                  width={256}
-                  height={360}
-                  style={{
-                    width: "16rem",
-                    height: "22.5rem",
-                    padding: "1rem",
-                    margin: "1rem",
-                    borderRadius: "4px",
-                  }}
-                  key={val}
-                />
-              );
-            })
-          ) : enrolledCourses.length === 0 ? (
-            <h6
-              style={{
-                color: "#555",
-                marginTop: "1.2rem",
-                textAlign: "center",
-                lineHeight: "1.5",
-              }}
-            >
-              EXPLORE COURSES AND START LEARNING &rarr;
-              <Link to="/courses"> HERE</Link>
-            </h6>
-          ) : (
-            enrolledCourses.map((course, i) => {
-              return (
-                <CourseCard
-                  key={i}
-                  imgScr={course.imgPath}
-                  title={course.title}
-                  description={course.description}
-                  id={course._id}
-                  videos={course.videos}
-                  user={user}
-                />
-              );
-            })
-          )}
+        <Container className={classNames(styles.Container, "py-5")}>
+          <h2
+            style={{ color: "#333", textAlign: "center", marginBottom: "30px" }}
+          >
+            ENROLLED COURSES
+          </h2>
+          <Container
+            className="d-flex"
+            style={{ flexWrap: "wrap", justifyContent: "center" }}
+          >
+            {isLoading ? (
+              [1, 2, 3].map((val) => {
+                return (
+                  <Skeleton
+                    variant="rect"
+                    width={256}
+                    height={360}
+                    style={{
+                      width: "16rem",
+                      height: "22.5rem",
+                      padding: "1rem",
+                      margin: "1rem",
+                      borderRadius: "4px",
+                    }}
+                    key={val}
+                  />
+                );
+              })
+            ) : enrolledCourses.length === 0 ? (
+              <h6
+                style={{
+                  color: "#555",
+                  marginTop: "1.2rem",
+                  textAlign: "center",
+                  lineHeight: "1.5",
+                }}
+              >
+                EXPLORE COURSES AND START LEARNING &rarr;
+                <Link to="/courses/courses"> HERE</Link>
+              </h6>
+            ) : (
+              enrolledCourses.map((course, i) => {
+                return (
+                  <CourseCard
+                    key={i}
+                    imgScr={course.imgPath}
+                    title={course.title}
+                    description={course.description}
+                    id={course._id}
+                    videos={course.videos}
+                    user={user}
+                  />
+                );
+              })
+            )}
+          </Container>
         </Container>
-      </Container>
-    </div>
-    <Footer/>
+      </div>
+      <Footer />
     </>
   );
 };

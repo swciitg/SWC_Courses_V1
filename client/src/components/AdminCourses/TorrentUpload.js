@@ -59,7 +59,7 @@ const TorrentUpload = () => {
       <div className={styles.topBar}>
         <Link
           to={{
-            pathname: `/admin/courses/`,
+            pathname: `/courses/admin/`,
           }}
         >
           <button className={styles.BackButton}>

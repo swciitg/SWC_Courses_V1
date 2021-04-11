@@ -19,7 +19,10 @@ const My404Component = () => {
         <h4 style={{ color: "#999" }} className="text-center text-sm-left">
           Here are a few suggested pages...
         </h4>
-        <Link to={{ pathname: "/" }} className="text-center text-sm-left">
+        <Link
+          to={{ pathname: "/courses" }}
+          className="text-center text-sm-left"
+        >
           <span
             style={{
               color: "#777",
@@ -33,7 +36,7 @@ const My404Component = () => {
           </span>
         </Link>
         <Link
-          to={{ pathname: "/courses" }}
+          to={{ pathname: "/courses/courses" }}
           className="text-center text-sm-left"
         >
           <span

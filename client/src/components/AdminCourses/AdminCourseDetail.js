@@ -131,7 +131,7 @@ class AdminCourseDetail extends Component {
         </form>
         <div className={styles.home}>
           <Button className={styles.plz}>
-            <Link to={{ pathname: "/admin/courses" }}>
+            <Link to={{ pathname: "/courses/admin" }}>
               <span className={styles.font}>BACK TO ALL COURSES</span>
             </Link>
           </Button>
@@ -200,7 +200,7 @@ class AdminCourseDetail extends Component {
           <Button className={styles.plzadd}>
             <Link
               to={{
-                pathname: `/admin/courses/${this.props.match.params.id}/videos`,
+                pathname: `/courses/admin/courses/${this.props.match.params.id}/videos`,
                 state: {
                   title: this.state.title,
                 },

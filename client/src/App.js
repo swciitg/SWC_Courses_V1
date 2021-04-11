@@ -48,45 +48,49 @@ const App = (props) => {
           <BrowserRouter>
             <div className={styles.App}>
               <Switch>
-                <Route path="/" exact component={LandingPage} />
+                <Route path="/courses" exact component={LandingPage} />
                 <ProtectedRoute
                   exact
-                  path="/profile"
+                  path="/courses/profile"
                   component={(props) => (
                     <ProfilePage {...props} profile={true} courses={false} />
                   )}
                 ></ProtectedRoute>
-                <Route path="/courses" exact component={Courses} />
-                <Route path="/courses/:id" exact component={CourseDetail} />
+                <Route path="/courses/courses" exact component={Courses} />
+                <Route
+                  path="/courses/courses/:id"
+                  exact
+                  component={CourseDetail}
+                />
                 <ProtectedRoute
                   exact
-                  path="/courses/:courseId/videos/:id"
+                  path="/courses/courses/:courseId/videos/:id"
                   component={CourseVideos}
                 ></ProtectedRoute>
                 <Suspense fallback={<div>Loading...</div>}>
-                  <Route path="/admin/courses" exact component={AdminCourses} />
+                  <Route path="/courses/admin" exact component={AdminCourses} />
                   <Route
-                    path="/admin/courses/torrentUpload"
+                    path="/courses/admin/torrentUpload"
                     exact
                     component={TorrentUpload}
                   />
                   <Route
-                    path="/admin/courses/userPanel"
+                    path="/courses/admin/userPanel"
                     exact
                     component={UserPanel}
                   />
                   <Route
-                    path="/admin/courses/:id/videos"
+                    path="/courses/admin/courses/:id/videos"
                     exact
                     component={VideosUpload}
                   />
                   <Route
-                    path="/admin/courses/:id"
+                    path="/courses/admin/courses/:id"
                     exact
                     component={AdminCourseDetail}
                   />
-                  <Route path="*" exact={true} component={My404Component} />
                 </Suspense>
+                <Route path="*" exact={true} component={My404Component} />
               </Switch>
             </div>
           </BrowserRouter>
