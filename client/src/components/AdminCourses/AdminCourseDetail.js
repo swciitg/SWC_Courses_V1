@@ -1,15 +1,10 @@
 import React, { Component } from "react";
-import { Container } from "reactstrap";
-import classNames from "classnames";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styles from "./AdminCourseDetail.module.css";
 import Button from "@material-ui/core/Button";
-import { useAlert } from "react-alert";
-import Table from "@material-ui/core/Table";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
+import { BASE_DOM_CLIENT } from "../../constants";
 
 class AdminCourseDetail extends Component {
   state = {
@@ -58,6 +53,7 @@ class AdminCourseDetail extends Component {
   };
 
   deleteCourse = (e) => {
+    e.preventDefault();
     if (
       window.confirm(
         "Are you sure you wish to delete this course permanentaly?"
@@ -71,12 +67,13 @@ class AdminCourseDetail extends Component {
         })
           .then((res) => {
             console.log("Course deleted successfully");
+            window.open(`${BASE_DOM_CLIENT}/courses/admin`, "_self");
           })
           .catch((err) => {
             console.error(err);
+            alert("Couldn't delete !!");
           });
       };
-      window.open("http://localhost:3000/admin/courses", "_self");
       apiCall();
     }
   };

@@ -103,7 +103,7 @@ class AdminCourses extends Component {
         .post(url, formData, config)
         .then((res) => {
           console.log("Data has been added!!");
-          alert("Data has been added!");
+          alert("Course has been added!");
           window.location.reload(false);
         })
         .catch((err) => {

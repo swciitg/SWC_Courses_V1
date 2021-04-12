@@ -1,12 +1,18 @@
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 
-const PORT = process.env.PORT || 5000;
+//const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 process.env.BASE_DOM =
   process.env.NODE_ENV === "production"
     ? `http://swc2.iitg.ac.in`
     : `http://localhost:${PORT}`;
+
+process.env.BASE_DOM_CLIENT =
+  process.env.NODE_ENV === "production"
+    ? `http://swc2.iitg.ac.in`
+    : `http://localhost:3000`;
 
 const express = require("express");
 const app = express();
@@ -16,8 +22,8 @@ const cookieParser = require("cookie-parser");
 
 const url =
   process.env.NODE_ENV === "production"
-    ? process.env.url
-    : process.env.MONGO_URL;
+    ? process.env.MONGO_URL
+    : process.env.url;
 
 //const url = config.get("MONGO_URL");
 const cookieSession = require("cookie-session");

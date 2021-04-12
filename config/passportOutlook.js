@@ -21,7 +21,7 @@ passport.use(
     {
       clientID: OUTLOOK_CLIENT_ID,
       clientSecret: OUTLOOK_CLIENT_SECRET,
-      callbackURL: `${process.env.BASE_DOM}/auth/outlook/callback`,
+      callbackURL: `${process.env.BASE_DOM}/courses/auth/outlook/callback`,
       passReqToCallback: true,
     },
     function (req, accessToken, refreshToken, profile, done) {

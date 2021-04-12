@@ -4,8 +4,7 @@ const router = express.Router({ mergeParams: true });
 const { authenticate, isLoggedIn } = require("../middleware/index");
 const passport = require("passport");
 const User = require("../models/user");
-// const CLIENT_HOME_PAGE_URL = config.get("CLIENT_HOME_PAGE_URL") + "/";
-const CLIENT_HOME_PAGE_URL = "http://localhost:3000/";
+const CLIENT_HOME_PAGE_URL = `${process.env.BASE_DOM_CLIENT}/courses/`;
 
 ////// USE THE BELOW ROUTES FOR JWT-TOKEN AUTH
 
