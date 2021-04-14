@@ -58,7 +58,12 @@ const App = (props) => {
                     <ProfilePage {...props} profile={true} courses={false} />
                   )}
                 ></ProtectedRoute>
-                <Route path="/courses/courses" exact component={Courses} />
+                {/* <Route path="/courses/courses" exact component={Courses} /> */}
+                <ProtectedRoute
+                  exact
+                  path="/courses/courses/"
+                  component={Courses}
+                ></ProtectedRoute>
                 <Route
                   path="/courses/courses/:id"
                   exact

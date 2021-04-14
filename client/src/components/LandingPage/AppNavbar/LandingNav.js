@@ -55,11 +55,13 @@ const LandingNav = () => {
               </Link>
             </NavItem>
           ) : null}
-          <NavItem className={styles.NavItem}>
-            <Link to="/courses/courses">
-              <NavLink className={styles.NavLink}>Explore</NavLink>
-            </Link>
-          </NavItem>
+          {isLoggedIn ? (
+            <NavItem className={styles.NavItem}>
+              <Link to={`/courses/courses`}>
+                <NavLink className={styles.NavLink}>Explore</NavLink>
+              </Link>
+            </NavItem>
+          ) : null}
           {isLoggedIn ? (
             <NavItem className={styles.NavItem}>
               <Link to="/courses/profile">

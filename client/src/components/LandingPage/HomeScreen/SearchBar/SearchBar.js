@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import styles from "../HomeScreen.module.css";
 import glass from "../../../../images/search-glass.png";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Card from "../../Cards/Card";
 import CNFImg from "../../../../images/coursesnotfound.svg";
+import { AuthContext } from "../../../../contexts/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,10 +41,15 @@ const SearchBar = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
+  const { isLoggedIn } = useContext(AuthContext);
 
   const handleOpen = (e) => {
     e.preventDefault();
-    setOpen(true);
+    if (isLoggedIn) {
+      setOpen(true);
+    } else {
+      alert("Please login to access the courses.");
+    }
   };
 
   const handleClose = (e) => {
@@ -85,17 +91,27 @@ const SearchBar = (props) => {
           })}
         </div>
       ) : (
-        <div style={{ display:"flex", flexDirection:"column", alignItems:"center" , justifyContent:"center"}}>
-        <img style={{ width:"50%", height:"50%", clipPath:"inset(0 0 6% 0)"}} src={CNFImg} />
-        <h6
+        <div
           style={{
-            textAlign: "center",
-            fontFamily: "myUbuntu",
-            fontSize: "1.3rem",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          No courses found.
-        </h6>
+          <img
+            style={{ width: "50%", height: "50%", clipPath: "inset(0 0 6% 0)" }}
+            src={CNFImg}
+          />
+          <h6
+            style={{
+              textAlign: "center",
+              fontFamily: "myUbuntu",
+              fontSize: "1.3rem",
+            }}
+          >
+            No courses found.
+          </h6>
         </div>
       )}
     </div>

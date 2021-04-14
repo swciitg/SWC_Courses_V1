@@ -6,10 +6,11 @@ import styles from "./LandingPage.module.css";
 import CardContainer from "./Cards/CardContainer";
 import ErrorBoundary from "../../hoc/ErrorBoundary";
 import { CoursesContext } from "../../contexts/CoursesContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const LandingPage = (props) => {
-  // const [courses, setCourses] = useState([]);
   const { courses } = useContext(CoursesContext);
+  const { isLoggedIn } = useContext(AuthContext);
 
   return (
     <div className={styles.root}>
@@ -17,10 +18,13 @@ const LandingPage = (props) => {
         <LandingNav />
         <HomeScreen courses={courses} />
       </div>
-      <ErrorBoundary>
-        <CardContainer courses={courses} />
-      </ErrorBoundary>
-      <Footer/>
+      {isLoggedIn ? (
+        <ErrorBoundary>
+          <CardContainer courses={courses} />
+        </ErrorBoundary>
+      ) : null}
+
+      <Footer />
     </div>
   );
 };
