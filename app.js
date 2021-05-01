@@ -80,7 +80,7 @@ app.use((req, res, next) => {
 });
 app.use(cookieParser());
 app.use(express.json());
-app.use("/courses", express.static(__dirname + "/assets"));
+app.use(express.static(__dirname + "/assets"));
 
 // SESSION MIDDLEWARE
 app.use(
