@@ -6,15 +6,16 @@ const PORT = 5000;
 
 process.env.BASE_DOM =
   process.env.NODE_ENV === "production"
-    ? `http://swc2.iitg.ac.in`
+    ? `https://swc2.iitg.ac.in`
     : `http://localhost:${PORT}`;
 
 process.env.BASE_DOM_CLIENT =
   process.env.NODE_ENV === "production"
-    ? `http://swc2.iitg.ac.in`
+    ? `https://swc2.iitg.ac.in`
     : `http://localhost:3000`;
 
 const express = require("express");
+const path = require("path");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -79,7 +80,7 @@ app.use((req, res, next) => {
 });
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.static(__dirname + "/assets"));
+app.use("/courses", express.static(__dirname + "/assets"));
 
 // SESSION MIDDLEWARE
 app.use(
@@ -127,7 +128,7 @@ if (process.env.NODE_ENV === "production") {
   console.log("i'm running");
   app.use(express.static("client/build"));
 
-  app.get("*", (req, res) => {
+  app.get("/courses/*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
