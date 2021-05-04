@@ -107,8 +107,8 @@ exports.getOneCourse = async (req, res, next) => {
       }
     }
   } catch (err) {
-    console.log(error);
-    return res.status(500).json({ error: error.message });
+    console.log(err);
+    return res.status(500).json({ error: err.message });
   }
 };
 
