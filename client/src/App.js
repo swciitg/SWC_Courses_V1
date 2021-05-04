@@ -75,17 +75,21 @@ const App = (props) => {
                   component={CourseVideos}
                 ></ProtectedRoute>
                 {/* <Suspense fallback={<div>Loading...</div>}> */}
-                <Route path="/courses/admin" exact component={AdminCourses} />
-                <Route
+                <ProtectedRoute
+                  path="/courses/admin"
+                  exact
+                  component={AdminCourses}
+                ></ProtectedRoute>
+                <ProtectedRoute
                   path="/courses/admin/torrentUpload"
                   exact
                   component={TorrentUpload}
-                />
-                <Route
+                ></ProtectedRoute>
+                <ProtectedRoute
                   path="/courses/admin/userPanel"
                   exact
                   component={UserPanel}
-                />
+                ></ProtectedRoute>
                 <Route
                   path="/courses/admin/courses/:id/videos"
                   exact
