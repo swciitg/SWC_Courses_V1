@@ -1,7 +1,7 @@
 const urls = {
-  LOGIN: "http://localhost:5000/courses/auth/outlook",
-  LOGOUT: "http://localhost:5000/courses/auth/logout",
-  BASE_DOM_CLIENT: "http://localhost:3000",
+  LOGIN: "https://swc.iitg.ac.in:44444/courses/auth/outlook",
+  LOGOUT: "https://swc.iitg.ac.in:44444/courses/auth/logout",
+  BASE_DOM_CLIENT: "https://swc.iitg.ac.in:44444",
 };
 
 module.exports = urls;

@@ -6,12 +6,12 @@ const PORT = 5000;
 
 process.env.BASE_DOM =
   process.env.NODE_ENV === "production"
-    ? `https://swc2.iitg.ac.in`
+    ? `https://swc.iitg.ac.in:44444`
     : `http://localhost:${PORT}`;
 
 process.env.BASE_DOM_CLIENT =
   process.env.NODE_ENV === "production"
-    ? `https://swc2.iitg.ac.in`
+    ? `https://swc.iitg.ac.in:44444`
     : `http://localhost:3000`;
 
 const express = require("express");
