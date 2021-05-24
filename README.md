@@ -1,1 +1,1 @@
-# SWC-Media-API
+# SWC-Courses
