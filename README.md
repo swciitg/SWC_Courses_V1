@@ -1,6 +1,6 @@
 # SWC Courses
 
-<img alt="Logo" align="right" src="./logo.svg" width="20%" />
+<img alt="Logo" align="right" src="./logo.svg" width="16%" />
 
 **Enjoy your favourite courses on campus intranet !**
 
