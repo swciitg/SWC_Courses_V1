@@ -19,7 +19,7 @@ require("./config/passportAzure");
 
 //required routes
 const authRoutes = require("./routes/auth.routes");
-
+const coursesroutes = require('./routes/courses.routes')
 
 const db=mongoose.connect(
   MONGO_URL,
@@ -60,32 +60,13 @@ app.use((req, res, next) => {
 });
 
 
-//routes
+app.use(cookieParser());
 app.use(
     bodyParser.json({
       limit: "50mb",
     })
   );
 
-app.use(methodOverride("_method"));
-app.use(mongoSanitize());
-
-app.use(helmet({ contentSecurityPolicy: false }));
-
-app.use(passport.initialize());
-app.use(passport.session());
-app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  res.locals.session = req.session;
-  next();
-});
-
-app.use(cookieParser());
-app.use(
-  bodyParser.json({
-    limit: "50mb",
-  })
-);
 app.use(express.json({ limit: "50mb" }));
 app.use(express.static(__dirname + "./uploads"));
 
@@ -93,6 +74,16 @@ app.use(methodOverride("_method"));
 app.use(mongoSanitize());
 
 //session middleware
+
+
+app.use(
+  cookieSession({
+    name: "swc-courses-session",
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: ["lorem ipsum"],
+    httpOnly: false,
+  })
+);
 
 app.use(
   express.urlencoded({
@@ -106,11 +97,16 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.session = req.session;
+  next();
+});
+
+app.use("/courses/api/hcourse",coursesroutes)
 app.use("/courses/api", authRoutes);
 
 app.use(helmet({ contentSecurityPolicy: false }));
-
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);

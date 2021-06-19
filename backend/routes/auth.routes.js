@@ -49,7 +49,7 @@ router.get("/",(req,res)=>{
     // res.status(200).json({ msg: "Logged out successfully" });
   });
 
-  router.get("/current_user", isLoggedIn, (req, res) => {
+  router.get("/current_user", (req, res) => {
     try {
       console.log(req.user.id);
       res.send(req.user);
@@ -57,5 +57,4 @@ router.get("/",(req,res)=>{
       console.log(error.message);
     }
   });
-
 module.exports = router;
