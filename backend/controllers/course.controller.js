@@ -32,7 +32,7 @@ exports.getAllCourses = async (req, res, next) => {
         }
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ error: err.message })
+        return res.status(500).json({ status: false, error: err.message })
     }
 }
 
@@ -74,7 +74,7 @@ exports.getOneCourse = async (req, res, next) => {
     }
     catch (err) {
         console.error(err)
-        return res.status(500).json({ error: err.message })
+        return res.status(500).json({ status: false, error: err.message })
     }
 }
 
@@ -85,22 +85,22 @@ exports.enrollInCourse = async (req, res, next) => {
         let getuser = User.findOne({ _id: req.user._id });
 
         let [user, course] = await Promise.all([getuser, getcourse]);
-
+        const ENROLLMENTKEY = course.enrollmentkey || enrollmentkey
         if (course) {
-            if (course.enrollmentkey === enrollmentkey) {
-                if (!user.coursesTaken.includes(course._id)) {
+            if (!user.coursesTaken.includes(course._id)) {
+                if (ENROLLMENTKEY === enrollmentkey) {
                     //not Enrolled
                     user.coursesTaken.push(course._id)
                     await user.save()
                     return res.status(200).json({ msg: "Successfully Enrolled!!!" })
                 }
                 else {
-                    return res.status(400).json({ msg: "Already Enrolled!!!" })
+                    //enrollement key dosnt match
+                    return res.status(403).json({ msg: "Wrong Enrollment Key" })
                 }
             }
             else {
-                //enrollement key dosnt match
-                return res.status(403).json({ msg: "Wrong Enrollment Key" })
+                return res.status(400).json({ msg: "Already Enrolled!!!" })
             }
         }
         else {
@@ -109,6 +109,24 @@ exports.enrollInCourse = async (req, res, next) => {
         }
     } catch (err) {
         console.error(err)
-        return res.status(500).json({ error: err.message })
+        return res.status(500).json({ status: false, error: err.message })
     }
 }
+
+exports.postCourse = async (req, res) => {
+    try {
+        const { title, topics, description, imgPath, enrollmentkey } = req.body
+        let course = new Course({ title, topics, description, imgPath, enrollmentkey })
+        course.author = req.user.name
+        let savecourse = course.save()
+        let getuser = User.findById(req.user._id)
+        let [user, newCourse] = await Promise.all([getuser, savecourse])
+        user.coursesTeach.push(newCourse._id)
+        await user.save()
+        return res.status(200).json({ status: true, course: newCourse })
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+

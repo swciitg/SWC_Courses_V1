@@ -17,4 +17,7 @@ router.get('/courses/:id', courseController.getOneCourse)
 //course enrollment
 router.post('/courses/:id/enrol', isLoggedIn, courseController.enrollInCourse)
 
+//new course
+router.post("/courses/postcourse", isLoggedIn ,courseController.postCourse)
+
 module.exports = router
