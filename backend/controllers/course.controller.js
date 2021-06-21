@@ -82,7 +82,7 @@ exports.enrollInCourse = async (req, res, next) => {
     try {
         const { enrollmentkey } = req.body
         let getcourse = Course.findOne({ _id: req.params.id });
-        let getuser = User.findOne({ _id: req.user._id });
+        let getuser = User.findById(req.user._id)
 
         let [user, course] = await Promise.all([getuser, getcourse]);
         const ENROLLMENTKEY = course.enrollmentkey || enrollmentkey
@@ -117,9 +117,9 @@ exports.postCourse = async (req, res) => {
     try {
         const { title, topics, description, imgPath, enrollmentkey } = req.body
         let course = new Course({ title, topics, description, imgPath, enrollmentkey })
-        course.author = req.user.name
+        course.author = "60cf3a60f947240f145c986b"
         let savecourse = course.save()
-        let getuser = User.findById(req.user._id)
+        let getuser = User.findById("60cf3a60f947240f145c986b")
         let [user, newCourse] = await Promise.all([getuser, savecourse])
         user.coursesTeach.push(newCourse._id)
         await user.save()
@@ -129,4 +129,86 @@ exports.postCourse = async (req, res) => {
         return res.status(500).json({ status: false, error: err.message })
     }
 }
+
+exports.updateCourse = async (req, res) => {
+    try {
+        const { id } = req.params
+        let course = await Course.findById(id)
+        if (course) {
+            //course exists
+            const { title, author, description, enrollmentkey } = req.body;
+            const update = { title, author, description, enrollmentkey };
+            const updatedCourse = await Course.findByIdAndUpdate(id, update, { new: true })
+            return res.status(200).json({ status: true, msg: "Course Successfully Updated!!!", updatedCourse })
+        }
+        else {
+            // course dosn't exists
+            return res.status(404).json({ msg: "Course Not Found" })
+        }
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+exports.deleteCourse = async (req, res) => {
+    // Pending :- Delete All Videos related to course
+    try {
+        const { id } = req.params
+        let course = await Course.findById(id)
+        if (course) {
+            //course exists
+            await Course.findByIdAndDelete(id)
+            return res.status(200).json({ status: true, msg: "Course Successfully Deleted!!!" })
+        }
+        else {
+            // course dosn't exists
+            return res.status(404).json({ msg: "Course Not Found" })
+        }
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+exports.addTopics = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { topics } = req.body
+        let course = await Course.findById(id)
+        if(!course)return res.status(404).json({ msg: "Course Not Found" })
+        topics.forEach(topic => {
+            if(course.topics)
+        })
+        await course.save()
+        return res.status(200).json({ status: true, msg: "Topics Successfully Added!!!" })
+        // course dosn't exists
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+exports.deleteTopics = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { topics } = req.body
+        let course = await Course.findByIdAndUpdate(id, { $pull: { topics: { $in: topics } } }, { new: true })
+        if (course) {
+            //course exists
+            //unique topic name
+            await course.save()
+            return res.status(200).json({ status: true, msg: "Topics Successfully Deleted!!!" })
+        }
+        else {
+            // course dosn't exists
+            return res.status(404).json({ msg: "Course Not Found" })
+        }
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+
 

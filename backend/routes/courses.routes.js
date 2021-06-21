@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 
 const courseController = require('../controllers/course.controller')
-const {isLoggedIn, IsAdmin} = require('../middlewares/auth')
+const { isLoggedIn, IsAdmin } = require('../middlewares/auth')
 
+
+//Courses Routes
 
 //get all courses 
 router.get('/courses', courseController.getAllCourses);
@@ -18,6 +20,20 @@ router.get('/courses/:id', courseController.getOneCourse)
 router.post('/courses/:id/enrol', isLoggedIn, courseController.enrollInCourse)
 
 //new course
-router.post("/courses/postcourse", isLoggedIn ,courseController.postCourse)
+router.post("/courses/postcourse", courseController.postCourse)
+
+//update course
+router.put('/courses/:id/updatecourse', isLoggedIn, courseController.updateCourse)
+
+//delete Course
+router.delete('/courses/:id/deletecourse', isLoggedIn, courseController.deleteCourse)
+
+
+//Add Topics
+router.post('/courses/:id/addtopics', courseController.addTopics)
+
+//Delete Topics
+router.delete('/courses/:id/deletetopics', isLoggedIn, courseController.deleteTopics)
+
 
 module.exports = router
