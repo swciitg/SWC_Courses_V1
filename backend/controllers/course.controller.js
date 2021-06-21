@@ -172,16 +172,39 @@ exports.deleteCourse = async (req, res) => {
 }
 
 exports.addTopics = async (req, res) => {
+    console.log("Add Topics End Point Hit")
     try {
         const { id } = req.params
         const { topics } = req.body
         let course = await Course.findById(id)
-        if(!course)return res.status(404).json({ msg: "Course Not Found" })
+        if (!course) return res.status(404).json({ msg: "Course Not Found" })
+        const topicsarray = course.topics.map(topic => topic.title)
         topics.forEach(topic => {
-            if(course.topics)
+            if (!topicsarray.includes(topic)) course.topics.push({ title: topic })
         })
         await course.save()
         return res.status(200).json({ status: true, msg: "Topics Successfully Added!!!" })
+        // course dosn't exists
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+exports.updateTopics = async (req, res) => {
+    console.log("Update Topics End Point Hit")
+    try {
+        const { id } = req.params
+        const { dquery } = req.body
+        let course = await Course.findById(id)
+        if (!course) return res.status(404).json({ msg: "Course Not Found" })
+        const topicsarray = course.topics.map(topic => topic.title)
+        dquery.forEach(query => {
+            let idx = topicsarray.indexOf(query.oldname)
+            if (idx != -1) course.topics[idx].title = query.newname
+        })
+        await course.save()
+        return res.status(200).json({ status: true, msg: "Topics Successfully Updated!!!" })
         // course dosn't exists
     } catch (err) {
         console.log(err)
@@ -193,12 +216,9 @@ exports.deleteTopics = async (req, res) => {
     try {
         const { id } = req.params
         const { topics } = req.body
-        let course = await Course.findByIdAndUpdate(id, { $pull: { topics: { $in: topics } } }, { new: true })
+        let course = await Course.findByIdAndUpdate(id, { $pull: { topics: { title: { $in: topics } } } }, { new: true })
         if (course) {
-            //course exists
-            //unique topic name
-            await course.save()
-            return res.status(200).json({ status: true, msg: "Topics Successfully Deleted!!!" })
+            return res.status(200).json({ status: true, msg: "Topics Successfully Deleted!!!", course })
         }
         else {
             // course dosn't exists

@@ -17,7 +17,10 @@ const courseSchema = new mongoose.Schema({
         required: [true, "Course must have an author"]
     },
     topics: {
-        type: [TopicSchema]
+        type: [{
+            title: String
+        }],
+        default : []
     },
     description: {
         type: String,

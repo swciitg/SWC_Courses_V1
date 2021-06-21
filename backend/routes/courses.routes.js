@@ -32,8 +32,11 @@ router.delete('/courses/:id/deletecourse', isLoggedIn, courseController.deleteCo
 //Add Topics
 router.post('/courses/:id/addtopics', courseController.addTopics)
 
+//Update Topics
+router.put('/courses/:id/updatetopics', courseController.updateTopics)
+
 //Delete Topics
-router.delete('/courses/:id/deletetopics', isLoggedIn, courseController.deleteTopics)
+router.delete('/courses/:id/deletetopics', courseController.deleteTopics)
 
 
 module.exports = router
