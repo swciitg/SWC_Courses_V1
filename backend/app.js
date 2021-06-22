@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const multer = require('multer')
 require("dotenv").config();
 const methodOverride = require("method-override");
 const passport = require("passport");

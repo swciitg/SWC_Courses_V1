@@ -1,21 +1,60 @@
 const Course = require('../models/course')
 const User = require('../models/user')
+const { dirpath } = require('../dirname')
+const multer = require('multer')
+const path = require('path')
+const fs = require('fs')
+
+
+//Course Image Uploading Code
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        let dir = dirpath + "/assets/courseimages"
+        cb(null, dir)
+    },
+    filename: function (req, file, cb) {
+        cb(null, req.imagename + path.extname(file.originalname))
+    }
+})
+
+const checkFileType = (file, cb) => {
+    // Allowed ext
+    const filetypes = /jpeg|jpg|png|gif/;
+    // Check ext
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    // Check mime
+    const mimetype = filetypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+        return cb(null, true);
+    } else {
+        cb("Error: Images Only!");
+    }
+}
+
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 5000000 },
+    fileFilter: function (req, file, cb) {
+        checkFileType(file, cb)
+    },
+}).single("image")
 
 exports.searchCourse = async (req, res) => {
     try {
-        const foundCourse = await Course.find(
+        const foundCourses = await Course.find(
             {
                 $or: [
-                    { author: { $regex: req.query.dsearch, $options: "i" } },
+                    //{ author: { $regex: req.query.dsearch, $options: "i" } },
                     { title: { $regex: req.query.dsearch, $options: "i" } },
-                    { topics: { $regex: req.query.dsearch, $options: "i" } },
+                    //{ topics: { $regex: req.query.dsearch, $options: "i" } },
                 ],
             }
         )
         if (!foundCourse) {
             return res.status(404).json({ msg: "No Course Found!" })
         }
-        res.status(200).json(foundCourse)
+        res.status(200).json({ status: true, course: foundCourse })
     } catch (err) {
         console.log(err);
         return res.status(500).json({ error: err.message })
@@ -115,8 +154,20 @@ exports.enrollInCourse = async (req, res, next) => {
 
 exports.postCourse = async (req, res) => {
     try {
-        const { title, topics, description, imgPath, enrollmentkey } = req.body
-        let course = new Course({ title, topics, description, imgPath, enrollmentkey })
+        console.log("POST course route hit")
+        const { title, topics, description, enrollmentkey } = req.body
+        let fields = {};
+        if (description) fields.description = description
+        if (title) fields.title = title
+        if (enrollmentkey) fields.enrollmentkey = enrollmentkey
+        if (topics) fields.topics = topics
+        let imgPath = ""
+        if (req.file) {
+            console.log(req.file)
+            imgPath = dirpath + "/assets/courseimages/" + req.file.filename
+        }
+        fields.imgPath = imgPath
+        let course = new Course(fields)
         course.author = "60cf3a60f947240f145c986b"
         let savecourse = course.save()
         let getuser = User.findById("60cf3a60f947240f145c986b")
@@ -136,8 +187,20 @@ exports.updateCourse = async (req, res) => {
         let course = await Course.findById(id)
         if (course) {
             //course exists
-            const { title, author, description, enrollmentkey } = req.body;
-            const update = { title, author, description, enrollmentkey };
+            const { title, description, enrollmentkey } = req.body;
+            let update = {}
+            if (description) update.description = description
+            if (title) update.title = title
+            if (enrollmentkey) update.enrollmentkey = enrollmentkey
+            let imgPath = ""
+            if (req.file) {
+                console.log(req.file)
+                imgPath = dirpath + "/assets/courseimages/" + req.file.filename
+                update.imgPath = imgPath
+                if (course.imgPath !== "") {
+                    fs.unlinkSync(course.imgPath)
+                }
+            }
             const updatedCourse = await Course.findByIdAndUpdate(id, update, { new: true })
             return res.status(200).json({ status: true, msg: "Course Successfully Updated!!!", updatedCourse })
         }
@@ -145,7 +208,9 @@ exports.updateCourse = async (req, res) => {
             // course dosn't exists
             return res.status(404).json({ msg: "Course Not Found" })
         }
-    } catch (err) {
+    }
+
+    catch (err) {
         console.log(err)
         return res.status(500).json({ status: false, error: err.message })
     }
@@ -155,10 +220,19 @@ exports.deleteCourse = async (req, res) => {
     // Pending :- Delete All Videos related to course
     try {
         const { id } = req.params
-        let course = await Course.findById(id)
+
+        let course = Course.findOne(req.params.id)
+
         if (course) {
             //course exists
+            if (course.imgPath !== "") {
+                fs.unlinkSync(course.imgPath)
+            }
+            let user = await User.findById(course.author)
+            let idx = user.coursesTeach.indexOf(req.params.id)
+            if (idx != -1) user.coursesTeach.splice(index,1)
             await Course.findByIdAndDelete(id)
+            await user.save()
             return res.status(200).json({ status: true, msg: "Course Successfully Deleted!!!" })
         }
         else {
@@ -230,5 +304,32 @@ exports.deleteTopics = async (req, res) => {
     }
 }
 
+//Middlewares
 
+//Course Image name middleware
+
+exports.imageName = (req, res, next) => {
+    req.imagename = "image-" + Date.now()
+    next()
+}
+
+exports.courseImageUpload = async (req, res, next) => {
+    upload(req, res, err => {
+        console.log("Upload Hit!!!")
+        if (err) {
+            console.log(err)
+            return res.status(500).json({ status: false, error: err.message })
+        }
+        else {
+            console.log(req.file)
+            if (req.file) {
+                console.log("File Successfully Uploaded!!!")
+            }
+            else {
+                console.log("something went wrong when uploading the file");
+            }
+            return next()
+        }
+    })
+}
 
