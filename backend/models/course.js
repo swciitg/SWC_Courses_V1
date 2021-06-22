@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const TopicSchema = new Schema(
+/* const TopicSchema = new Schema(
     {
         title: { type: String, required: [true, "Topic Must have a name!!!"], unique: true }
     }
-)
+) */
 
 const courseSchema = new mongoose.Schema({
     title: {
