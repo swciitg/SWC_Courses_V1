@@ -24,11 +24,12 @@ exports.postProf = async(req,res)=>{
   try{
     const {email} = req.body;
     const newProf = new Prof({email});
-    const user=User.find({email});
-    console.log(req.body.email);
+    const user=await User.find({email:email});
+    
     if(user){
-      newProf.user=user.id;
+      newProf.user=user[0].id;
     }
+    
     const Professor = await newProf.save();
     if (Professor)
     return res.status(200).json({ status: "Success", data: Professor });
