@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-  
-  const TASchema = new mongoose.Schema({
-    email:{
-      type: mongoose.ObjectId
-    },
-    user:{ref:"user"}
-  });
+const user = require("./user");
 
+const TASchema = new mongoose.Schema({
+    email:{
+      type: String,
+      ref:"User"
+    }
+  });
 module.exports=mongoose.model("TA",TASchema);

@@ -3,8 +3,6 @@ const router = express.Router({ mergeParams: true });
 
 const passport = require("passport");
 const { isLoggedIn } = require("../middlewares/auth");
-const Prof = require("../models/Prof");
-const TA = require("../models/TA");
 const { CLIENT_HOME_PAGE_URL } = process.env;
 
 router.get("/auth/azureadoauth2", passport.authenticate("azure_ad_oauth2"));
@@ -60,113 +58,5 @@ router.get("/",(req,res)=>{
     }
   });
 
-  router.get("/Prof",isLoggedIn,(req,res)=>{
-
-    const Prof = new Prof({
-      email:req.user.email
-    })
-    Prof.save()
-      .then((result)=>{
-        res.send(result);
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
-  });
-  
-    router.post("/Prof",isLoggedIn,(req,res)=>{
-      if(req.user.email){
-        const id = req.params.id;
-        Prof.save({_id:id});
-      }
-      else
-      const Prof = new Prof(req.body);
-      Prof.save()
-        .then((result)=>{
-          res.redirect("/");
-        })
-        .catch((err)=>{
-          console.log(err);
-        })
-    });
-  
-    router.delete("/Prof/delete",isLoggedIn,(req,res)=>{
-      const id = req.params.id;
-      Prof.findByIdAndDelete(id)
-        .then((result)=>{
-          res.json({redirect: "/"});
-        })
-        .catch((err)=>{
-          console.log(err);
-        })
-    });
-  
-    router.get("/Prof/edit",isloggedIn,async(req,res)=>{
-      try{
-        const id = req.params.id;
-        const Prof = await Prof.findById(id);
-        res.render(" ",{Prof:req.email});    
-      }
-      catch(error){
-        console.log(error.message);
-      }
-    })
-  
-    
-  
-    router.get("/TA",isLoggedIn,(req,res)=>{
-  
-      const TA= new TA({
-        email:req.user.email
-      })
-      TA.save()
-        .then((result)=>{
-          res.send(result);
-        })
-        .catch((err)=>{
-          console.log(err);
-        })
-    });
-    //Post request
-      router.post("/TA",isLoggedIn,(req,res)=>{
-        if(req.user.email){
-          const id = req.params.id;
-          TA.save({_id:id});
-        }
-        else
-        const TA = new TA(req.body);
-        TA.save()
-          .then((result)=>{
-            res.redirect("/");
-          })
-          .catch((err)=>{
-            console.log(err);
-          })
-      });
-    
-    
-      router.delete("/TA/delete",isLoggedIn,(req,res)=>{
-        const id = req.params.id;
-        TA.findByIdAndDelete(id)
-          .then((result)=>{
-            res.json({redirect: "/"});
-          })
-          .catch((err)=>{
-            console.log(err);
-          })
-      });
-    
-      router.get("/TA/edit",isloggedIn,async(req,res)=>{
-        try{
-          const id = req.params.id;
-          const TA = await TA.findById(id);
-          res.render(" ",{TA:req.email});
-          
-        }
-        catch(error){
-          console.log(error.message);
-        }
-    
-      })
 
 module.exports = router;
