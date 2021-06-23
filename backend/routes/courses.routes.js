@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 
 const courseController = require('../controllers/course.controller')
-const { isLoggedIn, IsAdmin } = require('../middlewares/auth')
+const { IsAdmin } = require('../middlewares/auth')
 
 //Courses Routes
 
@@ -16,25 +16,25 @@ router.get('/courses/search', courseController.searchCourse)
 router.get('/courses/:id', courseController.getOneCourse)
 
 //course enrollment
-router.post('/courses/:id/enrol', isLoggedIn, courseController.enrollInCourse)
+router.post('/courses/:id/enrol', courseController.enrollInCourse)
 
 //new course
-router.post("/courses/postcourse", isLoggedIn,courseController.imageName, courseController.courseImageUpload, courseController.postCourse)
+router.post("/courses/postcourse", courseController.imageName, courseController.courseImageUpload, courseController.postCourse)
 
 //update course
-router.put('/courses/:id/updatecourse', isLoggedIn,courseController.imageName, courseController.courseImageUpload, courseController.updateCourse)
+router.put('/courses/:id/updatecourse', courseController.imageName, courseController.courseImageUpload, courseController.updateCourse)
 
 //delete Course
-router.delete('/courses/:id/deletecourse', isLoggedIn,courseController.deleteCourse)
+router.delete('/courses/:id/deletecourse', courseController.deleteCourse)
 
 //Add Topics
-router.post('/courses/:id/addtopics',isLoggedIn, courseController.addTopics)
+router.post('/courses/:id/addtopics', courseController.addTopics)
 
 //Update Topics
-router.put('/courses/:id/updatetopics',isLoggedIn, courseController.updateTopics)
+router.put('/courses/:id/updatetopics', courseController.updateTopics)
 
 //Delete Topics
-router.delete('/courses/:id/deletetopics',isLoggedIn, courseController.deleteTopics)
+router.delete('/courses/:id/deletetopics', courseController.deleteTopics)
 
 
 module.exports = router
