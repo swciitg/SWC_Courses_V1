@@ -1,5 +1,5 @@
 import React from 'react'
-import Svgimg from './Svgimg'
+import Svgimg from '../../../assets/Svgimg'
 
 function Container() {
     return (

@@ -5,6 +5,8 @@ import CarouselContainer from './components/admin/Container/CarouselContainer/Ca
 import MainContainer from './components/admin/Container/MainContainer/MainContainer'
 import Footer from './components/admin/Footer/Footer';
 
+import Home from './screens/admin/Home';
+
 function App() {
   return (
     <div className="bg-bgColor text-navy">
@@ -14,6 +16,8 @@ function App() {
       <MainContainer />
       <Footer />
     </div>
+
+    // <Home />
   );
 }
 

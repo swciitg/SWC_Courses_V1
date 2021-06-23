@@ -7,7 +7,8 @@ module.exports = {
         navBlue: '#2256FF',
         navy: '#142661',
         bgColor: '#F8F8FF',
-        cardBorder:'#C5D0F6'
+        cardBorder:'#C5D0F6',
+        grayText:'#8E91AC'
       },
       fontSize:{
         temp: '2.5rem'
