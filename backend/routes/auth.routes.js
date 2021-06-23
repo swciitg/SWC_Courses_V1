@@ -57,4 +57,5 @@ router.get("/current_user", isLoggedIn, (req, res) => {
     console.log(error.message);
   }
 });
+
 module.exports = router;
