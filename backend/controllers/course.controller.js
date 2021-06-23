@@ -44,21 +44,19 @@ const upload = multer({
 exports.searchCourse = async (req, res) => {
     try {
         const queryterm = req.query.dsearch
-        const foundCourses = await Course.find(
+        const foundCourses1 = Course.find(
             {
                 $or: [
-                    {
-                        'author.name': {
-                            $regex: queryterm, $options: "i"
-                        }
-                    },
                     { title: { $regex: queryterm, $options: "i" } },
                     { 'topics.title': { $regex: queryterm, $options: "i" } },
                 ],
             }
         )
-        if (!foundCourses) {
-            return res.status(404).json({ msg: "No Course Found!" })
+        const foundCourses2 = User.findOne({name : { $regex: queryterm, $options: "i" }}, 'coursesTeach').populate('coursesTeach')
+        let [array1, array2] = await Promise.all([foundCourses1,foundCourses2])
+        let foundCourses = [...new Set([...array1,...array2.coursesTeach])]
+        if (!foundCourses.length) {
+            return res.status(404).json({ msg: "No Courses Found!" })
         }
         res.status(200).json({ status: true, courses: foundCourses })
     } catch (err) {
@@ -174,13 +172,9 @@ exports.postCourse = async (req, res) => {
         }
         fields.imgPath = imgPath
         let course = new Course(fields)
-        course.author = {
-            id: req.user._id,
-            name: req.user.name,
-            email: req.user.email
-        }
+        course.author = "60d376c8089cd8383c2b2df7"//req.user._id
         let savecourse = course.save()
-        let getuser = User.findById("60d324111528bb1cd0c383e5")
+        let getuser = User.findById("60d376c8089cd8383c2b2df7")
         let [user, newCourse] = await Promise.all([getuser, savecourse])
         user.coursesTeach.push(newCourse._id)
         await user.save()
@@ -235,7 +229,7 @@ exports.deleteCourse = async (req, res) => {
 
         if (course) {
             //course exists
-            let user = await User.findById(course.author.id)
+            let user = await User.findById(course.author)
             let idx = user.coursesTeach.indexOf(id)
             if (idx != -1) user.coursesTeach.splice(idx, 1)
             if (course.imgPath !== "") {
