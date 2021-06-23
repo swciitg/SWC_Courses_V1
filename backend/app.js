@@ -22,8 +22,6 @@ require("./config/passportAzure");
 const authRoutes = require("./routes/auth.routes");
 const coursesroutes = require('./routes/courses.routes')
 const userRoutes = require("./routes/Prof-TA.routes");
-const TA = require("./models/TA");
-
 
 const db=mongoose.connect(
   MONGO_URL,
@@ -110,19 +108,6 @@ app.use((req, res, next) => {
 app.use("/courses/api/hcourse",coursesroutes)
 app.use("/courses/api", authRoutes);
 app.use("/courses/api/users", userRoutes);
-
-app.get("/newta",(req,res)=>{
-  const ta = new TA({
-    email:"komals"
-  });
-  ta.save()
-    .then((result)=>{
-      res.send(result);
-    })
-    .catch((error)=>{
-      console.log(error);
-    })
-})
 
 app.use(helmet({ contentSecurityPolicy: false }));
 
