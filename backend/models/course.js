@@ -12,12 +12,16 @@ const courseSchema = new mongoose.Schema({
         required: [true, "Course must have a title"],
         unique: [true, "Course name is not unique"]
     },
-    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    author: {
+        id : { type: String, required: [true, "Author must have a id"] },
+        name: { type: String, required: [true, "Course must have an author"] },
+        email: { type: String, required: [true, "Author must have an email"] }
+    },
     topics: {
         type: [{
             title: String
         }],
-        default : []
+        default: []
     },
     description: {
         type: String,

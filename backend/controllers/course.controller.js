@@ -4,6 +4,7 @@ const { dirpath } = require('../dirname')
 const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
+const { runInNewContext } = require('vm')
 
 
 //Course Image Uploading Code
@@ -42,19 +43,24 @@ const upload = multer({
 
 exports.searchCourse = async (req, res) => {
     try {
+        const queryterm = req.query.dsearch
         const foundCourses = await Course.find(
             {
                 $or: [
-                    //{ author: { $regex: req.query.dsearch, $options: "i" } },
-                    { title: { $regex: req.query.dsearch, $options: "i" } },
-                    //{ topics: { $regex: req.query.dsearch, $options: "i" } },
+                    {
+                        'author.name': {
+                            $regex: queryterm, $options: "i"
+                        }
+                    },
+                    { title: { $regex: queryterm, $options: "i" } },
+                    { 'topics.title': { $regex: queryterm, $options: "i" } },
                 ],
             }
         )
-        if (!foundCourse) {
+        if (!foundCourses) {
             return res.status(404).json({ msg: "No Course Found!" })
         }
-        res.status(200).json({ status: true, course: foundCourse })
+        res.status(200).json({ status: true, courses: foundCourses })
     } catch (err) {
         console.log(err);
         return res.status(500).json({ error: err.message })
@@ -168,9 +174,13 @@ exports.postCourse = async (req, res) => {
         }
         fields.imgPath = imgPath
         let course = new Course(fields)
-        course.author = "60cf3a60f947240f145c986b"
+        course.author = {
+            id: req.user._id,
+            name: req.user.name,
+            email: req.user.email
+        }
         let savecourse = course.save()
-        let getuser = User.findById("60cf3a60f947240f145c986b")
+        let getuser = User.findById("60d324111528bb1cd0c383e5")
         let [user, newCourse] = await Promise.all([getuser, savecourse])
         user.coursesTeach.push(newCourse._id)
         await user.save()
@@ -221,16 +231,16 @@ exports.deleteCourse = async (req, res) => {
     try {
         const { id } = req.params
 
-        let course = Course.findOne(req.params.id)
+        let course = await Course.findById(id)
 
         if (course) {
             //course exists
+            let user = await User.findById(course.author.id)
+            let idx = user.coursesTeach.indexOf(id)
+            if (idx != -1) user.coursesTeach.splice(idx, 1)
             if (course.imgPath !== "") {
                 fs.unlinkSync(course.imgPath)
             }
-            let user = await User.findById(course.author)
-            let idx = user.coursesTeach.indexOf(req.params.id)
-            if (idx != -1) user.coursesTeach.splice(index,1)
             await Course.findByIdAndDelete(id)
             await user.save()
             return res.status(200).json({ status: true, msg: "Course Successfully Deleted!!!" })
