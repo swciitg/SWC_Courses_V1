@@ -1,7 +1,7 @@
 const user = require("../models/user");
 const Prof = require("../models/Prof-TA");
 const TA = require("../models/Prof-TA");
-const { propfind } = require("../routes/auth.routes");
+
 const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
       if(req.user.email == Prof.find(email) ){
