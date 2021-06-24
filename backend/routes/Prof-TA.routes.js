@@ -4,14 +4,15 @@ const passport = require("passport");
 const usercontroller = require("../controllers/user.controller")
 const { CLIENT_HOME_PAGE_URL } = process.env;
 
-
-  router.get("/:id", usercontroller.getProf);
-  router.post("/", usercontroller.postProf);
-  router.put("/:id", usercontroller.editProf);
-  router.delete("/:id", usercontroller.deleteProf);
-  router.get("/:id",usercontroller.getTA);
-  router.post("/",usercontroller.postTA);
-  router.put("/:id",usercontroller.editTA);
-  router.delete("/:id",usercontroller.deleteTA);
+router.get("/Profs",usercontroller.getAllProfs);
+router.get("/TAs",usercontroller.getAllTAs);
+  router.get("/prof/:id", usercontroller.getProf);
+  router.post("/prof/post", usercontroller.postProf);
+  router.put("/prof/:id", usercontroller.editProf);
+  router.delete("/prof/:id", usercontroller.deleteProf);
+  router.get("/ta/:id",usercontroller.getTA);
+  router.post("/ta/post",usercontroller.postTA);
+  router.put("/ta/:id",usercontroller.editTA);
+  router.delete("/ta/:id",usercontroller.deleteTA);
 
 module.exports = router;

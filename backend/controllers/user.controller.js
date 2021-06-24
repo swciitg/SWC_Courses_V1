@@ -1,6 +1,6 @@
 const express = require("express");
-const Prof = require("../models/Prof-TA");
-const TA = require("../models/Prof-TA");
+const Prof = require("../models/Prof");
+const TA = require("../models/TA");
 const User = require("../models/user");
 
 const router = express.Router({ mergeParams: true });
@@ -20,13 +20,30 @@ exports.getProf = async(req,res)=>{
     .json({ status: "Failed", message: "Request failed" });
     }
 }
+
+exports.getAllProfs = async(req,res)=>{
+  try{
+    let query = Prof.find();
+    const Profs = await query;
+    if(Profs.length){
+      return res.status(200).json({Profs});
+    }else
+      return res.status(424).json({status:"Failed",message:"Invalid"});
+    }
+    catch(err){
+      console.log(err.message);
+      return res
+        .status(424)
+        .json({status:"Failed",message:"ERROR"});
+  }
+}
 exports.postProf = async(req,res)=>{
   try{
     const {email} = req.body;
     const newProf = new Prof({email});
     const user=await User.find({email:email});
     
-    if(user){
+    if(user.length!=0){
       newProf.user=user[0].id;
     }
     
@@ -93,18 +110,34 @@ exports.getTA = async(req,res)=>{
        .json({status:"Failed",message:"Request Failed"});
   }
 }
+exports.getAllTAs = async(req,res)=>{
+  try{
+    let query = TA.find();
+    const TAs = await query;
+    if(TAs.length){
+      return res.status(200).json({TAs});
+    }else
+      return res.status(424).json({status:"Failed",message:"Invalid"});
+    }
+    catch(err){
+      console.log(err.message);
+      return res
+        .status(424)
+        .json({status:"Failed",message:"ERROR"});
+  }
+}
 exports.postTA = async(req,res)=>{
   try{
     const {email} = req.body;
     const newTA = new TA({email});
-    const user=User.find({email});
+    const user=User.find({email:email});
     console.log(req.body.email);
-    if(user){
-      newTA.user=user.id;
+    if(user[0]){
+      newTA.user=user[0].id;
     }
-    const TA = await newTA.save();
-    if (TA)
-    return res.status(200).json({ status: "Success", data: TA });
+    const ta = await newTA.save();
+    if (ta)
+    return res.status(200).json({ status: "Success", data: ta });
   else res.status(424).json({ status: "Failed", message: "Invalid Data" });}
   catch(error){
     console.log(error.message);
