@@ -105,7 +105,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/courses/api/hcourse",coursesroutes)
+app.use("/courses/api/courses",coursesroutes)
 app.use("/courses/api", authRoutes);
 app.use("/courses/api/users", userRoutes);
 

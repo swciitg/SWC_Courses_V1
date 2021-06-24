@@ -7,34 +7,34 @@ const { IsAdmin } = require('../middlewares/auth')
 //Courses Routes
 
 //get all courses 
-router.get('/courses', courseController.getAllCourses);
+router.get('/', courseController.getAllCourses);
 
 //search courses
-router.get('/courses/search', courseController.searchCourse)
+router.get('/search', courseController.searchCourse)
 
 //get one course
-router.get('/courses/:id', courseController.getOneCourse)
+router.get('/:id', courseController.getOneCourse)
 
 //course enrollment
-router.post('/courses/:id/enrol', courseController.enrollInCourse)
+router.post('/:id/enrol', courseController.enrollInCourse)
 
 //new course
-router.post("/courses/postcourse", courseController.imageName, courseController.courseImageUpload, courseController.postCourse)
+router.post("/postcourse", courseController.imageName, courseController.courseImageUpload, courseController.postCourse)
 
 //update course
-router.put('/courses/:id/updatecourse', courseController.imageName, courseController.courseImageUpload, courseController.updateCourse)
+router.put('/:id/updatecourse', courseController.imageName, courseController.courseImageUpload, courseController.updateCourse)
 
 //delete Course
-router.delete('/courses/:id/deletecourse', courseController.deleteCourse)
+router.delete('/:id/deletecourse', courseController.deleteCourse)
 
 //Add Topics
-router.post('/courses/:id/addtopics', courseController.addTopics)
+router.post('/:id/addtopics', courseController.addTopics)
 
 //Update Topics
-router.put('/courses/:id/updatetopics', courseController.updateTopics)
+router.put('/:id/updatetopics', courseController.updateTopics)
 
 //Delete Topics
-router.delete('/courses/:id/deletetopics', courseController.deleteTopics)
+router.delete('/:id/deletetopics', courseController.deleteTopics)
 
 
 module.exports = router
