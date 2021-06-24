@@ -4,6 +4,9 @@ const router = express.Router({ mergeParams: true });
 const courseController = require('../controllers/course.controller')
 const { IsAdmin } = require('../middlewares/auth')
 
+const branches = ['cse', 'mnc', 'ece', 'eee', 'me', 'ep', 'bt', 'cst', 'ce']
+const allbranches = branches.join('|')
+
 //Courses Routes
 
 //get all courses 
@@ -12,8 +15,14 @@ router.get('/', courseController.getAllCourses);
 //search courses
 router.get('/search', courseController.searchCourse)
 
+//get all courses of specific branch
+router.get(`/:branch(${allbranches})?`, courseController.branchcourses)
+
 //get one course
 router.get('/:id', courseController.getOneCourse)
+
+//get number of subscribers
+router.get('/:id/subscribers', courseController.getsubscribers)
 
 //course enrollment
 router.post('/:id/enrol', courseController.enrollInCourse)

@@ -13,7 +13,7 @@ const courseSchema = new mongoose.Schema({
         unique: [true, "Course name is not unique"]
     },
     author: {
-        type: Schema.Types.ObjectId, ref: 'User',require : true
+        type: Schema.Types.ObjectId, ref: 'User', require: true
     },
     topics: {
         type: [{
@@ -27,7 +27,13 @@ const courseSchema = new mongoose.Schema({
     },
     imgPath: String,
     videos: [String],
-    enrollmentkey: String
+    enrollmentkey: String,
+    subscribers: { type: Number, min: [0, 'subscribers can not be negative!!!'], default: 0 },
+    branch: {
+        type: String,   //enum : ['CSE','MNC','ECE','EEE','ME','EP','BT','CST','CE']
+        required: true,
+    }
+
 })
 
 module.exports = mongoose.model('Course', courseSchema)
