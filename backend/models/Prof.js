@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
+const user = require("./user");
 
 const ProfSchema = new mongoose.Schema({
     email:{
-      type: mongoose.ObjectId
+      type: String,
+      required:true
     },
-    user:{ref:"user"}
+    user:{
+      type:mongoose.Schema.ObjectId,
+      ref:"User",
+    }
   });
-  
-module.exports=mongoose.model("Professor",ProfSchema);
+module.exports = mongoose.model("Prof",ProfSchema);

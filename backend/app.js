@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const multer = require('multer')
 require("dotenv").config();
 const methodOverride = require("method-override");
 const passport = require("passport");
@@ -11,7 +12,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const helmet = require("helmet");
-const MONGO_URL = "mongodb://localhost/HAB_DB";
+const MONGO_URL = "mongodb://localhost/SAC_DB";
 //const url = process.env.MONGO_URI;
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -19,7 +20,8 @@ require("./config/passportAzure");
 
 //required routes
 const authRoutes = require("./routes/auth.routes");
-
+const coursesroutes = require('./routes/courses.routes')
+const userRoutes = require("./routes/Prof-TA.routes");
 
 const db=mongoose.connect(
   MONGO_URL,
@@ -60,32 +62,13 @@ app.use((req, res, next) => {
 });
 
 
-//routes
+app.use(cookieParser());
 app.use(
     bodyParser.json({
       limit: "50mb",
     })
   );
 
-app.use(methodOverride("_method"));
-app.use(mongoSanitize());
-
-app.use(helmet({ contentSecurityPolicy: false }));
-
-app.use(passport.initialize());
-app.use(passport.session());
-app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  res.locals.session = req.session;
-  next();
-});
-
-app.use(cookieParser());
-app.use(
-  bodyParser.json({
-    limit: "50mb",
-  })
-);
 app.use(express.json({ limit: "50mb" }));
 app.use(express.static(__dirname + "./uploads"));
 
@@ -93,6 +76,16 @@ app.use(methodOverride("_method"));
 app.use(mongoSanitize());
 
 //session middleware
+
+
+app.use(
+  cookieSession({
+    name: "swc-courses-session",
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: ["lorem ipsum"],
+    httpOnly: false,
+  })
+);
 
 app.use(
   express.urlencoded({
@@ -106,10 +99,17 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.session = req.session;
+  next();
+});
+
+app.use("/courses/api/courses",coursesroutes)
 app.use("/courses/api", authRoutes);
+app.use("/courses/api/users", userRoutes);
 
 app.use(helmet({ contentSecurityPolicy: false }));
-
 
 
 app.listen(PORT, () => {
