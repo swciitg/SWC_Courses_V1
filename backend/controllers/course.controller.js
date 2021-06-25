@@ -200,10 +200,15 @@ exports.postCourse = async (req, res) => {
         console.log("POST course route hit")
         const { title, topics, description, enrollmentkey, branch } = req.body
         let fields = {};
+        fields.topics = []
         if (description) fields.description = description
         if (title) fields.title = title
         if (enrollmentkey) fields.enrollmentkey = enrollmentkey
-        if (topics) fields.topics = topics
+        if (topics){
+            topics.forEach(topic => {
+                fields.topics.push({title : topic})
+            })
+        }
         if (branch) fields.branch = branch
         let imgPath = ""
         if (req.file) {
