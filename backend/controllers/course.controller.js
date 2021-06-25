@@ -162,7 +162,7 @@ exports.enrollInCourse = async (req, res, next) => {
     try {
         const { enrollmentkey } = req.body
         let getcourse = Course.findOne({ _id: req.params.id });
-        let getuser = User.findById("60d4d36a1a333b305c5fa983")
+        let getuser = User.findById(req.user._id)
         let [user, course] = await Promise.all([getuser, getcourse]);
         const ENROLLMENTKEY = course.enrollmentkey || enrollmentkey
         if (course) {
@@ -212,9 +212,9 @@ exports.postCourse = async (req, res) => {
         }
         fields.imgPath = imgPath
         let course = new Course(fields)
-        course.author = "60d4d36a1a333b305c5fa983"//req.user._id
+        course.author = req.user._id//req.user._id
         let savecourse = course.save()
-        let getuser = User.findById("60d4d36a1a333b305c5fa983")
+        let getuser = User.findById(req.user._id)
         let [user, newCourse] = await Promise.all([getuser, savecourse])
         user.coursesTeach.push(newCourse._id)
         await user.save()
