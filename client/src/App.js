@@ -1,30 +1,33 @@
 import './App.css';
-import Navbar from './components/admin/Navbar/Navbar';
-import Container from './components/admin/Container/Container';
-import CarouselContainer from './components/admin/Container/CarouselContainer/CarouselContainer';
-import MainContainer from './components/admin/Container/MainContainer/MainContainer'
-import Footer from './components/admin/Footer/Footer';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Main from './components/admin/dashboard/main';
-
-
+import WelcomeScreen from './screens/admin/WelcomeScreen';
+import DashboardScreen from './screens/admin/DashboardScreen';
 import Home from './screens/admin/Home';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
     <div className="bg-bgColor text-navy">
-      
-      
-      <Navbar />
-      <Container />
-      <CarouselContainer />
-      <MainContainer />
-      <Footer />
-      <Home/>
-      <Main/>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact>
+            <WelcomeScreen />
+          </Route>
+          <Route path="/home" exact>
+            <Home />
+          </Route>
+          <Route path="/dashboard" exact>
+            <DashboardScreen />
+          </Route>
+          <Route path='*'>
+            <NotFound />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
 
-    
+
   );
 }
 
