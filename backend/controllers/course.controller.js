@@ -48,13 +48,14 @@ exports.searchCourse = async (req, res) => {
             {
                 $or: [
                     { title: { $regex: queryterm, $options: "i" } },
+                    { branch: { $regex: queryterm, $options: "i" } },
                     { 'topics.title': { $regex: queryterm, $options: "i" } },
                 ],
             }
         )
-        const foundCourses2 = User.findOne({name : { $regex: queryterm, $options: "i" }}, 'coursesTeach').populate('coursesTeach')
-        let [array1, array2] = await Promise.all([foundCourses1,foundCourses2])
-        let foundCourses = [...new Set([...array1,...array2.coursesTeach])]
+        const foundCourses2 = User.findOne({ name: { $regex: queryterm, $options: "i" } }, 'coursesTeach').populate('coursesTeach')
+        let [array1, array2] = await Promise.all([foundCourses1, foundCourses2])
+        let foundCourses = [...new Set([...array1, ...array2.coursesTeach])]
         if (!foundCourses.length) {
             return res.status(404).json({ msg: "No Courses Found!" })
         }
@@ -121,12 +122,47 @@ exports.getOneCourse = async (req, res, next) => {
     }
 }
 
+exports.getsubscribers = async (req, res) => {
+    try {
+        const { id } = req.params
+        const course = await Course.findById(id)
+        if(course){
+            return res.send(200).json({status : true, subscribers : subscribers})
+        }
+        else{
+            return res.status(404).json({ msg: "No Course Found!" })
+        }
+    }
+    catch (err) {
+        console.error(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+exports.branchcourses = async (req, res) => {
+    try {
+        const { branch } = req.params
+        const foundcourses = await Course.find({branch : branch})
+        if(foundcourses.length){
+            return res.status(200).json({status : true, courses : foundcourses})
+        }
+        else{
+            return res.status(404).json({ msg: "No Courses Found!" })
+        }
+    }
+    catch (err) {
+        console.error(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+
+
 exports.enrollInCourse = async (req, res, next) => {
     try {
         const { enrollmentkey } = req.body
         let getcourse = Course.findOne({ _id: req.params.id });
         let getuser = User.findById(req.user._id)
-
         let [user, course] = await Promise.all([getuser, getcourse]);
         const ENROLLMENTKEY = course.enrollmentkey || enrollmentkey
         if (course) {
@@ -134,7 +170,10 @@ exports.enrollInCourse = async (req, res, next) => {
                 if (ENROLLMENTKEY === enrollmentkey) {
                     //not Enrolled
                     user.coursesTaken.push(course._id)
-                    await user.save()
+                    course.subscribers++
+                    let task1 = course.save()
+                    let task2 = user.save()
+                    await Promise.all([task1, task2])
                     return res.status(200).json({ msg: "Successfully Enrolled!!!" })
                 }
                 else {
@@ -159,12 +198,18 @@ exports.enrollInCourse = async (req, res, next) => {
 exports.postCourse = async (req, res) => {
     try {
         console.log("POST course route hit")
-        const { title, topics, description, enrollmentkey } = req.body
+        const { title, topics, description, enrollmentkey, branch } = req.body
         let fields = {};
+        fields.topics = []
         if (description) fields.description = description
         if (title) fields.title = title
         if (enrollmentkey) fields.enrollmentkey = enrollmentkey
-        if (topics) fields.topics = topics
+        if (topics){
+            topics.forEach(topic => {
+                fields.topics.push({title : topic})
+            })
+        }
+        if (branch) fields.branch = branch
         let imgPath = ""
         if (req.file) {
             console.log(req.file)
@@ -172,9 +217,9 @@ exports.postCourse = async (req, res) => {
         }
         fields.imgPath = imgPath
         let course = new Course(fields)
-        course.author = "60d376c8089cd8383c2b2df7"//req.user._id
+        course.author = req.user._id//req.user._id
         let savecourse = course.save()
-        let getuser = User.findById("60d376c8089cd8383c2b2df7")
+        let getuser = User.findById(req.user._id)
         let [user, newCourse] = await Promise.all([getuser, savecourse])
         user.coursesTeach.push(newCourse._id)
         await user.save()
@@ -191,11 +236,12 @@ exports.updateCourse = async (req, res) => {
         let course = await Course.findById(id)
         if (course) {
             //course exists
-            const { title, description, enrollmentkey } = req.body;
+            const { title, description, enrollmentkey, branch } = req.body;
             let update = {}
             if (description) update.description = description
             if (title) update.title = title
             if (enrollmentkey) update.enrollmentkey = enrollmentkey
+            if (branch) update.branch = branch
             let imgPath = ""
             if (req.file) {
                 console.log(req.file)
@@ -232,11 +278,13 @@ exports.deleteCourse = async (req, res) => {
             let user = await User.findById(course.author)
             let idx = user.coursesTeach.indexOf(id)
             if (idx != -1) user.coursesTeach.splice(idx, 1)
+            let task1 = Course.findByIdAndDelete(id)
+            let task2 = user.save()
+            let task3 = User.updateMany({}, { $pull: { coursesTaken: id } })
+            await Promise.all([task1, task2, task3])
             if (course.imgPath !== "") {
                 fs.unlinkSync(course.imgPath)
             }
-            await Course.findByIdAndDelete(id)
-            await user.save()
             return res.status(200).json({ status: true, msg: "Course Successfully Deleted!!!" })
         }
         else {
