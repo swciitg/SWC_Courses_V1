@@ -344,7 +344,7 @@ exports.updatesubTopics = async (req, res) => {
         const subtopicsarray = course.subtopics.map(subtopic => subtopic.title)
         dquery.forEach(query => {
             let idx = subtopicsarray.indexOf(query.oldname)
-            if (idx != -1) course.topics[idx].title = query.newname
+            if (idx != -1) course.subtopics[idx].title = query.newname
         })
         await course.save()
         return res.status(200).json({ status: true, msg: "subTopics Successfully Updated!!!" })
