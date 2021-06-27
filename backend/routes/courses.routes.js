@@ -18,6 +18,9 @@ router.get('/search', courseController.searchCourse)
 //get all courses of specific branch
 router.get(`/:branch(${allbranches})?`, courseController.branchcourses)
 
+//get all courses of specific topic
+router.get('/topic/:topic', courseController.gettopicCourses)
+
 //get one course
 router.get('/:id', courseController.getOneCourse)
 
@@ -37,13 +40,13 @@ router.put('/:id/updatecourse', courseController.imageName, courseController.cou
 router.delete('/:id/deletecourse', courseController.deleteCourse)
 
 //Add Topics
-router.post('/:id/addtopics', courseController.addTopics)
+router.post('/:id/addsubtopics', courseController.addsubTopics)
 
 //Update Topics
-router.put('/:id/updatetopics', courseController.updateTopics)
+router.put('/:id/updatesubtopics', courseController.updatesubTopics)
 
 //Delete Topics
-router.delete('/:id/deletetopics', courseController.deleteTopics)
+router.delete('/:id/deletesubtopics', courseController.deletesubTopics)
 
 
 module.exports = router
