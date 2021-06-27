@@ -7,6 +7,7 @@ const Schema = mongoose.Schema;
 ) */
 
 const courseSchema = new mongoose.Schema({
+    topic : { type : String, default : "NA"},
     title: {
         type: String,
         required: [true, "Course must have a title"],
@@ -15,7 +16,7 @@ const courseSchema = new mongoose.Schema({
     author: {
         type: Schema.Types.ObjectId, ref: 'User', require: true
     },
-    topics: {
+    subtopics: {
         type: [{
             title: String
         }],

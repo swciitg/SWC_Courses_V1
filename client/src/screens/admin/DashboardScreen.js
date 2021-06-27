@@ -1,9 +1,10 @@
 import React from "react";
-import Recent from './recent';
-import Table from './table';
-import Calendar from './Calendarcomponent';
-import Header from "../Header/Header";
-import New from "./new";
+
+import Recent from '../../components/admin/dashboard/recent';
+import Table from '../../components/admin/dashboard/table';
+import Calendar from '../../components/admin/dashboard/Calendarcomponent';
+import Header from "../../components/admin/Header/Header";
+import New from '../../components/admin/dashboard/new';
 
 const Main = (props) => {
     return(

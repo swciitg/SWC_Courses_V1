@@ -49,7 +49,8 @@ exports.searchCourse = async (req, res) => {
                 $or: [
                     { title: { $regex: queryterm, $options: "i" } },
                     { branch: { $regex: queryterm, $options: "i" } },
-                    { 'topics.title': { $regex: queryterm, $options: "i" } },
+                    { 'subtopics.title': { $regex: queryterm, $options: "i" } },
+                    { topic: { $regex: queryterm, $options: "i" } },
                 ],
             }
         )
@@ -95,7 +96,7 @@ exports.getOneCourse = async (req, res, next) => {
             // if user is signed in 
             let getcourse = Course.findOne({ _id: req.params.id })
             let getuser = User.findOne({
-                _id: req.user._id,
+                _id: "60d4d36a1a333b305c5fa983",
                 coursesTaken: req.params.id
             })
             let [user, course] = await Promise.all([getuser, getcourse])
@@ -126,10 +127,10 @@ exports.getsubscribers = async (req, res) => {
     try {
         const { id } = req.params
         const course = await Course.findById(id)
-        if(course){
-            return res.send(200).json({status : true, subscribers : subscribers})
+        if (course) {
+            return res.send(200).json({ status: true, subscribers: subscribers })
         }
-        else{
+        else {
             return res.status(404).json({ msg: "No Course Found!" })
         }
     }
@@ -142,11 +143,11 @@ exports.getsubscribers = async (req, res) => {
 exports.branchcourses = async (req, res) => {
     try {
         const { branch } = req.params
-        const foundcourses = await Course.find({branch : branch})
-        if(foundcourses.length){
-            return res.status(200).json({status : true, courses : foundcourses})
+        const foundcourses = await Course.find({ branch: branch })
+        if (foundcourses.length) {
+            return res.status(200).json({ status: true, courses: foundcourses })
         }
-        else{
+        else {
             return res.status(404).json({ msg: "No Courses Found!" })
         }
     }
@@ -156,13 +157,28 @@ exports.branchcourses = async (req, res) => {
     }
 }
 
-
+exports.gettopicCourses = async (req, res) => {
+    try {
+        const { topic } = req.params
+        const foundcourses = await Course.find({ topic : topic })
+        if (foundcourses.length) {
+            return res.status(200).json({ status: true, courses: foundcourses })
+        }
+        else {
+            return res.status(404).json({ msg: "No Courses Found!" })
+        }
+    }
+    catch (err) {
+        console.error(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
 
 exports.enrollInCourse = async (req, res, next) => {
     try {
         const { enrollmentkey } = req.body
         let getcourse = Course.findOne({ _id: req.params.id });
-        let getuser = User.findById(req.user._id)
+        let getuser = User.findById("60d4d36a1a333b305c5fa983")
         let [user, course] = await Promise.all([getuser, getcourse]);
         const ENROLLMENTKEY = course.enrollmentkey || enrollmentkey
         if (course) {
@@ -198,15 +214,16 @@ exports.enrollInCourse = async (req, res, next) => {
 exports.postCourse = async (req, res) => {
     try {
         console.log("POST course route hit")
-        const { title, topics, description, enrollmentkey, branch } = req.body
+        const { topic, title, subtopics, description, enrollmentkey, branch } = req.body
         let fields = {};
-        fields.topics = []
+        fields.subtopics = []
+        if (topic) fields.topic = topic
         if (description) fields.description = description
         if (title) fields.title = title
         if (enrollmentkey) fields.enrollmentkey = enrollmentkey
-        if (topics){
-            topics.forEach(topic => {
-                fields.topics.push({title : topic})
+        if (subtopics) {
+            subtopics.forEach(subtopic => {
+                fields.subtopics.push({ title: subtopic })
             })
         }
         if (branch) fields.branch = branch
@@ -217,9 +234,9 @@ exports.postCourse = async (req, res) => {
         }
         fields.imgPath = imgPath
         let course = new Course(fields)
-        course.author = req.user._id//req.user._id
+        course.author = "60d4d36a1a333b305c5fa983"//"60d4d36a1a333b305c5fa983"
         let savecourse = course.save()
-        let getuser = User.findById(req.user._id)
+        let getuser = User.findById("60d4d36a1a333b305c5fa983")
         let [user, newCourse] = await Promise.all([getuser, savecourse])
         user.coursesTeach.push(newCourse._id)
         await user.save()
@@ -236,8 +253,9 @@ exports.updateCourse = async (req, res) => {
         let course = await Course.findById(id)
         if (course) {
             //course exists
-            const { title, description, enrollmentkey, branch } = req.body;
+            const { title, description, enrollmentkey, branch, topic } = req.body;
             let update = {}
+            if(topic)fields.topic = topic
             if (description) update.description = description
             if (title) update.title = title
             if (enrollmentkey) update.enrollmentkey = enrollmentkey
@@ -259,7 +277,6 @@ exports.updateCourse = async (req, res) => {
             return res.status(404).json({ msg: "Course Not Found" })
         }
     }
-
     catch (err) {
         console.log(err)
         return res.status(500).json({ status: false, error: err.message })
@@ -297,19 +314,19 @@ exports.deleteCourse = async (req, res) => {
     }
 }
 
-exports.addTopics = async (req, res) => {
-    console.log("Add Topics End Point Hit")
+exports.addsubTopics = async (req, res) => {
+    console.log("Add subTopics End Point Hit")
     try {
         const { id } = req.params
-        const { topics } = req.body
+        const { subtopics } = req.body
         let course = await Course.findById(id)
         if (!course) return res.status(404).json({ msg: "Course Not Found" })
-        const topicsarray = course.topics.map(topic => topic.title)
-        topics.forEach(topic => {
-            if (!topicsarray.includes(topic)) course.topics.push({ title: topic })
+        const subtopicsarray = course.subtopics.map(subtopic => subtopic.title)
+        subtopics.forEach(subtopic => {
+            if (!subtopicsarray.includes(subtopic)) course.subtopics.push({ title: subtopic })
         })
         await course.save()
-        return res.status(200).json({ status: true, msg: "Topics Successfully Added!!!" })
+        return res.status(200).json({ status: true, msg: "subTopics Successfully Added!!!" })
         // course dosn't exists
     } catch (err) {
         console.log(err)
@@ -317,20 +334,20 @@ exports.addTopics = async (req, res) => {
     }
 }
 
-exports.updateTopics = async (req, res) => {
-    console.log("Update Topics End Point Hit")
+exports.updatesubTopics = async (req, res) => {
+    console.log("Update subTopics End Point Hit")
     try {
         const { id } = req.params
         const { dquery } = req.body
         let course = await Course.findById(id)
         if (!course) return res.status(404).json({ msg: "Course Not Found" })
-        const topicsarray = course.topics.map(topic => topic.title)
+        const subtopicsarray = course.subtopics.map(subtopic => subtopic.title)
         dquery.forEach(query => {
-            let idx = topicsarray.indexOf(query.oldname)
-            if (idx != -1) course.topics[idx].title = query.newname
+            let idx = subtopicsarray.indexOf(query.oldname)
+            if (idx != -1) course.subtopics[idx].title = query.newname
         })
         await course.save()
-        return res.status(200).json({ status: true, msg: "Topics Successfully Updated!!!" })
+        return res.status(200).json({ status: true, msg: "subTopics Successfully Updated!!!" })
         // course dosn't exists
     } catch (err) {
         console.log(err)
@@ -338,13 +355,13 @@ exports.updateTopics = async (req, res) => {
     }
 }
 
-exports.deleteTopics = async (req, res) => {
+exports.deletesubTopics = async (req, res) => {
     try {
         const { id } = req.params
-        const { topics } = req.body
-        let course = await Course.findByIdAndUpdate(id, { $pull: { topics: { title: { $in: topics } } } }, { new: true })
+        const { subtopics } = req.body
+        let course = await Course.findByIdAndUpdate(id, { $pull: { subtopics: { title: { $in: subtopics } } } }, { new: true })
         if (course) {
-            return res.status(200).json({ status: true, msg: "Topics Successfully Deleted!!!", course })
+            return res.status(200).json({ status: true, msg: "subTopics Successfully Deleted!!!", course })
         }
         else {
             // course dosn't exists
