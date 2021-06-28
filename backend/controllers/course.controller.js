@@ -18,9 +18,22 @@ let storage = multer.diskStorage({
     }
 })
 
-const checkFileType = (file, cb) => {
+//Storage for Resources Upload
+let storage1 = multer.diskStorage({
+    destination: function (req, file, cb) {
+        let dir = dirpath + "/assets/courseresources"
+        cb(null, dir)
+    },
+    filename: function (req, file, cb) {
+        cb(null, (file.originalname.split('.')[0] + Date.now() + path.extname(file.originalname)))
+    }
+})
+
+//use type 0 for image check or 1 for document check
+const checkFileType = (file, cb, type = 0) => {
     // Allowed ext
-    const filetypes = /jpeg|jpg|png|gif/;
+
+    const filetypes = type ? /pdf|docx|txt|doc|ppt|pptx/ : /jpeg|jpg|png|gif/;
     // Check ext
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
     // Check mime
@@ -29,7 +42,8 @@ const checkFileType = (file, cb) => {
     if (mimetype && extname) {
         return cb(null, true);
     } else {
-        cb("Error: Images Only!");
+        const msg = type ? "Error: File Type Not Allowed" : "Error: Images Only!"
+        cb(msg);
     }
 }
 
@@ -40,6 +54,20 @@ const upload = multer({
         checkFileType(file, cb)
     },
 }).single("image")
+
+const upload1 = multer({
+    storage: storage1,
+    limits: { fileSize: 5000000 },
+    fileFilter: function (req, file, cb) {
+        checkFileType(file, cb, 1)
+    },
+}).array("resources", 12)
+
+
+// sort courses by subscribers in decreasing order
+const sortbysubs = (course1, course2) => {
+    return course2.subscribers - course1.subscribers
+}
 
 exports.searchCourse = async (req, res) => {
     try {
@@ -60,6 +88,7 @@ exports.searchCourse = async (req, res) => {
         if (!foundCourses.length) {
             return res.status(404).json({ msg: "No Courses Found!" })
         }
+        foundCourses.sort(sortbysubs);
         res.status(200).json({ status: true, courses: foundCourses })
     } catch (err) {
         console.log(err);
@@ -71,6 +100,7 @@ exports.getAllCourses = async (req, res, next) => {
     try {
         let courses = await Course.find();
         if (courses.length) {
+            courses.sort(sortbysubs);
             return res.status(200).json({ courses });
         } else {
             return res.status(404).json({ msg: "No Course Found!" })
@@ -145,6 +175,7 @@ exports.branchcourses = async (req, res) => {
         const { branch } = req.params
         const foundcourses = await Course.find({ branch: branch })
         if (foundcourses.length) {
+            foundcourses.sort(sortbysubs);
             return res.status(200).json({ status: true, courses: foundcourses })
         }
         else {
@@ -160,8 +191,9 @@ exports.branchcourses = async (req, res) => {
 exports.gettopicCourses = async (req, res) => {
     try {
         const { topic } = req.params
-        const foundcourses = await Course.find({ topic : topic })
+        const foundcourses = await Course.find({ topic: topic })
         if (foundcourses.length) {
+            foundcourses.sort(sortbysubs);
             return res.status(200).json({ status: true, courses: foundcourses })
         }
         else {
@@ -230,7 +262,7 @@ exports.postCourse = async (req, res) => {
         let imgPath = ""
         if (req.file) {
             console.log(req.file)
-            imgPath = dirpath + "/assets/courseimages/" + req.file.filename
+            imgPath = req.file.path
         }
         fields.imgPath = imgPath
         let course = new Course(fields)
@@ -255,7 +287,7 @@ exports.updateCourse = async (req, res) => {
             //course exists
             const { title, description, enrollmentkey, branch, topic } = req.body;
             let update = {}
-            if(topic)fields.topic = topic
+            if (topic) fields.topic = topic
             if (description) update.description = description
             if (title) update.title = title
             if (enrollmentkey) update.enrollmentkey = enrollmentkey
@@ -373,6 +405,73 @@ exports.deletesubTopics = async (req, res) => {
     }
 }
 
+exports.courseresourcesUpload = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const course = await Course.findById(id)
+        if (course) {
+            upload1(req, res, async (err) => {
+                console.log("Upload Hit!!!")
+                if (err) {
+                    console.log(err)
+                    return res.status(500).json({ status: false, error: err.message })
+                }
+                else {
+                    console.log(req.files)
+                    if (req.files.length > 0) {
+                        console.log("Files Successfully Uploaded!!!")
+                        req.files.forEach(file => course.resources.push({ name: file.originalname, path: file.path }))
+                        await course.save()
+                        return res.status(200).send({ status: true, course: course })
+                    }
+                    else {
+                        console.log("something went wrong when uploading the file");
+                        return res.status(404).send("Something Went Wrong :(")
+                    }
+                }
+            })
+        }
+        else {
+            // course dosn't exists
+            return res.status(404).json({ msg: "Course Not Found" })
+        }
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+exports.deleteResources = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { dquery } = req.body
+
+        const course = await Course.findById(id)
+        if (course) {
+            course.resources = course.resources.filter(resource => {
+                if (dquery.includes(resource.id)) {
+                    console.log(resource.path)
+                    fs.unlinkSync(resource.path)
+                    return false
+                }
+                else {
+                    return true;
+                }
+            })
+            await course.save()
+            return res.status(200).json({ status: true, course: course })
+        }
+        else {
+            // course dosn't exists
+            return res.status(404).json({ msg: "Course Not Found" })
+        }
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
 //Middlewares
 
 //Course Image name middleware
@@ -401,4 +500,9 @@ exports.courseImageUpload = async (req, res, next) => {
         }
     })
 }
+
+
+
+
+
 

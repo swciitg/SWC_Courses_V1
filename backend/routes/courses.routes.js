@@ -48,5 +48,9 @@ router.put('/:id/updatesubtopics', courseController.updatesubTopics)
 //Delete Topics
 router.delete('/:id/deletesubtopics', courseController.deletesubTopics)
 
+//Courses Resources Routes
+router.post('/:id/addresources', courseController.courseresourcesUpload)
+
+router.delete('/:id/deleteresources', courseController.deleteResources)
 
 module.exports = router

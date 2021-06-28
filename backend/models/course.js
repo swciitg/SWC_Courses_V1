@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 ) */
 
 const courseSchema = new mongoose.Schema({
-    topic : { type : String, default : "NA"},
+    topic: { type: String, default: "NA" },
     title: {
         type: String,
         required: [true, "Course must have a title"],
@@ -21,6 +21,18 @@ const courseSchema = new mongoose.Schema({
             title: String
         }],
         default: []
+    },
+    resources: {
+        type: [{
+            name: {
+                type: String,
+                required: [true, "File Must have a name"]
+            },
+            path: {
+                type: String,
+                required: [true, "File Must have a path"]
+            }
+        }], default: []
     },
     description: {
         type: String,
