@@ -1,12 +1,13 @@
 import Header from "../../components/admin/Header/Header";
 import HomeMain from '../../components/admin/HomeMain/HomeMain';
-
+import React from "react";
 const Home = () => {
   return (
-    <>
+    <React.Fragment>
       <Header />
       <HomeMain />
-    </>
+    </React.Fragment>
+    
   );
 };
 
