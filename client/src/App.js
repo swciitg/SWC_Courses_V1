@@ -1,10 +1,8 @@
 import './App.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-import WelcomeScreen from './screens/admin/WelcomeScreen';
-import DashboardScreen from './screens/admin/DashboardScreen';
-import CalendarScreen from './screens/admin/CalendarScreen'
-import Home from './screens/admin/Home';
+import AdminScreen from './screens/admin/AdminScreen';
+import UserScreen from './screens/user/UserScreen';
 import NotFound from './components/NotFound';
 
 function App() {
@@ -13,25 +11,20 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact>
-            <WelcomeScreen />
+            <Redirect to="/admin" />
           </Route>
-          <Route path="/home" exact>
-            <Home />
+          <Route path="/admin">
+            <AdminScreen />
           </Route>
-          <Route path="/dashboard" exact>
-            <DashboardScreen />
+          <Route path="/user">
+            <UserScreen />
           </Route>
-          <Route path="/calendar" exact>
-            <CalendarScreen/>
-          </Route>
-          <Route path='*'>
+          <Route path="*">
             <NotFound />
           </Route>
         </Switch>
       </BrowserRouter>
     </div>
-
-
   );
 }
 

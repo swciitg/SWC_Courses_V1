@@ -1,7 +1,7 @@
 import Header from "../../components/admin/Header/Header";
 import HomeMain from '../../components/admin/HomeMain/HomeMain';
 
-const Home = () => {
+const HomeScreen = () => {
   return (
     <>
       <Header />
@@ -10,4 +10,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeScreen;
