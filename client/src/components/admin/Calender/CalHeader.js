@@ -1,7 +1,11 @@
 //import Dropdown from "@material-tailwind/react/Dropdown"
 //import Dropdown from "@material-tailwind/react/Dropdown"
 import Categories from "../etc/Categories";
+<<<<<<< HEAD
 //import WeekView from "./weekView";
+=======
+// import WeekView from "./weekView";
+>>>>>>> 1a30efbd8ddae66a5b3c1e3c22fa0d9767ed3577
 import New from "../dashboard/new";
 const CalHeader=()=>{
     return (

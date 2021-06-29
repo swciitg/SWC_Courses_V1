@@ -4,7 +4,11 @@ import New from '../../components/admin/dashboard/new'
 import Header from '../../components/admin/Header/Header'
 import CalHeader from '../../components/admin/Calender/CalHeader'
 import Days from '../../components/admin/Calender/Days'
-//import WeekView from '../../components/admin/Calender/weekView'
+import SideNavBar from '../../components/admin/SideNavBar/SideNavBar'
+
+
+// import WeekView from '../../components/admin/Calender/weekView'
+
 import Footer from '../../components/admin/Footer/Footer';
 
 // export default function Calender() {
@@ -31,12 +35,16 @@ export default function Calender() {
         <React.Fragment>
             
             <Header />
+            <div className="flex flex-row space-x-10">
+                <SideNavBar></SideNavBar>
+            <div className="w-9/12 justify-end">
             
-            <div className="w-9/12 justify-end ">
             <CalHeader />
             <br/>
             <Days />
             </div>
+            </div>
+            
             
             
             
