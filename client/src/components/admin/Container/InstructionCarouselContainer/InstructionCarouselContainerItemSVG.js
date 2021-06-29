@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CarouselSVG() {
+function InstructionCarouselContainerItemSVG() {
     return (
         <div>
             <svg viewBox="0 0 567 616" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,4 +56,4 @@ function CarouselSVG() {
     )
 }
 
-export default CarouselSVG
+export default InstructionCarouselContainerItemSVG

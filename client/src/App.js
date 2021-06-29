@@ -1,9 +1,11 @@
 import './App.css';
+import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import AdminScreen from './screens/admin/AdminScreen';
 import UserScreen from './screens/user/UserScreen';
 import NotFound from './components/NotFound';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (

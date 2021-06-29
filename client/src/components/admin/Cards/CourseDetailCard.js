@@ -3,7 +3,7 @@ import BookmarkSVG from './BookmarkSVG'
 
 function CourseDetailCard() {
     return (
-        <div className="w-56 m-4 rounded bg-bgColor pb-8">
+        <div className="m-4 rounded bg-bgColor pb-8">
         <img className="rounded border border-cardBorder " src="https://source.unsplash.com/1600x900/?tech" alt="Course Picture" />
         <div className="mt-2 relative px-2">
         <p className="w-10/12 text-sm"> Energy Transfer Biothermodynamics</p>

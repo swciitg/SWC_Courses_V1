@@ -1,6 +1,6 @@
 import React from 'react'
 
-function SWCSVG() {
+function SWCLogoSVG() {
     return (
         <div>
             <svg viewBox="0 0 57 41" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,4 +11,4 @@ function SWCSVG() {
     )
 }
 
-export default SWCSVG
+export default SWCLogoSVG

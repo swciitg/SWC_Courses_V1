@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Svgimg() {
+function WelcomeContainerSVG() {
     return (
         <div>
             <svg className="w-full"  viewBox="0 0 682 414" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -75,4 +75,4 @@ function Svgimg() {
     )
 }
 
-export default Svgimg
+export default WelcomeContainerSVG
