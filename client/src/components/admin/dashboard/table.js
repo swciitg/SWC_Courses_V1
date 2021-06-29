@@ -13,13 +13,13 @@ const Table = (props) =>{
                 <table class="min-w-full divide-y divide-gray-200">
                 <thead>
                     <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-lg font-medium   tracking-wider font-semibold">
                         Name
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-lg font-medium  tracking-wider font-semibold">
                         Date
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-lg font-medium   tracking-wider font-semibold">
                         Size
                     </th>
                    
@@ -28,17 +28,17 @@ const Table = (props) =>{
                 <tbody class="bg-white divide-y divide-gray-200">
                     <tr>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm font-medium text-gray-900">
+                        <div class="text-sm font-medium text-gray-900 font-semibold">
                         First Video
                         </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm text-gray-900">24-06-2021</div>
+                        <div class="text-sm text-gray-900 font-semibold">24-06-2021</div>
                         
                     </td>
 
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm text-gray-900">1 GB</div>
+                        <div class="text-sm text-gray-900 font-semibold">1 GB</div>
                         
                     </td>
 

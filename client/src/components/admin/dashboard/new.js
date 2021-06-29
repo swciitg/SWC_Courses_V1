@@ -4,7 +4,7 @@ const New = (props) =>{
 
     return(
         
-        <div className="bg-white py-4 px-6 mr-16 mt-4 flex justify-center  ">
+        <div className="bg-white py-4 px-6 mr-16 mt-4 flex justify-center  font-semibold">
             
       
       

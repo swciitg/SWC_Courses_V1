@@ -15,12 +15,12 @@ function App() {
     <div className="bg-bgColor text-navy">
       
       
-      <Navbar />
+      {/* <Navbar />
       <Container />
       <CarouselContainer />
       <MainContainer />
       <Footer />
-      <Home/>
+      <Home/> */}
       <Main/>
     </div>
 
