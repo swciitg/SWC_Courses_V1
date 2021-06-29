@@ -64,12 +64,19 @@ app.use((req, res, next) => {
 
 app.use(cookieParser());
 app.use(
-    bodyParser.json({
-      limit: "50mb",
-    })
-  );
-
+  bodyParser.json({
+    limit: "50mb",
+  })
+);
+app.use(express.json());
 app.use(express.json({ limit: "50mb" }));
+app.use(
+  express.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 50000,
+  })
+);
 app.use(express.static(__dirname + "./uploads"));
 
 app.use(methodOverride("_method"));
@@ -84,14 +91,6 @@ app.use(
     maxAge: 30 * 24 * 60 * 60 * 1000,
     keys: ["lorem ipsum"],
     httpOnly: false,
-  })
-);
-
-app.use(
-  express.urlencoded({
-    limit: "50mb",
-    extended: true,
-    parameterLimit: 50000,
   })
 );
 

@@ -7,19 +7,32 @@ const Schema = mongoose.Schema;
 ) */
 
 const courseSchema = new mongoose.Schema({
+    topic: { type: String, default: "NA" },
     title: {
         type: String,
         required: [true, "Course must have a title"],
         unique: [true, "Course name is not unique"]
     },
     author: {
-        type: Schema.Types.ObjectId, ref: 'User',require : true
+        type: Schema.Types.ObjectId, ref: 'User', require: true
     },
-    topics: {
+    subtopics: {
         type: [{
             title: String
         }],
         default: []
+    },
+    resources: {
+        type: [{
+            name: {
+                type: String,
+                required: [true, "File Must have a name"]
+            },
+            path: {
+                type: String,
+                required: [true, "File Must have a path"]
+            }
+        }], default: []
     },
     description: {
         type: String,
@@ -27,7 +40,13 @@ const courseSchema = new mongoose.Schema({
     },
     imgPath: String,
     videos: [String],
-    enrollmentkey: String
+    enrollmentkey: String,
+    subscribers: { type: Number, min: [0, 'subscribers can not be negative!!!'], default: 0 },
+    branch: {
+        type: String,   //enum : ['CSE','MNC','ECE','EEE','ME','EP','BT','CST','CE']
+        required: true,
+    }
+
 })
 
 module.exports = mongoose.model('Course', courseSchema)

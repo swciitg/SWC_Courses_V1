@@ -4,6 +4,9 @@ const router = express.Router({ mergeParams: true });
 const courseController = require('../controllers/course.controller')
 const { IsAdmin } = require('../middlewares/auth')
 
+const branches = ['cse', 'mnc', 'ece', 'eee', 'me', 'ep', 'bt', 'cst', 'ce']
+const allbranches = branches.join('|')
+
 //Courses Routes
 
 //get all courses 
@@ -12,8 +15,17 @@ router.get('/', courseController.getAllCourses);
 //search courses
 router.get('/search', courseController.searchCourse)
 
+//get all courses of specific branch
+router.get(`/:branch(${allbranches})?`, courseController.branchcourses)
+
+//get all courses of specific topic
+router.get('/topic/:topic', courseController.gettopicCourses)
+
 //get one course
 router.get('/:id', courseController.getOneCourse)
+
+//get number of subscribers
+router.get('/:id/subscribers', courseController.getsubscribers)
 
 //course enrollment
 router.post('/:id/enrol', courseController.enrollInCourse)
@@ -28,13 +40,17 @@ router.put('/:id/updatecourse', courseController.imageName, courseController.cou
 router.delete('/:id/deletecourse', courseController.deleteCourse)
 
 //Add Topics
-router.post('/:id/addtopics', courseController.addTopics)
+router.post('/:id/addsubtopics', courseController.addsubTopics)
 
 //Update Topics
-router.put('/:id/updatetopics', courseController.updateTopics)
+router.put('/:id/updatesubtopics', courseController.updatesubTopics)
 
 //Delete Topics
-router.delete('/:id/deletetopics', courseController.deleteTopics)
+router.delete('/:id/deletesubtopics', courseController.deletesubTopics)
 
+//Courses Resources Routes
+router.post('/:id/addresources', courseController.courseresourcesUpload)
+
+router.delete('/:id/deleteresources', courseController.deleteResources)
 
 module.exports = router

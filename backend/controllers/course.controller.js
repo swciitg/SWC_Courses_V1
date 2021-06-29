@@ -18,9 +18,22 @@ let storage = multer.diskStorage({
     }
 })
 
-const checkFileType = (file, cb) => {
+//Storage for Resources Upload
+let storage1 = multer.diskStorage({
+    destination: function (req, file, cb) {
+        let dir = dirpath + "/assets/courseresources"
+        cb(null, dir)
+    },
+    filename: function (req, file, cb) {
+        cb(null, (file.originalname.split('.')[0] + Date.now() + path.extname(file.originalname)))
+    }
+})
+
+//use type 0 for image check or 1 for document check
+const checkFileType = (file, cb, type = 0) => {
     // Allowed ext
-    const filetypes = /jpeg|jpg|png|gif/;
+
+    const filetypes = type ? /pdf|docx|txt|doc|ppt|pptx/ : /jpeg|jpg|png|gif/;
     // Check ext
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
     // Check mime
@@ -29,7 +42,8 @@ const checkFileType = (file, cb) => {
     if (mimetype && extname) {
         return cb(null, true);
     } else {
-        cb("Error: Images Only!");
+        const msg = type ? "Error: File Type Not Allowed" : "Error: Images Only!"
+        cb(msg);
     }
 }
 
@@ -41,6 +55,20 @@ const upload = multer({
     },
 }).single("image")
 
+const upload1 = multer({
+    storage: storage1,
+    limits: { fileSize: 5000000 },
+    fileFilter: function (req, file, cb) {
+        checkFileType(file, cb, 1)
+    },
+}).array("resources", 12)
+
+
+// sort courses by subscribers in decreasing order
+const sortbysubs = (course1, course2) => {
+    return course2.subscribers - course1.subscribers
+}
+
 exports.searchCourse = async (req, res) => {
     try {
         const queryterm = req.query.dsearch
@@ -48,16 +76,19 @@ exports.searchCourse = async (req, res) => {
             {
                 $or: [
                     { title: { $regex: queryterm, $options: "i" } },
-                    { 'topics.title': { $regex: queryterm, $options: "i" } },
+                    { branch: { $regex: queryterm, $options: "i" } },
+                    { 'subtopics.title': { $regex: queryterm, $options: "i" } },
+                    { topic: { $regex: queryterm, $options: "i" } },
                 ],
             }
         )
-        const foundCourses2 = User.findOne({name : { $regex: queryterm, $options: "i" }}, 'coursesTeach').populate('coursesTeach')
-        let [array1, array2] = await Promise.all([foundCourses1,foundCourses2])
-        let foundCourses = [...new Set([...array1,...array2.coursesTeach])]
+        const foundCourses2 = User.findOne({ name: { $regex: queryterm, $options: "i" } }, 'coursesTeach').populate('coursesTeach')
+        let [array1, array2] = await Promise.all([foundCourses1, foundCourses2])
+        let foundCourses = [...new Set([...array1, ...array2.coursesTeach])]
         if (!foundCourses.length) {
             return res.status(404).json({ msg: "No Courses Found!" })
         }
+        foundCourses.sort(sortbysubs);
         res.status(200).json({ status: true, courses: foundCourses })
     } catch (err) {
         console.log(err);
@@ -69,6 +100,7 @@ exports.getAllCourses = async (req, res, next) => {
     try {
         let courses = await Course.find();
         if (courses.length) {
+            courses.sort(sortbysubs);
             return res.status(200).json({ courses });
         } else {
             return res.status(404).json({ msg: "No Course Found!" })
@@ -94,7 +126,7 @@ exports.getOneCourse = async (req, res, next) => {
             // if user is signed in 
             let getcourse = Course.findOne({ _id: req.params.id })
             let getuser = User.findOne({
-                _id: req.user._id,
+                _id: "60d4d36a1a333b305c5fa983",
                 coursesTaken: req.params.id
             })
             let [user, course] = await Promise.all([getuser, getcourse])
@@ -121,12 +153,64 @@ exports.getOneCourse = async (req, res, next) => {
     }
 }
 
+exports.getsubscribers = async (req, res) => {
+    try {
+        const { id } = req.params
+        const course = await Course.findById(id)
+        if (course) {
+            return res.send(200).json({ status: true, subscribers: subscribers })
+        }
+        else {
+            return res.status(404).json({ msg: "No Course Found!" })
+        }
+    }
+    catch (err) {
+        console.error(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+exports.branchcourses = async (req, res) => {
+    try {
+        const { branch } = req.params
+        const foundcourses = await Course.find({ branch: branch })
+        if (foundcourses.length) {
+            foundcourses.sort(sortbysubs);
+            return res.status(200).json({ status: true, courses: foundcourses })
+        }
+        else {
+            return res.status(404).json({ msg: "No Courses Found!" })
+        }
+    }
+    catch (err) {
+        console.error(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+exports.gettopicCourses = async (req, res) => {
+    try {
+        const { topic } = req.params
+        const foundcourses = await Course.find({ topic: topic })
+        if (foundcourses.length) {
+            foundcourses.sort(sortbysubs);
+            return res.status(200).json({ status: true, courses: foundcourses })
+        }
+        else {
+            return res.status(404).json({ msg: "No Courses Found!" })
+        }
+    }
+    catch (err) {
+        console.error(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
 exports.enrollInCourse = async (req, res, next) => {
     try {
         const { enrollmentkey } = req.body
         let getcourse = Course.findOne({ _id: req.params.id });
-        let getuser = User.findById(req.user._id)
-
+        let getuser = User.findById("60d4d36a1a333b305c5fa983")
         let [user, course] = await Promise.all([getuser, getcourse]);
         const ENROLLMENTKEY = course.enrollmentkey || enrollmentkey
         if (course) {
@@ -134,7 +218,10 @@ exports.enrollInCourse = async (req, res, next) => {
                 if (ENROLLMENTKEY === enrollmentkey) {
                     //not Enrolled
                     user.coursesTaken.push(course._id)
-                    await user.save()
+                    course.subscribers++
+                    let task1 = course.save()
+                    let task2 = user.save()
+                    await Promise.all([task1, task2])
                     return res.status(200).json({ msg: "Successfully Enrolled!!!" })
                 }
                 else {
@@ -159,22 +246,29 @@ exports.enrollInCourse = async (req, res, next) => {
 exports.postCourse = async (req, res) => {
     try {
         console.log("POST course route hit")
-        const { title, topics, description, enrollmentkey } = req.body
+        const { topic, title, subtopics, description, enrollmentkey, branch } = req.body
         let fields = {};
+        fields.subtopics = []
+        if (topic) fields.topic = topic
         if (description) fields.description = description
         if (title) fields.title = title
         if (enrollmentkey) fields.enrollmentkey = enrollmentkey
-        if (topics) fields.topics = topics
+        if (subtopics) {
+            subtopics.forEach(subtopic => {
+                fields.subtopics.push({ title: subtopic })
+            })
+        }
+        if (branch) fields.branch = branch
         let imgPath = ""
         if (req.file) {
             console.log(req.file)
-            imgPath = dirpath + "/assets/courseimages/" + req.file.filename
+            imgPath = req.file.path
         }
         fields.imgPath = imgPath
         let course = new Course(fields)
-        course.author = "60d376c8089cd8383c2b2df7"//req.user._id
+        course.author = "60d4d36a1a333b305c5fa983"//"60d4d36a1a333b305c5fa983"
         let savecourse = course.save()
-        let getuser = User.findById("60d376c8089cd8383c2b2df7")
+        let getuser = User.findById("60d4d36a1a333b305c5fa983")
         let [user, newCourse] = await Promise.all([getuser, savecourse])
         user.coursesTeach.push(newCourse._id)
         await user.save()
@@ -191,11 +285,13 @@ exports.updateCourse = async (req, res) => {
         let course = await Course.findById(id)
         if (course) {
             //course exists
-            const { title, description, enrollmentkey } = req.body;
+            const { title, description, enrollmentkey, branch, topic } = req.body;
             let update = {}
+            if (topic) fields.topic = topic
             if (description) update.description = description
             if (title) update.title = title
             if (enrollmentkey) update.enrollmentkey = enrollmentkey
+            if (branch) update.branch = branch
             let imgPath = ""
             if (req.file) {
                 console.log(req.file)
@@ -213,7 +309,6 @@ exports.updateCourse = async (req, res) => {
             return res.status(404).json({ msg: "Course Not Found" })
         }
     }
-
     catch (err) {
         console.log(err)
         return res.status(500).json({ status: false, error: err.message })
@@ -232,11 +327,13 @@ exports.deleteCourse = async (req, res) => {
             let user = await User.findById(course.author)
             let idx = user.coursesTeach.indexOf(id)
             if (idx != -1) user.coursesTeach.splice(idx, 1)
+            let task1 = Course.findByIdAndDelete(id)
+            let task2 = user.save()
+            let task3 = User.updateMany({}, { $pull: { coursesTaken: id } })
+            await Promise.all([task1, task2, task3])
             if (course.imgPath !== "") {
                 fs.unlinkSync(course.imgPath)
             }
-            await Course.findByIdAndDelete(id)
-            await user.save()
             return res.status(200).json({ status: true, msg: "Course Successfully Deleted!!!" })
         }
         else {
@@ -249,19 +346,19 @@ exports.deleteCourse = async (req, res) => {
     }
 }
 
-exports.addTopics = async (req, res) => {
-    console.log("Add Topics End Point Hit")
+exports.addsubTopics = async (req, res) => {
+    console.log("Add subTopics End Point Hit")
     try {
         const { id } = req.params
-        const { topics } = req.body
+        const { subtopics } = req.body
         let course = await Course.findById(id)
         if (!course) return res.status(404).json({ msg: "Course Not Found" })
-        const topicsarray = course.topics.map(topic => topic.title)
-        topics.forEach(topic => {
-            if (!topicsarray.includes(topic)) course.topics.push({ title: topic })
+        const subtopicsarray = course.subtopics.map(subtopic => subtopic.title)
+        subtopics.forEach(subtopic => {
+            if (!subtopicsarray.includes(subtopic)) course.subtopics.push({ title: subtopic })
         })
         await course.save()
-        return res.status(200).json({ status: true, msg: "Topics Successfully Added!!!" })
+        return res.status(200).json({ status: true, msg: "subTopics Successfully Added!!!" })
         // course dosn't exists
     } catch (err) {
         console.log(err)
@@ -269,20 +366,20 @@ exports.addTopics = async (req, res) => {
     }
 }
 
-exports.updateTopics = async (req, res) => {
-    console.log("Update Topics End Point Hit")
+exports.updatesubTopics = async (req, res) => {
+    console.log("Update subTopics End Point Hit")
     try {
         const { id } = req.params
         const { dquery } = req.body
         let course = await Course.findById(id)
         if (!course) return res.status(404).json({ msg: "Course Not Found" })
-        const topicsarray = course.topics.map(topic => topic.title)
+        const subtopicsarray = course.subtopics.map(subtopic => subtopic.title)
         dquery.forEach(query => {
-            let idx = topicsarray.indexOf(query.oldname)
-            if (idx != -1) course.topics[idx].title = query.newname
+            let idx = subtopicsarray.indexOf(query.oldname)
+            if (idx != -1) course.subtopics[idx].title = query.newname
         })
         await course.save()
-        return res.status(200).json({ status: true, msg: "Topics Successfully Updated!!!" })
+        return res.status(200).json({ status: true, msg: "subTopics Successfully Updated!!!" })
         // course dosn't exists
     } catch (err) {
         console.log(err)
@@ -290,19 +387,86 @@ exports.updateTopics = async (req, res) => {
     }
 }
 
-exports.deleteTopics = async (req, res) => {
+exports.deletesubTopics = async (req, res) => {
     try {
         const { id } = req.params
-        const { topics } = req.body
-        let course = await Course.findByIdAndUpdate(id, { $pull: { topics: { title: { $in: topics } } } }, { new: true })
+        const { subtopics } = req.body
+        let course = await Course.findByIdAndUpdate(id, { $pull: { subtopics: { title: { $in: subtopics } } } }, { new: true })
         if (course) {
-            return res.status(200).json({ status: true, msg: "Topics Successfully Deleted!!!", course })
+            return res.status(200).json({ status: true, msg: "subTopics Successfully Deleted!!!", course })
         }
         else {
             // course dosn't exists
             return res.status(404).json({ msg: "Course Not Found" })
         }
     } catch (err) {
+        console.log(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+exports.courseresourcesUpload = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const course = await Course.findById(id)
+        if (course) {
+            upload1(req, res, async (err) => {
+                console.log("Upload Hit!!!")
+                if (err) {
+                    console.log(err)
+                    return res.status(500).json({ status: false, error: err.message })
+                }
+                else {
+                    console.log(req.files)
+                    if (req.files.length > 0) {
+                        console.log("Files Successfully Uploaded!!!")
+                        req.files.forEach(file => course.resources.push({ name: file.originalname, path: file.path }))
+                        await course.save()
+                        return res.status(200).send({ status: true, course: course })
+                    }
+                    else {
+                        console.log("something went wrong when uploading the file");
+                        return res.status(404).send("Something Went Wrong :(")
+                    }
+                }
+            })
+        }
+        else {
+            // course dosn't exists
+            return res.status(404).json({ msg: "Course Not Found" })
+        }
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+exports.deleteResources = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { dquery } = req.body
+
+        const course = await Course.findById(id)
+        if (course) {
+            course.resources = course.resources.filter(resource => {
+                if (dquery.includes(resource.id)) {
+                    console.log(resource.path)
+                    fs.unlinkSync(resource.path)
+                    return false
+                }
+                else {
+                    return true;
+                }
+            })
+            await course.save()
+            return res.status(200).json({ status: true, course: course })
+        }
+        else {
+            // course dosn't exists
+            return res.status(404).json({ msg: "Course Not Found" })
+        }
+    }
+    catch (err) {
         console.log(err)
         return res.status(500).json({ status: false, error: err.message })
     }
@@ -336,4 +500,9 @@ exports.courseImageUpload = async (req, res, next) => {
         }
     })
 }
+
+
+
+
+
 

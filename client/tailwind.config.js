@@ -12,6 +12,9 @@ module.exports = {
       },
       fontSize:{
         temp: '2.5rem'
+      },
+      spacing:{
+        '144': '28.2rem',
       }
     },
   },
