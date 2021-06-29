@@ -6,38 +6,38 @@ const DaysOfWeek = [
     {
       id: "1",
       name: "Sunday",
-      
+      num: "30",
       
     },
     {
       id: "2",
       name: "Monday",
-      
+      num: "31",
     },
     {
       id: "3",
       name: "Tuesday",
-      
+      num: "1",
     },
     {
       id: "4",
       name: "Wednesday",
-      
+      num: "2",
     },
     {
       id: "5",
       name: "Thursday",
-      
+      num: "3",
     },
     {
       id: "6",
       name: "Friday",
-      
+      num: "4",
     },
     {
       id: "7",
       name: "Saturday",
-      
+      num: "5",
     },
     
   ];
@@ -47,6 +47,7 @@ function createDays(loop) {
       <Single
         key={loop.id}
         name={loop.name}
+        num={loop.num}
       />
     );
   }

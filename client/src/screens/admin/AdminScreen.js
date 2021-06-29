@@ -3,7 +3,7 @@ import { Route, useRouteMatch, Switch, Redirect } from 'react-router-dom';
 import DashboardScreen from './DashboardScreen';
 import HomeScreen from './HomeScreen';
 import WelcomeScreen from './WelcomeScreen';
-import CalendarScreen from './CalendarScreen';
+import CalendarWeekScreen from './CalendarWeekScreen';
 import NotFound from '../../components/NotFound';
 
 const AdminScreen = () => {
@@ -24,7 +24,7 @@ const AdminScreen = () => {
         <DashboardScreen />
       </Route>
       <Route path={`${path}/calendar`} exact>
-        <CalendarScreen />
+        <CalendarWeekScreen />
       </Route>
       <Route path="*">
         <NotFound />
