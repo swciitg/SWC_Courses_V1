@@ -7,8 +7,8 @@ export default function Calendar() {
     const days = ['S','M','T','W','T','F','S']
 
     return (
-        <div class="h-96 flex  py-8 px-4">
-        <div class="max-w-sm w-full  md:p-8 p-5 bg-white dark:bg-gray-800">
+        <div class="h-96 flex  py-8 px-4 mr-12 md:mr-1">
+        <div class=" w-full  md:p-8 p-5 bg-white dark:bg-gray-800">
             <div class="px-4 flex items-center justify-between leading-8">
                 <a tabindex="0" role="link"
                     class="cursor-pointer focus:text-gray-400 hover:text-gray-400 text-base font-medium text-gray-800 dark:text-gray-100">June

@@ -5,32 +5,29 @@ import Table from '../../components/admin/dashboard/table';
 import Calendar from '../../components/admin/dashboard/Calendarcomponent';
 import Header from "../../components/admin/Header/Header";
 import New from '../../components/admin/dashboard/new';
+import SideNavBar from '../../components/admin/SideNavBar/SideNavBar'
+
 
 const Main = (props) => {
     return(
         
         <div className="bg-grey">
             <Header/>
-            <div className="flex">
-                <div className="w-11/12"></div>
-                <div className="w-2/12"><New/></div>
-            </div>
-            
-             <div className="flex">
-            <div className="w-2/12"></div>
-            <div className="w-10/12"><Table/></div>
-            </div>
-            
-            <div className="flex">
-            <div className="w-2/12"></div>
-            <div className="w-3/12"><Calendar/></div>
-            {/* <div className="w-1/12"></div> */}
-            
-            <div className="w-7/12"><Recent/></div>
-            
-            </div>
-            
+            <div className="flex flex-row ">
 
+            <SideNavBar/>
+            <div className="ml-4 w-10/12 flex-row">
+            <New/>
+            <Table/>
+            <div className="md:flex md:flex-row">
+            <div className="w-12/12 md:w-4/12">
+                <Calendar/>
+
+            </div>
+            <div className="w-12/12 md:w-8/12"><Recent/></div>
+            </div>
+            </div>
+            </div>
         </div>
     );
 };
