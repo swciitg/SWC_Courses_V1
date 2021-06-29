@@ -2,7 +2,7 @@ import React from 'react'
 
 function ProfessorCard() {
     return (
-        <div className="w-56 m-4 rounded bg-bgColor pb-8">
+        <div className="m-4 rounded bg-bgColor pb-8">
         <div className="border bg-white border-cardBorder h-28 flex rounded">
 
         

@@ -11,10 +11,13 @@ module.exports = {
         grayText:'#8E91AC'
       },
       fontSize:{
-        temp: '2.5rem'
+        homeLgText: '2.5rem'
       },
       spacing:{
         '144': '28.2rem',
+      },
+      borderWidth:{
+        '1':'1px'
       }
     },
   },

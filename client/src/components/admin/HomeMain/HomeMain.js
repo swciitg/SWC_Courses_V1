@@ -1,4 +1,4 @@
-import Svgimg from '../../../assets/Svgimg';
+import WelcomeContainerSVG from '../../../assets/WelcomeContainerSVG';
 import HomeCourseCard from '../Cards/HomeCourseCard';
 
 const HomeMain = () => {
@@ -10,7 +10,7 @@ const HomeMain = () => {
           <div className="text-xl">Lorem Impsum dolor sit<br />00 students are taking your courses</div>
         </div>
         <div className="w-5/12">
-          <Svgimg />
+          <WelcomeContainerSVG />
         </div>
       </div>
 

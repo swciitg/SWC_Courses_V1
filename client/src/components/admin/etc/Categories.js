@@ -2,7 +2,7 @@ import React from 'react'
 
 function Categories() {
     return (
-        <div className="mx-3 ">
+        <div className="mx-2 my-1">
             {/* <div > */}
                 <button className="rounded bg-navBlue text-base text-white px-6 py-2 font-sans "> Categories 
                 <span className="inline-block ml-3">

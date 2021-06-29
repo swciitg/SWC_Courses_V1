@@ -1,19 +1,20 @@
-import Navbar from "../../components/admin/Navbar/Navbar";
-import Container from "../../components/admin/Container/Container";
-import CarouselContainer from "../../components/admin/Container/CarouselContainer/CarouselContainer";
-import MainContainer from "../../components/admin/Container/MainContainer/MainContainer";
-import Footer from "../../components/admin/Footer/Footer";
+import '../../App.css';
+import Navbar from '../../components/admin/Navbar/Navbar';
+import WelcomeContainer from '../../components/admin/Container/WelcomeContainer';
+import InstructionCarouselContainer from '../../components/admin/Container/InstructionCarouselContainer/InstructionCarouselContainer';
+import CoursesContainer from '../../components/admin/Container/CoursesContainer/CoursesContainer'
+import Footer from '../../components/admin/Footer/Footer';
 
-const WelcomeScreen = () => {
+function App() {
   return (
-    <>
+    <div className="bg-bgColor text-navy">
       <Navbar />
-      <Container />
-      <CarouselContainer />
-      <MainContainer />
+      <WelcomeContainer />
+      <InstructionCarouselContainer />
+      <CoursesContainer />
       <Footer />
-    </>
+    </div>
   );
-};
+}
 
-export default WelcomeScreen;
+export default App;
