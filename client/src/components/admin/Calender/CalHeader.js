@@ -1,16 +1,12 @@
 //import Dropdown from "@material-tailwind/react/Dropdown"
 //import Dropdown from "@material-tailwind/react/Dropdown"
 import Categories from "../etc/Categories";
-<<<<<<< HEAD
-//import WeekView from "./weekView";
-=======
-// import WeekView from "./weekView";
->>>>>>> 1a30efbd8ddae66a5b3c1e3c22fa0d9767ed3577
+
 import New from "../dashboard/new";
 const CalHeader=()=>{
     return (
         <div className="flex flex-row justify-between items-center">
-            <div className="text-2xl">
+            <div className="text-3xl mt-3">
                 1 June 2021
             </div>
             <div className="flex items-center mt-2">
@@ -22,7 +18,7 @@ const CalHeader=()=>{
                     </svg>
 
                 </button> 
-                <button className="bg-white ml-6 mr-12 py-2 px-4 rounded">
+                <button className="bg-white ml-6 mr-0 py-2 px-4 rounded">
                     New
                 </button>
                     {/* <button> Week View 
