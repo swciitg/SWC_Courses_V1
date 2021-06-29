@@ -53,7 +53,7 @@ function createDays(loop) {
 
 const Days=()=>{
     return(
-        <div className="flex  mb-10 flex-row gap-5 justify-center h-144">
+        <div className="flex  mb-6 mt-2 flex-row gap-5 justify-center h-144">
             {DaysOfWeek.map(createDays)} 
         </div>
     );
