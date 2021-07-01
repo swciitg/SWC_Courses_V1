@@ -4,13 +4,13 @@ const TA = require("../models/TA");
 
 const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
-      if(req.user.email == Prof.find(email) ){
-        user.role = "Prof";
+      // if(req.user.email == Prof.find(email) ){
+      //   user.role = "Prof";
         
-      }
-      else if(req.user.email == TA.find(email)){
-        user.role = "TA";
-      }
+      // }
+      // else if(req.user.email == TA.find(email)){
+      //   user.role = "TA";
+      // }
       next();
     } else {
       return res

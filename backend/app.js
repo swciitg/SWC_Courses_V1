@@ -35,7 +35,6 @@ const db=mongoose.connect(
     if (err) console.log(err.message);
     else console.log("Successfully connected to DB!");
   }
-
 );
 
 // cross origin Resourse sharing (CORS)
@@ -60,7 +59,41 @@ app.use((req, res, next) => {
   );
   next();
 });
+/////////socket.io
+var username;
+const chatMsg=require('./models/discMsg');
+const formatMessage=require('./utils/message');
+// const express = require('express');
+// const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
+io.on('connection', async (socket) => {
+  console.log('a user name : '+ username+ ' connected');
+ 
+  const msgs=await chatMsg.find({}); 
+
+  for(let i = 0 ; i < msgs.length; i++) {
+    socket.emit('chat message',formatMessage(msgs[i].name,msgs[i].msg));
+  }
+
+  socket.on('chat message', (msg) => {
+
+    var chatmsg=new chatMsg({
+        name: username,
+        msg: msg
+        // team: user.team
+    });
+    chatmsg.save();
+    io.emit('chat message', formatMessage(username,msg));
+  });
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
+/////end of socket.io;
 
 app.use(cookieParser());
 app.use(
@@ -99,10 +132,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  res.locals.session = req.session;
+  
+  if(req.user){
+  res.locals.username = req.user.name;
+  username=req.user.name;
+  }
+  // console.log(username);
+  // res.locals.session = req.session;
+  // console.log(res.locals);
+  // // console.log(req.user);
+  // console.log('i am session');
+  // console.log(res.locals.username);
   next();
 });
+
 
 app.use("/courses/api/courses",coursesroutes)
 app.use("/courses/api", authRoutes);
@@ -111,6 +154,7 @@ app.use("/courses/api/users", userRoutes);
 app.use(helmet({ contentSecurityPolicy: false }));
 
 
-app.listen(PORT, () => {
+
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

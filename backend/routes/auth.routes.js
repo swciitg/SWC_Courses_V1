@@ -1,4 +1,5 @@
 const express = require("express");
+const path=require("path");
 const router = express.Router({ mergeParams: true });
 
 const passport = require("passport");
@@ -57,5 +58,13 @@ router.get("/current_user", isLoggedIn, (req, res) => {
     console.log(error.message);
   }
 });
+
+router.get("/GD",isLoggedIn,(req,res)=>{
+  try{
+    return res.sendFile(path.join(__dirname,"../index.html"));
+  } catch(error){
+    console.log(error.message);
+  }
+})
 
 module.exports = router;
