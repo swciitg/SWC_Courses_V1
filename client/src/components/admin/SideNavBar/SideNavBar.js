@@ -14,19 +14,19 @@ const SideNavBar = () => {
       </div>
       <ul>
         <li>
-          <NavLink to="/admin/dashboard" className="flex items-center py-4 border-r-8 border-white px-12" activeClassName="border-cardBorder bg-bgColor">
+          <NavLink to="/admin/dashboard" className="flex items-center py-4 px-12" activeClassName="border-r-8 border-cardBorder bg-bgColor">
             <CalendarSVG />
             <div className="pl-3 text-xl font-normal">Dashboard</div>
           </NavLink>
         </li>
         <li>
-          <NavLink to="/admin/calendar" className="flex items-center py-4 border-r-8 border-white px-12" activeClassName="border-cardBorder bg-bgColor">
+          <NavLink to="/admin/calendar" className="flex items-center py-4 px-12" activeClassName="border-r-8 border-cardBorder bg-bgColor">
             <CalendarSVG />
             <div className="pl-3 text-xl font-normal">Calendar</div>
           </NavLink>
         </li>
         <li>
-          <NavLink to="/admin/analytics" className="flex items-center py-4 border-r-8 border-white px-12" activeClassName="border-cardBorder bg-bgColor">
+          <NavLink to="/admin/analytics" className="flex items-center py-4 px-12" activeClassName="border-r-8 border-cardBorder bg-bgColor">
             <AnalyticsSVG />
             <div className="pl-3 text-xl font-normal">Analytics</div>
           </NavLink>
