@@ -7,7 +7,8 @@ import authReducer from './auth.reducers';
 const store=createStore(authReducer, applyMiddleware(thunk));
 
 const ReduxAuth=()=>{
-    return <Provider store={store}>
+    return <Provider
+            store={store}>
            </Provider>
 }
 
