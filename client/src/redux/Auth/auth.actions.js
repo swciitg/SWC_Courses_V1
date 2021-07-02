@@ -1,3 +1,10 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL } from "./auth.actions.types";
+export const fetchActions = ()=> async (dispatch, getState)=>{
+    dispatch({type: "INITIAL_STATE"});
 
-//import api when completed.
+    try {
+        const response= await Axios.get();
+        dispatch({type:"LOGIN_SUCCESS"})
+    } catch (error) {
+        dispatch({type:"LOGIN_FAIL", error})
+    }
+}
