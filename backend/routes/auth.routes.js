@@ -1,4 +1,5 @@
 const express = require("express");
+const app = express();
 const path=require("path");
 const router = express.Router({ mergeParams: true });
 
@@ -61,7 +62,10 @@ router.get("/current_user", isLoggedIn, (req, res) => {
 
 router.get("/GD",isLoggedIn,(req,res)=>{
   try{
+    // console.log(res.locals.username);
+    app.locals.username=res.locals.username;
     return res.sendFile(path.join(__dirname,"../index.html"));
+
   } catch(error){
     console.log(error.message);
   }

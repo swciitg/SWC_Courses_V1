@@ -24,6 +24,8 @@ router.get('/topic/:topic', courseController.gettopicCourses)
 //get one course
 router.get('/:id', courseController.getOneCourse)
 
+//get course discussion
+router.get('/:id/discussion',courseController.getDiscussion);
 //get number of subscribers
 router.get('/:id/subscribers', courseController.getsubscribers)
 

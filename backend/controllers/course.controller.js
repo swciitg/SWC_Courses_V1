@@ -170,6 +170,25 @@ exports.getsubscribers = async (req, res) => {
     }
 }
 
+exports.getDiscussion = async (req,res)=>{
+    try {
+        const { id } = req.params
+        const course = await Course.findById(id)
+        
+        if (course) {
+            // return res.send(200).json({ status: true, discusssion: course.discusssion })
+            return res.sendFile(path.join(__dirname,"../index.html"));
+        }
+        else {
+            return res.status(404).json({ msg: "No Course Found!" })
+        }
+    }
+    catch (err) {
+        console.error(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
 exports.branchcourses = async (req, res) => {
     try {
         const { branch } = req.params

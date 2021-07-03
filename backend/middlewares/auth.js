@@ -4,6 +4,7 @@ const TA = require("../models/TA");
 
 const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
+      res.locals.username=req.user.name;
       // if(req.user.email == Prof.find(email) ){
       //   user.role = "Prof";
         
