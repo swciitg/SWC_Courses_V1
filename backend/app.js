@@ -21,7 +21,8 @@ require("./config/passportAzure");
 //required routes
 const authRoutes = require("./routes/auth.routes");
 const coursesroutes = require('./routes/courses.routes')
-const userRoutes = require("./routes/Prof-TA.routes");
+const ProfRoutes = require("./routes/Prof-TA.routes");
+const userroutes = require("./routes/user.routes");
 
 const db=mongoose.connect(
   MONGO_URL,
@@ -106,7 +107,8 @@ app.use((req, res, next) => {
 
 app.use("/courses/api/courses",coursesroutes)
 app.use("/courses/api", authRoutes);
-app.use("/courses/api/users", userRoutes);
+app.use("/courses/api/teacher", ProfRoutes);
+app.use("/courses/api/user",userroutes);
 
 app.use(helmet({ contentSecurityPolicy: false }));
 

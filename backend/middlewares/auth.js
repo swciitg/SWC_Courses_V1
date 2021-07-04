@@ -5,11 +5,13 @@ const TA = require("../models/TA");
 const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
       if(req.user.email == Prof.find(email) ){
-        user.role = "Prof";
+        let data = {role:"Prof"};
+        user.findByIdAndUpdate(req.params.id);
         
       }
       else if(req.user.email == TA.find(email)){
-        user.role = "TA";
+        let data = {role:"TA"};
+        user.findByIdAndUpdate(req.params.id);
       }
       next();
     } else {
