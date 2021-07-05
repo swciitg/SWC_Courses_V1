@@ -49,7 +49,8 @@ const courseSchema = new mongoose.Schema({
     discussion:{
         type:[{
             name:{type:String},
-            msg:{type:String}
+            msg:{type:String},
+            course:{type:String}
         },
         {
             timestamps: true

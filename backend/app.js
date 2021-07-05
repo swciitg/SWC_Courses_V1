@@ -59,45 +59,14 @@ app.use((req, res, next) => {
   );
   next();
 });
-/////////socket.io
-
-const chatMsg=require('./models/discMsg');
-// const chatMsg=require("./models/course");
-const formatMessage=require('./utils/message');
-const socketFunc=require("./utils/socketFunc");
-// const express = require('express');
-// const app = express();
+/////////socket.io start
+var username;
 const http = require('http');
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server);
+const socker =require('./socker/socker.js');
+const server=http.createServer(app);
+socker(server);
 
-io.on('connection', async (socket) => {
-  // console.log(app.locals.username);
-  console.log('a user name : '+ app.locals.username+ ' connected');
-  var username=app.locals.username;
-  const msgs=await chatMsg.find({}); 
-    // console.log(msgs[0].createdAt);
-  for(let i = 0 ; i < msgs.length; i++) {
-    socket.emit('chat message',formatMessage(msgs[i].name,msgs[i].msg,msgs[i].updatedAt));
-    
-  }
-
-  socket.on('chat message', (msg) => {
-
-    var chatmsg=new chatMsg({
-        name: username,
-        msg: msg
-        // team: user.team
-    });
-    chatmsg.save();
-    io.emit('chat message', formatMessage(username,msg));
-  });
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-});
-/////end of socket.io;
+///socket.io ENDs
 
 app.use(cookieParser());
 app.use(
@@ -135,15 +104,16 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res, next) => {
-  if(req.user){
-  res.locals.username = req.user.name;
-  app.locals.username=req.user.name;
-  }
-  // res.locals.session = req.session;
-  next();
-});
-
+// app.use('/courses/api/GD',(req, res, next) => {
+//   if(req.user){
+//   res.locals.username = req.user.name;
+//   // console.log(req.user.name);
+//   app.locals.username=req.user.name;
+//   username=app.locals.username;
+//   }
+//   // res.locals.session = req.session;
+//   next();
+// });
 
 app.use("/courses/api/courses",coursesroutes)
 app.use("/courses/api", authRoutes);

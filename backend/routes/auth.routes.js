@@ -53,22 +53,20 @@ router.get("/auth/logout", function (req, res) {
 
 router.get("/current_user", isLoggedIn, (req, res) => {
   try {
-    console.log(req.user.id);
+    // console.log(req.user.id);
     res.send(req.user);
   } catch (error) {
     console.log(error.message);
   }
 });
 
-router.get("/GD",isLoggedIn,(req,res)=>{
-  try{
-    // console.log(res.locals.username);
-    app.locals.username=res.locals.username;
-    return res.sendFile(path.join(__dirname,"../index.html"));
+// router.get("/GD",isLoggedIn,(req,res)=>{
+//   try{
+//     return res.sendFile(path.join(__dirname,"../index.html"));
 
-  } catch(error){
-    console.log(error.message);
-  }
-})
+//   } catch(error){
+//     console.log(error.message);
+//   }
+// });
 
 module.exports = router;

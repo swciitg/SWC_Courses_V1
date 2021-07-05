@@ -1,10 +1,14 @@
+const express = require("express");
+const app=express();
+
 const user = require("../models/user");
 const Prof = require("../models/Prof");
 const TA = require("../models/TA");
 
 const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
-      res.locals.username=req.user.name;
+      app.locals.username=req.user.name;
+      
       // if(req.user.email == Prof.find(email) ){
       //   user.role = "Prof";
         
