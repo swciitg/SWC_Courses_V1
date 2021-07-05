@@ -5,6 +5,8 @@ import HomeScreen from './HomeScreen';
 import WelcomeScreen from './WelcomeScreen';
 import CalendarWeekScreen from './CalendarWeekScreen';
 import NotFound from '../../components/NotFound';
+import  ProtectedRoute  from '../../hoc/protected';
+
 
 const AdminScreen = () => {
   let { path, url } = useRouteMatch();
@@ -17,15 +19,15 @@ const AdminScreen = () => {
       <Route path={`${path}/welcome`} exact>
         <WelcomeScreen />
       </Route>
-      <Route path={`${path}/home`} exact>
+      <ProtectedRoute path={`${path}/home`} exact>
         <HomeScreen />
-      </Route>
-      <Route path={`${path}/dashboard`} exact>
+      </ProtectedRoute>
+      <ProtectedRoute path={`${path}/dashboard`} exact>
         <DashboardScreen />
-      </Route>
-      <Route path={`${path}/calendar`} exact>
+      </ProtectedRoute>
+      <ProtectedRoute path={`${path}/calendar`} exact>
         <CalendarWeekScreen />
-      </Route>
+      </ProtectedRoute>
       <Route path="*">
         <NotFound />
       </Route>
