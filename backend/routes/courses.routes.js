@@ -9,6 +9,9 @@ const allbranches = branches.join('|')
 
 //Courses Routes
 
+//testing routes
+router.get('/testing', courseController.getUserDetails)
+
 //get all courses 
 router.get('/', courseController.getAllCourses);
 

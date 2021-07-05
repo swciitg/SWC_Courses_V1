@@ -5,7 +5,7 @@ const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
 const { runInNewContext } = require('vm')
-
+const graph = require('./graph')
 
 //Course Image Uploading Code
 let storage = multer.diskStorage({
@@ -127,7 +127,7 @@ exports.getOneCourse = async (req, res, next) => {
             // if user is signed in 
             let getcourse = Course.findOne({ _id: req.params.id })
             let getuser = User.findOne({
-                _id: "60d4d36a1a333b305c5fa983",
+                _id: "60db6f4dbda20c381c58b91e",
                 coursesTaken: req.params.id
             })
             let [user, course] = await Promise.all([getuser, getcourse])
@@ -171,14 +171,14 @@ exports.getsubscribers = async (req, res) => {
     }
 }
 // Discussion
-exports.getDiscussion = async (req,res)=>{
+exports.getDiscussion = async (req, res) => {
     try {
         const { id } = req.params
         const course = await Course.findById(id)
         // console.log(id);
         // //60e2bfe9c43acc47bde8e18b
         if (course) {
-            return res.sendFile(path.join(__dirname,"../socker/discussionPage.html"));
+            return res.sendFile(path.join(__dirname, "../socker/discussionPage.html"));
         }
         else {
             return res.status(404).json({ msg: "No Course Found!" })
@@ -230,7 +230,7 @@ exports.enrollInCourse = async (req, res, next) => {
     try {
         const { enrollmentkey } = req.body
         let getcourse = Course.findOne({ _id: req.params.id });
-        let getuser = User.findById("60d4d36a1a333b305c5fa983")
+        let getuser = User.findById("60db6f4dbda20c381c58b91e")
         let [user, course] = await Promise.all([getuser, getcourse]);
         const ENROLLMENTKEY = course.enrollmentkey || enrollmentkey
         if (course) {
@@ -286,9 +286,9 @@ exports.postCourse = async (req, res) => {
         }
         fields.imgPath = imgPath
         let course = new Course(fields)
-        course.author = "60d4d36a1a333b305c5fa983"//"60d4d36a1a333b305c5fa983"
+        course.author = "60db6f4dbda20c381c58b91e"//"60db6f4dbda20c381c58b91e"
         let savecourse = course.save()
-        let getuser = User.findById("60d4d36a1a333b305c5fa983")
+        let getuser = User.findById("60db6f4dbda20c381c58b91e")
         let [user, newCourse] = await Promise.all([getuser, savecourse])
         user.coursesTeach.push(newCourse._id)
         await user.save()
@@ -519,6 +519,20 @@ exports.courseImageUpload = async (req, res, next) => {
             return next()
         }
     })
+}
+
+exports.getUserDetails = async (req, res) => {
+    try {
+        if (req.user) {
+            const user = await graph.getUser(req.user.accessToken)
+            return res.send(user)
+        }
+        else res.status(401).json({status : false, msg : "Sign in First !"})
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
 }
 
 

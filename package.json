@@ -21,6 +21,7 @@
   ],
   "author": "SWC_IITG",
   "dependencies": {
+    "@microsoft/microsoft-graph-client": "^2.2.1",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "bull": "^3.22.10",
@@ -34,6 +35,7 @@
     "express-session": "^1.17.2",
     "helmet": "^4.6.0",
     "http": "*",
+    "isomorphic-fetch": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
     "moment": "^2.29.1",
@@ -43,6 +45,7 @@
     "passport": "^0.4.1",
     "passport-azure-ad-oauth2": "^0.0.4",
     "passport-azure-oauth2": "^0.1.0",
+    "passport-microsoft": "^0.1.0",
     "path": "^0.12.7",
     "socket.io": "^4.1.2"
   }
