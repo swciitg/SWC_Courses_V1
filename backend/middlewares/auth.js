@@ -7,15 +7,15 @@ const TA = require("../models/TA");
 
 const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
-      app.locals.username=req.user.name;
-      
-      // if(req.user.email == Prof.find(email) ){
-      //   user.role = "Prof";
+      if(req.user.email == Prof.find(email) ){
+        let data = {role:"Prof"};
+        user.findByIdAndUpdate(req.params.id);
         
-      // }
-      // else if(req.user.email == TA.find(email)){
-      //   user.role = "TA";
-      // }
+      }
+      else if(req.user.email == TA.find(email)){
+        let data = {role:"TA"};
+        user.findByIdAndUpdate(req.params.id);
+      }
       next();
     } else {
       return res

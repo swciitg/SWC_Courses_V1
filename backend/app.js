@@ -21,7 +21,12 @@ require("./config/passportAzure");
 //required routes
 const authRoutes = require("./routes/auth.routes");
 const coursesroutes = require('./routes/courses.routes')
-const userRoutes = require("./routes/Prof-TA.routes");
+
+const ProfRoutes = require("./routes/Prof-TA.routes");
+const userroutes = require("./routes/user.routes");
+
+const videoRoutes = require("./routes/video.routes");
+
 
 const db=mongoose.connect(
   MONGO_URL,
@@ -70,19 +75,12 @@ socker(server);
 
 app.use(cookieParser());
 app.use(
-  bodyParser.json({
-    limit: "50mb",
-  })
-);
-app.use(express.json());
+    bodyParser.json({
+      limit: "50mb",
+    })
+  );
+
 app.use(express.json({ limit: "50mb" }));
-app.use(
-  express.urlencoded({
-    limit: "50mb",
-    extended: true,
-    parameterLimit: 50000,
-  })
-);
 app.use(express.static(__dirname + "./uploads"));
 
 app.use(methodOverride("_method"));
@@ -97,6 +95,14 @@ app.use(
     maxAge: 30 * 24 * 60 * 60 * 1000,
     keys: ["lorem ipsum"],
     httpOnly: false,
+  })
+);
+
+app.use(
+  express.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 50000,
   })
 );
 
@@ -117,7 +123,11 @@ app.use(passport.session());
 
 app.use("/courses/api/courses",coursesroutes)
 app.use("/courses/api", authRoutes);
-app.use("/courses/api/users", userRoutes);
+
+app.use("/courses/api/teacher", ProfRoutes);
+app.use("/courses/api/user",userroutes);
+app.use("/courses/api/video", videoRoutes);
+
 
 app.use(helmet({ contentSecurityPolicy: false }));
 

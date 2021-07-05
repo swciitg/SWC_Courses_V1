@@ -1,6 +1,7 @@
 const passport = require("passport");
 const AzureAdOAuth2Strategy = require("passport-azure-ad-oauth2").Strategy;
-
+const Prof = require("../models/Prof");
+const TA = require("../models/TA");
 const User = require("../models/user");
 const { OUTLOOK_CLIENT_ID, OUTLOOK_CLIENT_SECRET, CLIENT_HOME_PAGE_URL } = process.env;
 const jwt = require("jsonwebtoken");
@@ -32,7 +33,7 @@ passport.use(
   
           const user = await User.findOne({ email: waadProfile.upn });
           if (user) return done(null, user);
-            
+          
           const newUser = new User({
             outlookId: waadProfile.oid,
             name: waadProfile.name,
@@ -41,7 +42,16 @@ passport.use(
             // isverified: true,
           });
           if (refresh_token) newUser.refreshToken = refresh_token;
-  
+          if(user==Prof.find({email:waadProfile.upn})){
+            let data = {role:"Prof"};
+            User.findByIdAndUpdate(params.id,data);
+            Prof.user=user[0].id;
+            
+          }else if(user==TA.find({email:waadProfile.upn})){
+            let data = {role:"TA"};
+            User.findByIdAndUpdate(params.id,data);
+            TA.user=user[0].id;
+          }
           await newUser.save();
           return done(null, newUser);
         } catch (error) {
