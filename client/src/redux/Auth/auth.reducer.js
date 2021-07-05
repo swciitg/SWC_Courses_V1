@@ -1,3 +1,6 @@
+import { LOGIN_FAIL , LOGIN_SUCCESS } from './auth.actions.types'
+
+
 const initState={
   isAuth:null,
   err:null
