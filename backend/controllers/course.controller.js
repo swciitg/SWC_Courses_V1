@@ -113,6 +113,7 @@ exports.getAllCourses = async (req, res, next) => {
 
 exports.getOneCourse = async (req, res, next) => {
     try {
+        console.log(req.params.id);
         if (!req.user) {
             //if user is not signed in
             let course = await Course.findOne({ _id: req.params.id })
@@ -169,6 +170,25 @@ exports.getsubscribers = async (req, res) => {
         return res.status(500).json({ status: false, error: err.message })
     }
 }
+// Discussion
+exports.getDiscussion = async (req,res)=>{
+    try {
+        const { id } = req.params
+        const course = await Course.findById(id)
+        // console.log(id);
+        // //60e2bfe9c43acc47bde8e18b
+        if (course) {
+            return res.sendFile(path.join(__dirname,"../socker/discussionPage.html"));
+        }
+        else {
+            return res.status(404).json({ msg: "No Course Found!" })
+        }
+    }
+    catch (err) {
+        console.error(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+};
 
 exports.branchcourses = async (req, res) => {
     try {

@@ -45,6 +45,16 @@ const courseSchema = new mongoose.Schema({
     branch: {
         type: String,   //enum : ['CSE','MNC','ECE','EEE','ME','EP','BT','CST','CE']
         required: true,
+    },
+    discussion:{
+        type:[{
+            name:{type:String},
+            msg:{type:String},
+            course:{type:String}
+        },
+        {
+            timestamps: true
+        }]
     }
 
 })

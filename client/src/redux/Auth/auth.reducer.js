@@ -1,3 +1,6 @@
+import { LOGIN_FAIL , LOGIN_SUCCESS } from './auth.actions.types'
+
+
 const initState={
   isAuth:null,
   err:null
@@ -8,19 +11,19 @@ const authReducer = (state=initState,action)=>{
       case "INITIAL_STATE":
           return {
               ...state,
-              err=null,
+              err: null,
           }
       case "LOGIN_SUCCESS":
           return {
               ...state,
-              isAuth=true,
-              err=false,
+              isAuth: true,
+              err: false,
           }
       case "LOGIN_FAIL":
           return {
               ...state,
-              isAuth=false,
-              err=action.error,
+              isAuth: false,
+              err: action.error,
           } 
       default:
           return state;

@@ -40,7 +40,6 @@ const db=mongoose.connect(
     if (err) console.log(err.message);
     else console.log("Successfully connected to DB!");
   }
-
 );
 
 // cross origin Resourse sharing (CORS)
@@ -65,7 +64,14 @@ app.use((req, res, next) => {
   );
   next();
 });
+/////////socket.io start
+var username;
+const http = require('http');
+const socker =require('./socker/socker.js');
+const server=http.createServer(app);
+socker(server);
 
+///socket.io ENDs
 
 app.use(cookieParser());
 app.use(
@@ -104,11 +110,16 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  res.locals.session = req.session;
-  next();
-});
+// app.use('/courses/api/GD',(req, res, next) => {
+//   if(req.user){
+//   res.locals.username = req.user.name;
+//   // console.log(req.user.name);
+//   app.locals.username=req.user.name;
+//   username=app.locals.username;
+//   }
+//   // res.locals.session = req.session;
+//   next();
+// });
 
 app.use("/courses/api/courses",coursesroutes)
 app.use("/courses/api", authRoutes);
@@ -121,6 +132,7 @@ app.use("/courses/api/video", videoRoutes);
 app.use(helmet({ contentSecurityPolicy: false }));
 
 
-app.listen(PORT, () => {
+
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
