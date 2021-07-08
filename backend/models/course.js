@@ -16,6 +16,11 @@ const courseSchema = new mongoose.Schema({
     author: {
         type: Schema.Types.ObjectId, ref: 'User', require: true
     },
+    msteams: {
+        id: String,
+        group: String,
+        downloadedtill: { type: String, default: "1950-03-31T11:36:19Z" }
+    },
     subtopics: {
         type: [{
             title: String
@@ -46,11 +51,11 @@ const courseSchema = new mongoose.Schema({
         type: String,   //enum : ['CSE','MNC','ECE','EEE','ME','EP','BT','CST','CE']
         required: true,
     },
-    discussion:{
-        type:[{
-            name:{type:String},
-            msg:{type:String},
-            course:{type:String}
+    discussion: {
+        type: [{
+            name: { type: String },
+            msg: { type: String },
+            course: { type: String }
         },
         {
             timestamps: true

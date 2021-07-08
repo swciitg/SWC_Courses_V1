@@ -25,7 +25,7 @@ passport.use(
       callbackURL: CLIENT_HOME_PAGE_URL + "/auth/azureadoauth2/callback",
       // callbackURL:    `${CLIENT_HOME_PAGE_URL}/auth/azureadoauth2/callback`,
       //callbackURL: "http://localhost:8080/sa/api/auth/azureadoauth2/callback",
-      scope : ['user.read']
+      scope : ['user.read','team.readbasic.all','files.read.all', 'mail.read']
     },
     async (accessToken, refresh_token, params, profile, done) => {
       try {
@@ -44,6 +44,7 @@ passport.use(
         });
         if (refresh_token){
           console.log("refresh token")
+          console.log(refresh_token)
           newUser.refreshToken = refresh_token;
         }
         /* if (user == Prof.find({ email: userProfile.mail })) {

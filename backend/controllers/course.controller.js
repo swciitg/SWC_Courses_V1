@@ -127,7 +127,7 @@ exports.getOneCourse = async (req, res, next) => {
             // if user is signed in 
             let getcourse = Course.findOne({ _id: req.params.id })
             let getuser = User.findOne({
-                _id: "60db6f4dbda20c381c58b91e",
+                _id: "60e76a815ad1e054fc6a9680", 
                 coursesTaken: req.params.id
             })
             let [user, course] = await Promise.all([getuser, getcourse])
@@ -230,7 +230,7 @@ exports.enrollInCourse = async (req, res, next) => {
     try {
         const { enrollmentkey } = req.body
         let getcourse = Course.findOne({ _id: req.params.id });
-        let getuser = User.findById("60db6f4dbda20c381c58b91e")
+        let getuser = User.findById("60e76a815ad1e054fc6a9680")
         let [user, course] = await Promise.all([getuser, getcourse]);
         const ENROLLMENTKEY = course.enrollmentkey || enrollmentkey
         if (course) {
@@ -266,7 +266,7 @@ exports.enrollInCourse = async (req, res, next) => {
 exports.postCourse = async (req, res) => {
     try {
         console.log("POST course route hit")
-        const { topic, title, subtopics, description, enrollmentkey, branch } = req.body
+        const { topic, title, subtopics, description, enrollmentkey, branch, msteams } = req.body
         let fields = {};
         fields.subtopics = []
         if (topic) fields.topic = topic
@@ -286,9 +286,18 @@ exports.postCourse = async (req, res) => {
         }
         fields.imgPath = imgPath
         let course = new Course(fields)
-        course.author = "60db6f4dbda20c381c58b91e"//"60db6f4dbda20c381c58b91e"
+        if (msteams) {
+            course.msteams.id = msteams.id
+            course.msteams.group = msteams.group
+        }
+        fs.mkdir(path.join(dirpath, 'assets', 'courserecordings', course.id), { recursive: true }, (err) => {
+            if (err) {
+                throw new Error(err.message);
+            }
+        })
+        course.author = "60e76a815ad1e054fc6a9680"
         let savecourse = course.save()
-        let getuser = User.findById("60db6f4dbda20c381c58b91e")
+        let getuser = User.findById("60e76a815ad1e054fc6a9680")
         let [user, newCourse] = await Promise.all([getuser, savecourse])
         user.coursesTeach.push(newCourse._id)
         await user.save()
@@ -312,6 +321,11 @@ exports.updateCourse = async (req, res) => {
             if (title) update.title = title
             if (enrollmentkey) update.enrollmentkey = enrollmentkey
             if (branch) update.branch = branch
+            if (msteams) {
+                course.msteams.id = msteams.id
+                course.msteams.group = msteams.group
+                course.msteams.downloadedtill = "1950-03-31T11:36:19Z"
+            }
             let imgPath = ""
             if (req.file) {
                 console.log(req.file)
@@ -353,6 +367,15 @@ exports.deleteCourse = async (req, res) => {
             await Promise.all([task1, task2, task3])
             if (course.imgPath !== "") {
                 fs.unlinkSync(course.imgPath)
+            }
+            if (course.msteams.id) {
+                fs.unlinkSync(path.join(dirpath, 'assets', 'courserecordings', course.id))
+
+                fs.rmdir(path.join(dirpath, 'assets', 'courserecordings', course.id), { recursive: true }, (err) => {
+                    if (err) {
+                        throw new Error(err.message);
+                    }
+                });
             }
             return res.status(200).json({ status: true, msg: "Course Successfully Deleted!!!" })
         }
@@ -527,13 +550,62 @@ exports.getUserDetails = async (req, res) => {
             const user = await graph.getUser(req.user.accessToken)
             return res.send(user)
         }
-        else res.status(401).json({status : false, msg : "Sign in First !"})
+        else res.status(401).json({ status: false, msg: "Sign in First !" })
     }
     catch (err) {
         console.log(err)
         return res.status(500).json({ status: false, error: err.message })
     }
 }
+
+exports.getJoinedTeams = async (req, res) => {
+    try {
+        const data = await graph.UserJoinedTeams(req.user.accessToken)
+        return res.status(200).send(data)
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+exports.getTeamRecordings = async (req, res) => {
+    try {
+        const { id } = req.params
+        const course = await Course.findById(id)
+        if (course) {
+            const recordings = await graph.getTeamRecordings(process.env.ACCESS_TOKEN, course.msteams.id)
+            return res.status(200).send(recordings)
+        }
+        else{
+            return res.status(404).json({ msg: "Course Not Found" })
+        }   
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+exports.saveNewRecordings = async (req, res) => {
+    try {
+        const { id } = req.params
+        const course = await Course.findById(id)
+        if (course) {
+            const data = await graph.saveNewTeamRecordings(process.env.ACCESS_TOKEN, course)
+            return res.status(200).send(data)
+        }
+        else {
+            return res.status(404).json({ msg: "Course Not Found" })
+        }
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ status: false, error: err.message })
+    }
+}
+
+
 
 
 
