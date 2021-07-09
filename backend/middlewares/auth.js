@@ -1,3 +1,6 @@
+const express = require("express");
+const app=express();
+
 const user = require("../models/user");
 const Prof = require("../models/Prof");
 const TA = require("../models/TA");

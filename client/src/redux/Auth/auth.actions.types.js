@@ -1,4 +1,4 @@
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const INITIAL_STATE = "INITIAL_STATE";
-export const FETCH_DETAIL= "FETCH_DETAIL";
+
