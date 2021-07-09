@@ -1,24 +1,35 @@
+import { LOGIN_SUCCESS, LOGIN_FAIL, INITIAL_STATE, FETCH_DETAIL } from "./auth.actions.types";
+
 const initState={
   isAuth:null,
-  err:null
+  err:null,
+  loding:null,
+  user_detail:[],
 }
 
 const authReducer = (state=initState,action)=>{
   switch(action.type){
-      case "INITIAL_STATE":
+      case INITIAL_STATE:
           return {
               ...state,
+              loding=true,
               err=null,
           }
-      case "LOGIN_SUCCESS":
+      case LOGIN_SUCCESS:
           return {
-              ...state,
+              loding=false,
               isAuth=true,
               err=false,
-          }
-      case "LOGIN_FAIL":
+            }
+      case FETCH_DETAIL:
+            return {
+                ...state,
+                user_detail=action.payload,
+            }      
+      case LOGIN_FAIL:
           return {
               ...state,
+              loding=false,
               isAuth=false,
               err=action.error,
           } 
