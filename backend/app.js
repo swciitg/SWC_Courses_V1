@@ -81,7 +81,7 @@ app.use(
   );
 
 app.use(express.json({ limit: "50mb" }));
-app.use(express.static(__dirname + "./uploads"));
+app.use(express.static(__dirname + "/assets/"));
 
 app.use(methodOverride("_method"));
 app.use(mongoSanitize());

@@ -8,7 +8,7 @@ const auth = require('../middlewares/auth');
 //router.get('/:course_id',auth.isLoggedIn, videoController.videoInfo);
 
 // Upload a video (admin only)
-router.post('/:course_id',auth.isAdmin, videoController.uploadVideo);
+router.post('/:course_id', videoController.uploadVideo);
 
 // Get the thumbnail of a video 
 //router.get('/thumbnail/:video_id',auth.isLoggedIn, videoController.getThumbnail);

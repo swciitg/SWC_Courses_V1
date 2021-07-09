@@ -1,5 +1,22 @@
 version: "3.8"
 services:
+  redis:
+    image: redis
+    container_name: redis_docker
+    environment: 
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports: 
+      - 6379:6379
+  
+  redis-commander:
+    container_name: redis-commander_docker
+    image: rediscommander/redis-commander
+    restart: always 
+    environment: 
+      - REDIS_HOSTS=local:redis:6379
+    ports: 
+      - "8081:8081"
+
   db:
     image: mongo
     restart: unless-stopped
@@ -21,13 +38,14 @@ services:
       - 8080:8080
     depends_on:
       - db
-    #            - redis
+      - redis
     volumes: 
-      - .:/user/src/app/backend
+      - /Users/akmaurya/Desktop/swc /SWC_Courses_V1/backend/assets:/user/src/app/backend/assets
     
     environment:
       - MONGO_URI=mongodb://mongo:27017/SAC_DB
       - WAIT_HOSTS=mongo:27017
+      - REDIS_URL=redis:6379
   #Uncomment this block if your project needs to use redis
   # redis :
   #     restart: unless-stopped
