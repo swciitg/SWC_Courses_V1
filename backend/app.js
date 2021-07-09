@@ -20,7 +20,9 @@ require("./config/passportAzure");
 
 //required routes
 const authRoutes = require("./routes/auth.routes");
+
 const coursesroutes = require('./routes/courses.routes')
+const graphroutes = require('./routes/graph.routes')
 
 const ProfRoutes = require("./routes/Prof-TA.routes");
 const userroutes = require("./routes/user.routes");
@@ -28,7 +30,7 @@ const userroutes = require("./routes/user.routes");
 const videoRoutes = require("./routes/video.routes");
 
 
-const db=mongoose.connect(
+const db = mongoose.connect(
   MONGO_URL,
   {
     useUnifiedTopology: true,
@@ -50,7 +52,7 @@ var corsOptions = {
   credentials: true,
 };
 app.use(cors(corsOptions));
-mongoose.set("useCreateIndex",true);
+mongoose.set("useCreateIndex", true);
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"); //Change this later to restrict it to react app only
@@ -67,18 +69,18 @@ app.use((req, res, next) => {
 /////////socket.io start
 var username;
 const http = require('http');
-const socker =require('./socker/socker.js');
-const server=http.createServer(app);
+const socker = require('./socker/socker.js');
+const server = http.createServer(app);
 socker(server);
 
 ///socket.io ENDs
 
 app.use(cookieParser());
 app.use(
-    bodyParser.json({
-      limit: "50mb",
-    })
-  );
+  bodyParser.json({
+    limit: "50mb",
+  })
+);
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.static(__dirname + "/assets/"));
@@ -121,11 +123,12 @@ app.use(passport.session());
 //   next();
 // });
 
-app.use("/courses/api/courses",coursesroutes)
+app.use("/courses/api/courses", coursesroutes)
+app.use("/courses/api/graph", graphroutes)
 app.use("/courses/api", authRoutes);
 
 app.use("/courses/api/teacher", ProfRoutes);
-app.use("/courses/api/user",userroutes);
+app.use("/courses/api/user", userroutes);
 app.use("/courses/api/video", videoRoutes);
 
 

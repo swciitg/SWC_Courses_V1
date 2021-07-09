@@ -5,7 +5,7 @@ const New = (props) =>{
     return(
         
         <div className="flex justify-end">
-            <div className="w-32 bg-white py-4 px-6 mr-16 mt-4 flex justify-center font-semibold">
+            <div className="w-32 h-16 bg-white pt-3 px-6 mr-16 mt-4 flex justify-center font-semibold">
                 <p>New</p>
             </div>
             
