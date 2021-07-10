@@ -21,6 +21,8 @@
   ],
   "author": "SWC_IITG",
   "dependencies": {
+    "@bull-board/express": "^3.3.0",
+    "@microsoft/microsoft-graph-client": "^2.2.1",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "bull": "^3.22.10",
@@ -32,8 +34,16 @@
     "express": "^4.17.1",
     "express-mongo-sanitize": "^2.1.0",
     "express-session": "^1.17.2",
+    "ffmpeg": "0.0.4",
+    "ffmpeg-static": "^4.4.0",
+    "ffprobe-static": "^3.0.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "fs": "0.0.1-security",
+    "get-video-duration": "^3.1.0",
+    "got": "^9.6.0",
     "helmet": "^4.6.0",
     "http": "*",
+    "isomorphic-fetch": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
     "moment": "^2.29.1",
@@ -43,7 +53,10 @@
     "passport": "^0.4.1",
     "passport-azure-ad-oauth2": "^0.0.4",
     "passport-azure-oauth2": "^0.1.0",
+    "passport-microsoft": "^0.1.0",
     "path": "^0.12.7",
-    "socket.io": "^4.1.2"
+    "redis": "^3.1.2",
+    "socket.io": "^4.1.2",
+    "stream": "^0.0.2"
   }
 }

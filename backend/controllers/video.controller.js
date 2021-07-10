@@ -3,6 +3,14 @@ const multer = require('multer');
 const fs = require('fs');
 const dirname = require('../dirname');
 const path = require('path');
+const Bull=require('bull');
+const encodingProcess=require('./encodingProcess');
+
+const videoQueue= new Bull('video',{
+    redis:process.env.REDIS_URL
+});
+
+videoQueue.process(encodingProcess.encodeVideo);
 
 // To get all the info about all the videos of a particlular course
 const videoInfo = (req, res, next) => {
@@ -18,13 +26,11 @@ const videoInfo = (req, res, next) => {
 // Multer storage object
 const storage = multer.diskStorage({
     destination : function (req, file, cb) {
-        let dir = path.join(dirname.dirpath, '/assests/videos');
+        let dir = path.join(dirname.dirpath, '/assets/videos');
         cb(null, dir);
     },
     filename : function (req, file, cb ){
-        let fileName = 
-            file.originalname.split('.').slice(0,-1).join('.') + "-" + Date.now() + path.extname(file.originalname); 
-        cb(null, fileName);
+        cb(null, file.originalname);
     }
 });
 
@@ -46,10 +52,21 @@ let upload = multer({
 
 
 exports.uploadVideo = (req, res, next) => {
-    upload(res,req, async(err) =>{
+    upload(req,res, async(err) =>{
+        let fileName = 
+            req.files.video[0].originalname.split('.').slice(0,-1).join('.') + "-" + Date.now() + path.extname(req.files.video[0].originalname); 
+        
         if(err){
             res.status(500).json({ error: err.message });
         }
+        
+        let filename = 
+            req.files.video[0].originalname.split('.').slice(0,-1).join('.') + "-" + Date.now() + path.extname(req.files.video[0].originalname);
+        videoQueue.add({video:`../assets/video/${filename}`,filename},{
+            attempts: 3,
+            removeOnFail:true
+
+        });
         res.status(200).json({ message : "success fully uploaded"});
     });
 

@@ -7,11 +7,11 @@ const passport = require("passport");
 const { isLoggedIn } = require("../middlewares/auth");
 const { CLIENT_HOME_PAGE_URL } = process.env;
 
-router.get("/auth/azureadoauth2", passport.authenticate("azure_ad_oauth2"));
+router.get("/auth/azureadoauth2", passport.authenticate("microsoft"));
 
 router.get(
   "/auth/azureadoauth2/callback",
-  passport.authenticate("azure_ad_oauth2", {
+  passport.authenticate("microsoft", {
     failureRedirect: "/auth/failed",
   }),
   function (req, res) {
@@ -51,10 +51,15 @@ router.get("/auth/logout", function (req, res) {
   // res.status(200).json({ msg: "Logged out successfully" });
 });
 
-router.get("/current_user", isLoggedIn, (req, res) => {
+router.get("/current_user", (req, res) => {
   try {
     // console.log(req.user.id);
-    res.send(req.user);
+    if(req.user){
+      return res.send(req.user);
+    }
+    else{
+      res.status(401).json({status : false, err : "Sign in First!!!"})
+    }
   } catch (error) {
     console.log(error.message);
   }
