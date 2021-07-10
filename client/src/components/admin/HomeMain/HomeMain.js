@@ -1,12 +1,12 @@
 import WelcomeContainerSVG from '../../../assets/WelcomeContainerSVG';
 import HomeCourseCard from '../Cards/HomeCourseCard';
 
-const HomeMain = () => {
+const HomeMain = (props) => {
   return (
     <div className="bg-bgColor px-52 py-20">
       <div className="flex items-center justify-between">
         <div className="text-navy font-sans font-bold flex flex-col">
-          <div className="text-4xl mb-10">Welcome Back, Name!</div>
+          <div className="text-4xl mb-10">Welcome Back {props.name}!</div>
           <div className="text-xl">Lorem Impsum dolor sit<br />00 students are taking your courses</div>
         </div>
         <div className="w-5/12">
