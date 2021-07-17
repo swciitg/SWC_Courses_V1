@@ -13,6 +13,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 const helmet = require("helmet");
 const MONGO_URL = "mongodb://localhost/SAC_DB";
+// const MONGO_URL = "mongodb://mongo:27017/SAC_DB";
 //const url = process.env.MONGO_URI;
 const app = express();
 const PORT = process.env.PORT || 8080;
