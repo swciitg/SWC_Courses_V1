@@ -5,12 +5,11 @@ import HomeScreen from './HomeScreen';
 import WelcomeScreen from './WelcomeScreen';
 import CalendarWeekScreen from './CalendarWeekScreen';
 import NotFound from '../../components/NotFound';
-import  ProtectedRoute  from '../../hoc/protected';
+import  ProtectedRoute  from '../../hoc/ProtectedRoute';
 
 
 const AdminScreen = () => {
-  let { path, url } = useRouteMatch();
-
+  let { path } = useRouteMatch();
   return (
     <Switch>
       <Route path={path} exact>

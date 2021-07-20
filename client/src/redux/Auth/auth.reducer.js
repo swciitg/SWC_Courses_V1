@@ -1,39 +1,35 @@
-
-import { LOGIN_SUCCESS, LOGIN_FAIL, INITIAL_STATE } from "./auth.actions.types";
-
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGIN_REQUEST, LOGOUT } from "./auth.actions.types";
 const initState={
   isAuth:null,
-  err:null,
-  loding:null,
-  user_detail:[],
+  loading:null,
 }
 
-const authReducer = (state=initState,action)=>{
-  switch(action.type){
-        case INITIAL_STATE:
-            return {
-                ...state,
-                loding=true,
-                err=null,
-            }
-        case LOGIN_SUCCESS:
-            return {
-                loding=false,
-                isAuth=true,
-                err=false,
-            }
-        case LOGIN_FAIL:
-            return {
-                ...state,
-                loding=false,
-                isAuth=false,
-                err=action.error,
-            }
-
-           
-        default:
-            return state;
-  }
+const authReducer = (state=initState ,action)=>{
+  switch (action.type) {
+		case LOGIN_REQUEST:
+			return {
+				...state,
+				loading: true,
+			};
+		case LOGIN_SUCCESS:
+			return {
+				loading: false,
+				isAuth: true,
+                user: action.payload.data
+			};
+		case LOGIN_FAIL:
+			return {
+				isAuth: false,
+				loading: false,
+			};
+		case LOGOUT:
+			return {
+				loading: false,
+				isAuth: false,
+			};
+		default:
+			return state;
+	}
 }
 
 export default authReducer;

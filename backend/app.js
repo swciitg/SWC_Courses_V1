@@ -49,6 +49,7 @@ var corsOptions = {
   // origin: BASECLIENT,
   origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  //TODO: remove comment in credentials
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -135,6 +136,9 @@ app.use("/courses/api/video", videoRoutes);
 app.use(helmet({ contentSecurityPolicy: false }));
 
 
+app.get("/", (req, res) => {
+  res.send("Server on")
+})
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);

@@ -8,6 +8,9 @@ const API = axios.create({
     withCredentials: true,
 });
 
+// TODO: Change login user endpoint
+
+export const loginUser = () => API.get("/auth/azureadoauth2/callback");
 export const fetchUser = () => API.get("/current_user");
 
 
