@@ -4,7 +4,8 @@ import Categories from '../etc/Categories'
 import Search from '../Search/Search'
 // import authReducer from '../../../redux/Auth/auth.reducer'
 import {Login} from '../../../redux/Auth/auth.actions'
-
+// import { fetchUser } from '../../../api'
+import {fetchUser} from '../../../api/index'
 
 function Navbar() {
     const [showNav,setNav] = useState(false)
@@ -18,9 +19,12 @@ function Navbar() {
         console.log(showNav);
     }
 
-    const loginHandler = () => {
+    const loginHandler = async () => {
         console.log("Called");
-        dispatch(Login());
+		const pg=await fetchUser();
+		console.log('K>O');
+		console.log(pg);
+        // dispatch(Login());
     }
 
     return (

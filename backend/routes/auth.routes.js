@@ -53,8 +53,9 @@ router.get("/auth/logout", function (req, res) {
 
 router.get("/current_user", (req, res) => {
   try {
-    // console.log(req.user.id);
+  
     if(req.user){
+      console.log(req.user.name);
       return res.send(req.user);
     }
     else{

@@ -45,29 +45,13 @@ const db = mongoose.connect(
   }
 );
 
-// cross origin Resourse sharing (CORS)
-var corsOptions = {
-  // origin: BASECLIENT,
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  //TODO: remove comment in credentials
-  credentials: true,
-};
-app.use(cors(corsOptions));
-mongoose.set("useCreateIndex", true);
-
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*"); //Change this later to restrict it to react app only
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, PUT, DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, x-auth-token, Origin, Accept"
-  );
+app.all('*', (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   next();
 });
+
+mongoose.set("useCreateIndex", true);
+
 /////////socket.io start
 var username;
 const http = require('http');
